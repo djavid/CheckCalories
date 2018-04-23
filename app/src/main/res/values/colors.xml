@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#cacaca</color>
+    <color name="colorAccent">#50e3c2</color>
+
+    <color name="colorFavBtn">#03A9F4</color>
+    <color name="white">#ffffff</color>
+
+
+    <!-- Permissions -->
+    <color name="colorWarningText">#979797</color>
+    <color name="colorWarningBtnBackground">#03A9F4</color>
+    <color name="colorWarningBtnText">#ffffff</color>
+
+    <!-- toolbar -->
+    <color name="colorToolbarTitle">#8d979e</color>
+    <color name="colorToolbarAddress">#67bdf8</color>
+
+    <!-- feed -->
+    <color name="colorLogoBg">#9b9b9b</color>
+    <color name="colorShopTitle">#7a7a7a</color>
+    <color name="colorShopAddress">#a4acb2</color>
+    <color name="colorAppTitle">#4d575e</color>
+    <color name="colorCaloriesCount">#868888</color>
+    <color name="colorCalories">#50e3c2</color>
+    <color name="colorReceiptSum">#7a7a7a</color>
+
+</resources>

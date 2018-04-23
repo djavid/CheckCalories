@@ -1,0 +1,154 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        applicationId "com.djavid.checksonline"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
+        buildConfigField "String", "BASE_URL", this.getProperty("com.djavid.url.base")
+        buildConfigField "String", "FNS_URL", this.getProperty("com.djavid.url.fns")
+
+        buildConfigField "String", "FNS_USERNAME", this.getProperty("com.djavid.credentials.username")
+        buildConfigField "String", "FNS_PASSWORD", this.getProperty("com.djavid.credentials.password")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+        incremental = false
+    }
+}
+
+repositories {
+    maven {
+        url 'http://dl.bintray.com/amulyakhare/maven'
+    }
+}
+
+kapt {
+    generateStubs = true
+}
+
+ext {
+    support_version = '27.1.1'
+    constraint_version = '1.1.0'
+    moxy_version = '1.5.3'
+    okhttp_version = '3.9.0'
+    retrofit_version = '2.3.0'
+    room_version = '1.0.0'
+    toothpick_version = '1.1.1'
+}
+
+dependencies {
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:support-vector-drawable:$support_version"
+    implementation "com.android.support:support-v4:$support_version"
+    implementation "com.android.support:cardview-v7:$support_version"
+
+    //testing
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:support-v4:27.1.1'
+    testImplementation 'junit:junit:4.12'
+
+    //android testing
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    //cicerone
+    implementation 'ru.terrakok.cicerone:cicerone:2.1.0'
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //okHttp
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    //moxy
+    implementation "com.arello-mobile:moxy:$moxy_version"
+    implementation "com.arello-mobile:moxy-app-compat:$moxy_version"
+    kapt "com.arello-mobile:moxy-compiler:$moxy_version"
+
+    //rxjava2
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
+    implementation 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+
+    //toothpick
+    implementation "com.github.stephanenicolas.toothpick:toothpick-runtime:$toothpick_version"
+    implementation "com.github.stephanenicolas.toothpick:smoothie:$toothpick_version"
+    kapt "com.github.stephanenicolas.toothpick:toothpick-compiler:$toothpick_version"
+
+    //butterknife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //fonts
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+
+    //placeholderview
+    implementation "com.android.support:recyclerview-v7:$support_version"
+    implementation 'com.mindorks.android:placeholderview:1.0.3'
+    kapt 'com.mindorks.android:placeholderview-compiler:1.0.3'
+
+    //Lightweight-Stream-API
+    implementation 'com.annimon:stream:1.1.9'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+
+    //qr code scanner
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+    implementation('com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.2@aar') {
+        transitive = true
+    }
+
+    //rx permissions
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+
+    //CircleImageView
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //TextDrawable
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    //pretty time
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+
+    //Joda time
+    implementation 'net.danlew:android.joda:2.9.9.3'
+
+
+}
