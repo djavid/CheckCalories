@@ -3,6 +3,9 @@ package com.djavid.checksonline.presenter.check
 import com.arellomobile.mvp.InjectViewState
 import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.interactors.ChecksInteractor
+import com.djavid.checksonline.model.entities.Receipt
+import com.djavid.checksonline.model.networking.bodies.FlaskValues
+import com.djavid.checksonline.model.networking.responses.FlaskResponse
 import com.djavid.checksonline.toothpick.qualifiers.CheckId
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -15,22 +18,37 @@ class CheckPresenter @Inject constructor(
 ) : BasePresenter<CheckView>(router) {
 
     override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
+        getCheck()
+    }
 
+    private fun getCheck() {
         interactor.getCheck(checkId.toLong())
+                .doOnSubscribe{
+                    unsubscribeOnDestroy(it)
+                    viewState.showProgress(true)
+                }
+                .flatMap {
+                    onCheckReceived(it)
+                    interactor.getCategories(FlaskValues(it.items.map { it.name }))
+                }
+                .doAfterTerminate { viewState.showProgress(false) }
                 .subscribe({
-                    viewState.setGoods(it.items)
-                    viewState.setToolbarSum(it.totalSum)
-                    viewState.setToolbarAddress(it.retailPlaceAddress)
-                    viewState.setDatetime(it.dateTime)
+                    onCategoriesReceived(it)
                 }, {
-                    it.printStackTrace()
-                    viewState.showMessage(it.localizedMessage)
+                    processError(it)
                 })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun onCheckReceived(response: Receipt) {
+        viewState.setGoods(response.items)
+        viewState.setToolbarSum(response.totalSum)
+        viewState.setToolbarAddress(response.retailPlaceAddress)
+        viewState.setDatetime(response.dateTime)
+    }
+
+    private fun onCategoriesReceived(response: FlaskResponse) {
+        viewState.setCategories(response)
+        viewState.showProgress(false)
     }
 
 }

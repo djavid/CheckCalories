@@ -1,6 +1,7 @@
 package com.djavid.checksonline.model.networking.apis
 
 import com.djavid.checksonline.BuildConfig
+import com.djavid.checksonline.model.networking.responses.CheckResponseFns
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.http.GET
@@ -27,6 +28,6 @@ interface FnsApi {
             @Header("Connection") connection: String,
             @Header("Accept-Encoding") acceptEncoding: String,
             @Header("User-Agent") userAgent: String
-    ): Single<ResponseBody>
+    ): Single<CheckResponseFns>
 
 }

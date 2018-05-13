@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.base.BaseFragment
 import com.djavid.checksonline.model.entities.Receipt
+import com.djavid.checksonline.model.networking.responses.FlaskResponse
 import com.djavid.checksonline.presenter.check.CheckPresenter
 import com.djavid.checksonline.presenter.check.CheckView
 import com.djavid.checksonline.utils.parseDate
@@ -64,6 +65,13 @@ class CheckFragment : BaseFragment(), CheckView {
         })
     }
 
+    override fun setCategories(categories: FlaskResponse) {
+        goods_placeholder.allViewResolvers.forEachIndexed { index, any ->
+            (any as GoodItem).setCategoryName(categories.categories[index])
+            any.setName(categories.normalized[index])
+        }
+    }
+
     override fun setToolbarSum(sum: Long) {
         price.text = context?.getString(R.string.format_float)
                 ?.format(Locale.ROOT, sum / 100f)
@@ -80,7 +88,7 @@ class CheckFragment : BaseFragment(), CheckView {
         if (date == null)
             tv_date.visible(false)
         else
-            tv_date.text = parseDate(date)
+            tv_date.text = date.parseDate()
     }
 
 }

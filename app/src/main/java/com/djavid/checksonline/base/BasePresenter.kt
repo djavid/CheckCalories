@@ -1,10 +1,12 @@
 package com.djavid.checksonline.base
 
+import android.util.Log
 import com.arellomobile.mvp.MvpPresenter
 import com.djavid.checksonline.utils.DisposableLifecycle
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import ru.terrakok.cicerone.Router
+import java.net.SocketTimeoutException
 
 abstract class BasePresenter<V : BaseView>(
         protected val router: Router
@@ -36,6 +38,11 @@ abstract class BasePresenter<V : BaseView>(
 
     protected fun processError(throwable: Throwable) {
         throwable.printStackTrace()
+        viewState.showMessage(throwable.localizedMessage)
+
+        if (throwable is SocketTimeoutException) {
+            Log.e("", "SocketTimeoutException: " + throwable.message)
+        }
     }
 
 }

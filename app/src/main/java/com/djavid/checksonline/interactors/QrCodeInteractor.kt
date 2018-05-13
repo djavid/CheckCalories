@@ -1,6 +1,7 @@
 package com.djavid.checksonline.interactors
 
 import com.djavid.checksonline.model.entities.Receipt
+import com.djavid.checksonline.model.networking.responses.CheckResponseFns
 import com.djavid.checksonline.model.repositories.BaseRepository
 import com.djavid.checksonline.model.repositories.FnsRepository
 import com.djavid.checksonline.model.threading.SchedulersProvider
@@ -15,14 +16,16 @@ class QrCodeInteractor @Inject constructor(
 ) {
 
     fun getCheck(fiscalDriveNumber: String, fiscalDocumentNumber: String,
-                 fiscalSign: String, sendToEmail: Boolean): Single<ResponseBody> =
+                 fiscalSign: String, sendToEmail: Boolean): Single<CheckResponseFns> =
             fnsRepository.getCheck(fiscalDriveNumber, fiscalDocumentNumber, fiscalSign, sendToEmail)
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
+                    .retry(2)
 
     fun sendCheck(receipt: Receipt) : Single<Receipt> =
             baseRepository.sendCheck(receipt)
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
+                    .retry(2)
 
 }

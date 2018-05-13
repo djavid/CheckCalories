@@ -4,9 +4,9 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.PointF
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
@@ -14,15 +14,21 @@ import com.djavid.checksonline.base.BaseActivity
 import com.djavid.checksonline.base.EmptyViewHolder
 import com.djavid.checksonline.presenter.qrcode.QRCodePresenter
 import com.djavid.checksonline.presenter.qrcode.QRCodeView
-import com.dlazaro66.qrcodereaderview.QRCodeReaderView
+import com.google.zxing.Result
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_qrcode.*
-import kotlinx.android.synthetic.main.layout_need_permission.*
-import kotlinx.android.synthetic.main.qr_reader_layout.*
+import me.dm7.barcodescanner.zxing.ZXingScannerView
 import toothpick.Toothpick
-import javax.inject.Inject
+import android.media.ToneGenerator
+import android.media.AudioManager
+import android.os.VibrationEffect
+import android.os.Build
+import android.os.Vibrator
+import com.djavid.checksonline.utils.playBeepSound
+import com.djavid.checksonline.utils.vibrate
+import kotlinx.android.synthetic.main.layout_need_permission.*
 
-class QRCodeActivity : BaseActivity(), QRCodeView, QRCodeReaderView.OnQRCodeReadListener {
+class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandler {
 
     companion object {
         fun newIntent(ctx: Context) = Intent(ctx, QRCodeActivity::class.java)
@@ -36,9 +42,8 @@ class QRCodeActivity : BaseActivity(), QRCodeView, QRCodeReaderView.OnQRCodeRead
             Toothpick.openScopes(application, this)
                     .getInstance(QRCodePresenter::class.java)
 
-
     private var emptyViewHolder: EmptyViewHolder? = null
-    private var qrCodeReaderView: QRCodeReaderView? = null
+    private lateinit var mScannerView: ZXingScannerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,29 +57,25 @@ class QRCodeActivity : BaseActivity(), QRCodeView, QRCodeReaderView.OnQRCodeRead
         if (!isCameraPermissionGranted()) {
             requestPermissions()
         } else {
-            initQrCodeReaderView()
+            initZxingScannerView()
         }
     }
-
-    override fun onQRCodeRead(text: String, points: Array<PointF>) =
-            presenter.onQrCodeRead(text, points)
-
 
     override fun onResume() {
         super.onResume()
 
         if (isCameraPermissionGranted()) {
-            qrCodeReaderView?.startCamera()
+            mScannerView.setResultHandler(this)
+            mScannerView.startCamera()
         } else {
-            qrCodeReaderView?.stopCamera()
+            mScannerView.stopCamera()
             showEmptyView(true)
         }
     }
 
     override fun onPause() {
         super.onPause()
-
-        qrCodeReaderView?.stopCamera()
+        mScannerView.stopCamera()
     }
 
     override fun onDestroy() {
@@ -83,59 +84,40 @@ class QRCodeActivity : BaseActivity(), QRCodeView, QRCodeReaderView.OnQRCodeRead
     }
 
 
-    override fun initQrCodeReaderView() {
+    private fun initZxingScannerView() {
+        mScannerView = ZXingScannerView(this)
+        mScannerView.setAutoFocus(true)
 
-        val view = layoutInflater.inflate(R.layout.qr_reader_layout, qr_reader_view_frame)
-        scan_btn.setOnClickListener({ presenter.onScanBtnClick() })
-        showEmptyView(false)
-
-        qrCodeReaderView = view.findViewById(R.id.qrdecoderview)
-        qrCodeReaderView?.setOnQRCodeReadListener(this)
-
-        // Use this function to enable/disable decoding
-        qrCodeReaderView?.setQRDecodingEnabled(true)
-
-        // Use this function to change the autofocus interval (default is 5 secs)
-        qrCodeReaderView?.setAutofocusInterval(2000L)
-
-        // Use this function to enable/disable Torch
-        qrCodeReaderView?.setTorchEnabled(true)
-
-        // Use this function to set front camera preview
-        qrCodeReaderView?.setFrontCamera()
-
-        // Use this function to set back camera preview
-        qrCodeReaderView?.setBackCamera()
-
-        qrCodeReaderView?.startCamera()
+        scanner_frame.addView(mScannerView)
+        scan_btn.setOnClickListener{ presenter.onScanBtnClick() }
     }
+
+    override fun resumeScanning() = mScannerView.resumeCameraPreview(this)
 
     override fun showEmptyView(show: Boolean) {
         if (show) emptyViewHolder?.showEmptyData()
         else emptyViewHolder?.hide()
     }
 
-    override fun setDecodingEnabled(enabled: Boolean) {
-        qrCodeReaderView?.setQRDecodingEnabled(enabled)
-    }
-
-    override fun stopCamera() = qrCodeReaderView!!.stopCamera()
-
-    override fun startCamera() = qrCodeReaderView!!.startCamera()
+    override fun handleResult(rawResult: Result) = presenter.onQrCodeRead(rawResult.text)
 
     override fun requestPermissions() {
         val rxPermissions = RxPermissions(this)
-
         rxPermissions
                 .request(Manifest.permission.CAMERA)
                 .subscribe { granted ->
                     if (granted) {
-                        initQrCodeReaderView()
+                        initZxingScannerView()
                     }
                 }
     }
 
+
     private fun isCameraPermissionGranted() = ContextCompat
-                .checkSelfPermission(applicationContext,
-                        Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+            .checkSelfPermission(applicationContext,
+                    Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+
+    override fun playBeep() = playBeepSound()
+
+    override fun vibrate() = applicationContext.vibrate()
 }

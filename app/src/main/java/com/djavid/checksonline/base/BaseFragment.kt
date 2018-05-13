@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
+import com.djavid.checksonline.utils.visible
+import kotlinx.android.synthetic.main.layout_progress.*
 
 abstract class BaseFragment : MvpAppCompatFragment(), BaseView {
 
@@ -21,7 +23,7 @@ abstract class BaseFragment : MvpAppCompatFragment(), BaseView {
     }
 
     override fun showProgress(show: Boolean) {
-
+        progressLayout.visible(show)
     }
 
 }

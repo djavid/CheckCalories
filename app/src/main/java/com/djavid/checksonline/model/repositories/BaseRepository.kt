@@ -2,6 +2,8 @@ package com.djavid.checksonline.model.repositories
 
 import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.model.networking.apis.BaseApi
+import com.djavid.checksonline.model.networking.responses.FlaskResponse
+import com.djavid.checksonline.model.networking.bodies.FlaskValues
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -19,6 +21,10 @@ class BaseRepository @Inject constructor(
 
     fun getCheck(id: Long) : Single<Receipt> {
         return baseApi.getCheck(id)
+    }
+
+    fun getCategories(values: FlaskValues): Single<FlaskResponse> {
+        return baseApi.getCategories(values)
     }
 
 }

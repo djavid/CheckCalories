@@ -4,17 +4,11 @@ import com.djavid.checksonline.base.BaseView
 
 interface QRCodeView : BaseView {
 
-    //fun requestPermissions()
-    fun initQrCodeReaderView()
-
     fun requestPermissions()
-
     fun showEmptyView(show: Boolean)
+    fun resumeScanning()
 
-    fun stopCamera()
-
-    fun startCamera()
-
-    fun setDecodingEnabled(enabled: Boolean)
+    fun playBeep()
+    fun vibrate()
 
 }

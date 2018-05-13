@@ -47,11 +47,11 @@ class ChecksFragment : BaseFragment(), ChecksView {
                 .setItemViewCacheSize(10)
                 .setLayoutManager(LinearLayoutManager(context))
 
-        receipts_placeholder.setLoadMoreResolver(LoadMoreView(object : LoadMoreView.Callback {
-            override fun onShowMore() {
-                presenter.loadMoreChecks()
-            }
-        }))
+//        receipts_placeholder.setLoadMoreResolver(LoadMoreView(object : LoadMoreView.Callback {
+//            override fun onShowMore() {
+//                presenter.loadMoreChecks()
+//            }
+//        }))
 
         swipeRefreshLayout.setOnRefreshListener { presenter.refresh() }
     }
@@ -74,12 +74,8 @@ class ChecksFragment : BaseFragment(), ChecksView {
         setToolbarSum(totalSum)
     }
 
-    fun setToolbarSum(totalSum: Long) {
-        price.text = context?.getString(R.string.format_float)
-                ?.format(Locale.ROOT, totalSum / 100f)
-    }
-
     override fun showChecks(checks: List<Receipt>) {
+        receipts_placeholder.removeAllViews()
         receipts_placeholder.post({ setChecks(checks) })
     }
 
@@ -93,5 +89,10 @@ class ChecksFragment : BaseFragment(), ChecksView {
 
     override fun loadingDone() {
         receipts_placeholder.loadingDone()
+    }
+
+    private fun setToolbarSum(totalSum: Long) {
+        price.text = context?.getString(R.string.format_float)
+                ?.format(Locale.ROOT, totalSum / 100f)
     }
 }
