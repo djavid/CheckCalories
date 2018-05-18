@@ -20,6 +20,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.activity.RootActivity">
             <intent-filter>
@@ -29,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.QRCodeActivity" />
-        <activity android:name=".view.activity.CheckActivity"></activity>
+        <activity android:name=".view.activity.CheckActivity" />
     </application>
 
 </manifest>

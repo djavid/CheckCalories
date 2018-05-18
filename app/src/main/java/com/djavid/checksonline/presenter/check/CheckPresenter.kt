@@ -27,13 +27,14 @@ class CheckPresenter @Inject constructor(
                     unsubscribeOnDestroy(it)
                     viewState.showProgress(true)
                 }
-                .flatMap {
-                    onCheckReceived(it)
-                    interactor.getCategories(FlaskValues(it.items.map { it.name }))
-                }
+//                .flatMap {
+//                    onCheckReceived(it)
+//                    interactor.getCategories(FlaskValues(it.items.map { it.name }))
+//                }
                 .doAfterTerminate { viewState.showProgress(false) }
                 .subscribe({
-                    onCategoriesReceived(it)
+                    onCheckReceived(it)
+                    //onCategoriesReceived(it)
                 }, {
                     processError(it)
                 })

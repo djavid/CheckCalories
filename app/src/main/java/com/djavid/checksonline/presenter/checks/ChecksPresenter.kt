@@ -16,7 +16,10 @@ class ChecksPresenter @Inject constructor(
 ) : BasePresenter<ChecksView>(router) {
 
     private val checksFactory = { page: Int ->
-        interactor.getChecks(1) //page
+        interactor.getChecks(0)
+                .map {
+                    it.result.receipts
+                }
     }
     private val checksController = ChecksController(viewState)
     private val checksPaginator = Paginator(checksFactory, checksController)

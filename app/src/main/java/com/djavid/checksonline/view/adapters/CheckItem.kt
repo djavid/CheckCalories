@@ -59,7 +59,7 @@ class CheckItem(
         tv_sum.text = context?.getString(R.string.format_price)
                 ?.format(Locale.ROOT, receipt.totalSum / 100f)
         tv_time.text = receipt.dateTime?.parseTime()
-        iv_status.setImageResource(R.drawable.check)
+        iv_status.setImageResource(R.drawable.ic_check)
 
     }
 

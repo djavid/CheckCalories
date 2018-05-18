@@ -4,9 +4,14 @@
 
     <string name="title_activity_scanner">ScannerActivity</string>
 
+    <!-- common -->
+    <string name="title_loading">Загрузка</string>
+    <string name="title_back">Назад</string>
+
     <!-- Scanner activity -->
     <string name="scanner_permission_warning">Необходимо разрешить доступ к камере.</string>
     <string name="scanner_permission_btn">Разрешить</string>
+    <string name="scanner_enter_manually">Ввести вручную</string>
 
     <!-- errors -->
     <string name="error_check_not_loaded">Не удалось получить чек, попробуйте позже.</string>
@@ -17,9 +22,13 @@
     <string name="format_float">%.2f</string>
     <string name="symbol_ruble">₽</string>
     <string name="format_quantity">%s × %.2f₽</string>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <!-- dialogs -->
+    <string name="check_saved">Чек сохранен</string>
+    <string name="check_failed">Не удалось найти чек</string>
+    <string name="check_failed_description">Чек пока не передан в налоговую либо истек срок его хранения.</string>
+    <string name="open">Открыть</string>
+    <string name="scan_more"><u>Сканировать еще</u></string>
+    <string name="scan_try_again"><u>Попробовать еще</u></string>
 
 </resources>

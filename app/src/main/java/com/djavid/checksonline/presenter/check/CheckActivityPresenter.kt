@@ -1,6 +1,7 @@
 package com.djavid.checksonline.presenter.check
 
 import com.arellomobile.mvp.InjectViewState
+import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BasePresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject

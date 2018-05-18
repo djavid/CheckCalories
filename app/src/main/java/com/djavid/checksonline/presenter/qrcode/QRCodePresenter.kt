@@ -1,8 +1,10 @@
 package com.djavid.checksonline.presenter.qrcode
 
 import com.arellomobile.mvp.InjectViewState
+import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.interactors.QrCodeInteractor
+import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.utils.getCheckMatcher
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -36,6 +38,10 @@ class QRCodePresenter @Inject constructor(
         }
     }
 
+    fun onOpenButtonClicked(receiptId: String) {
+        router.navigateTo(Screens.CHECK_ACTIVITY, receiptId)
+    }
+
     private fun loadAndSaveCheck(fiscalDriveNumber: String, fiscalDocumentNumber: String,
                                  fiscalSign: String, sendToEmail: Boolean) {
         interactor.getCheck(fiscalDriveNumber, fiscalDocumentNumber, fiscalSign, sendToEmail)
@@ -46,9 +52,10 @@ class QRCodePresenter @Inject constructor(
                 .flatMap { interactor.sendCheck(it.document.receipt) }
                 .doAfterTerminate { setProgress(false) }
                 .subscribe({
-                    viewState.showMessage("Sent successfully!")
+                    viewState.showSuccessDialog(it.result.receiptId.toString())
                 }, {
                     processError(it)
+                    viewState.showFailDialog()
                 })
     }
 

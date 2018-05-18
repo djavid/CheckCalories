@@ -48,14 +48,14 @@ class GoodItem(
                 ?.format(Locale.ROOT, good.sum / 100f)
         quantity.text = context?.getString(R.string.format_quantity)
                 ?.format(Locale.ROOT, good.quantity.toString(), good.price / 100f)
-        categoryName.text = "Не определено"
+        setCategoryName(good.category)
     }
 
-    fun setCategoryName(category: String) {
+    fun setCategoryName(category: String?) {
         context ?: return
 
         categoryName.post {
-            categoryName.text = category
+            categoryName.text = category ?: "Не определено"
 
             val drawable = getRoundDrawable(category)
             //val drawable = getColoredDrawable(category)

@@ -92,7 +92,7 @@
             android:id="@+id/iv_status"
             android:layout_width="27dp"
             android:layout_height="20dp"
-            android:src="@drawable/check"
+            app:srcCompat="@drawable/ic_check"
             app:layout_constraintBottom_toBottomOf="@id/tv_sum"
             app:layout_constraintEnd_toEndOf="parent" />
 

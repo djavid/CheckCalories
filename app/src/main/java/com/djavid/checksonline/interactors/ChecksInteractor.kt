@@ -3,6 +3,7 @@ package com.djavid.checksonline.interactors
 import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.model.networking.responses.FlaskResponse
 import com.djavid.checksonline.model.networking.bodies.FlaskValues
+import com.djavid.checksonline.model.networking.responses.GetChecksResponse
 import com.djavid.checksonline.model.repositories.BaseRepository
 import com.djavid.checksonline.model.threading.SchedulersProvider
 import io.reactivex.Single
@@ -15,7 +16,7 @@ class ChecksInteractor @Inject constructor(
 
     private val retryTimes: Long = 2
 
-    fun getChecks(page: Int): Single<List<Receipt>> =
+    fun getChecks(page: Int): Single<GetChecksResponse> =
             baseRepository.getChecks(page)
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())

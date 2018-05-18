@@ -26,6 +26,11 @@
     <color name="colorCalories">#50e3c2</color>
     <color name="colorReceiptSum">#7a7a7a</color>
 
+    <!-- Dialogs -->
+    <color name="aqua_marine">#3cdfba</color>
+    <color name="steel_grey">#868888</color>
+    <color name="warm_grey">#9b9b9b</color>
+
     <string-array name="colorsCategories">
         <item>#FFB900</item> <item>#CA5010</item> <item>#E74856</item> <item>#C30052</item>
         <item>#ffd600</item> <item>#00e5ff</item> <item>#db727f</item> <item>#7ed321</item>

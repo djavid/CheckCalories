@@ -16,6 +16,7 @@ import com.djavid.checksonline.toothpick.modules.CheckModule
 import com.djavid.checksonline.view.fragment.CheckFragment
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
+import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Replace
 import toothpick.Toothpick
 import javax.inject.Inject

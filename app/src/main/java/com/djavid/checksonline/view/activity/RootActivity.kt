@@ -1,5 +1,6 @@
 package com.djavid.checksonline.view.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -24,8 +25,11 @@ import javax.inject.Inject
 
 class RootActivity : BaseActivity(), RootView {
 
-    @Inject lateinit var holder: NavigatorHolder
+    companion object {
+        fun newIntent(ctx: Context) = Intent(ctx, RootActivity::class.java)
+    }
 
+    @Inject lateinit var holder: NavigatorHolder
 
     @InjectPresenter lateinit var presenter: RootPresenter
 
