@@ -10,7 +10,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -29,8 +28,6 @@ import toothpick.Toothpick
 import com.djavid.checksonline.utils.playBeepSound
 import com.djavid.checksonline.utils.vibrate
 import kotlinx.android.synthetic.main.layout_need_permission.*
-import me.dm7.barcodescanner.core.CameraUtils
-import me.dm7.barcodescanner.zbar.ZBarScannerView
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -119,7 +116,7 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
 
     private fun initDialogs() {
         progressDialog = Dialog(this).apply {
-            setContentView(R.layout.layout_dialog_progress)
+            setContentView(R.layout.dialog_progress)
             setCancelable(false)
         }
     }
@@ -167,7 +164,7 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
     override fun showFailDialog() {
         stopScanning()
         failDialog = Dialog(this).apply {
-            setContentView(R.layout.layout_dialog_fail)
+            setContentView(R.layout.dialog_fail)
             setCancelable(true)
             setOnDismissListener { resumeScanning() }
 
@@ -186,7 +183,7 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
         //stopScanning()
         successDialog = Dialog(this).apply {
 
-            setContentView(R.layout.layout_dialog_success)
+            setContentView(R.layout.dialog_success)
             setCancelable(true)
             setOnDismissListener { resumeScanning() }
 

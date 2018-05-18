@@ -12,7 +12,7 @@ import java.util.*
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 
-@Layout(R.layout.receipt_item)
+@Layout(R.layout.item_receipt)
 class CheckItem(
         private val context: Context?,
         private val receipt: Receipt,

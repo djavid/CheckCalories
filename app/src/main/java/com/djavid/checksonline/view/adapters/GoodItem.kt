@@ -18,7 +18,7 @@ import com.mindorks.placeholderview.annotations.Resolve
 import com.mindorks.placeholderview.annotations.View
 import java.util.*
 
-@Layout(R.layout.good_item)
+@Layout(R.layout.item_good)
 class GoodItem(
         private val context: Context?,
         private val good: Receipt.Item
