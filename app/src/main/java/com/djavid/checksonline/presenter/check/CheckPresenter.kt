@@ -4,8 +4,6 @@ import com.arellomobile.mvp.InjectViewState
 import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.model.entities.Receipt
-import com.djavid.checksonline.model.networking.bodies.FlaskValues
-import com.djavid.checksonline.model.networking.responses.FlaskResponse
 import com.djavid.checksonline.toothpick.qualifiers.CheckId
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -27,14 +25,9 @@ class CheckPresenter @Inject constructor(
                     unsubscribeOnDestroy(it)
                     viewState.showProgress(true)
                 }
-//                .flatMap {
-//                    onCheckReceived(it)
-//                    interactor.getCategories(FlaskValues(it.items.map { it.name }))
-//                }
                 .doAfterTerminate { viewState.showProgress(false) }
                 .subscribe({
                     onCheckReceived(it)
-                    //onCategoriesReceived(it)
                 }, {
                     processError(it)
                 })
@@ -45,11 +38,6 @@ class CheckPresenter @Inject constructor(
         viewState.setToolbarSum(response.totalSum)
         viewState.setToolbarAddress(response.retailPlaceAddress)
         viewState.setDatetime(response.dateTime)
-    }
-
-    private fun onCategoriesReceived(response: FlaskResponse) {
-        viewState.setCategories(response)
-        viewState.showProgress(false)
     }
 
 }

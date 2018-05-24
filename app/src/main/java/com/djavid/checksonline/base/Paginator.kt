@@ -1,15 +1,16 @@
 package com.djavid.checksonline.base
 
+import com.djavid.checksonline.model.entities.DataPage
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 
 class Paginator<in T>(
-        private val requestFactory: (Int) -> Single<List<T>>,
+        private val requestFactory: (Int) -> Single<DataPage<T>>,
         private val viewController: ViewController<T>
 ) {
 
     companion object {
-        private const val FIRST_PAGE = 1
+        private const val FIRST_PAGE = 0
     }
 
     interface ViewController<in T> {
@@ -26,8 +27,11 @@ class Paginator<in T>(
         fun showErrorMessage(error: Throwable)
 
         fun loadingDone()
+
+        fun noMoreToLoad()
     }
 
+    private var hasNext: Boolean = false
     private var currentState: State<T> = Empty()
     private val currentData = mutableListOf<T>()
     private var currentPage = 0
@@ -53,9 +57,13 @@ class Paginator<in T>(
         disposable?.dispose()
         requestFactory.invoke(page)
                 .doOnSubscribe { disposable = it }
-                .map { it }
+                .map {
+                    hasNext = it.hasNext
+                    it.items
+                }
                 .subscribe({
-                    viewController.loadingDone() //TODO
+                    viewController.loadingDone()
+                    if (!hasNext) viewController.noMoreToLoad()
                     currentState.newData(it)
                 }, currentState::fail)
     }
@@ -242,7 +250,7 @@ class Paginator<in T>(
                 currentData.addAll(data)
                 currentPage++
                 viewController.showPageProgress(false)
-                viewController.showData(true, currentData)
+                viewController.showData(true, data)
             } else {
                 currentState = DataFull()
                 viewController.showPageProgress(false)

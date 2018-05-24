@@ -10,11 +10,11 @@ class ChecksController(private val view: ChecksView) : Paginator.ViewController<
     }
 
     override fun showEmptyError(show: Boolean, error: Throwable?) {
-        //view.showChecksError(show, error?.message ?: "Error: No message :(")
+        view.showChecksError(show)
     }
 
     override fun showEmptyView(show: Boolean) {
-
+        view.showEmptyView(show)
     }
 
     override fun showData(show: Boolean, data: List<Receipt>) {
@@ -30,10 +30,14 @@ class ChecksController(private val view: ChecksView) : Paginator.ViewController<
     }
 
     override fun showPageProgress(show: Boolean) {
-        view.showChecksProgress(show, false)
+        //view.showChecksProgress(show, false)
     }
 
     override fun loadingDone() {
         view.loadingDone()
+    }
+
+    override fun noMoreToLoad() {
+        view.noMoreToLoad()
     }
 }

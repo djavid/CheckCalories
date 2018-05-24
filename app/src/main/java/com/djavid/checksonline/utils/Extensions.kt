@@ -1,16 +1,15 @@
 package com.djavid.checksonline.utils
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.media.ToneGenerator
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Base64
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.View
-import com.amulyakhare.textdrawable.TextDrawable
-import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.djavid.checksonline.BuildConfig
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
@@ -18,8 +17,6 @@ import org.joda.time.format.DateTimeFormatter
 import java.io.UnsupportedEncodingException
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import android.util.DisplayMetrics
-
 
 
 fun View.visible(visible: Boolean) {
@@ -81,4 +78,18 @@ fun Context.pxToDp(px: Int): Int {
 fun Context.dpToPx(dp: Int): Int {
     val displayMetrics = resources.displayMetrics
     return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+}
+
+fun Context.spToPx(sp: Float): Float {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, resources.displayMetrics)
+}
+
+fun String.formatShopTitle() : String {
+    var s = this
+    s = """(ООО|ЗАО|ооо|зао)""".toRegex().replace(s, "")
+    s = """(['"_])""".toRegex().replace(s, "")
+    s = """\s+""".toRegex().replace(s, " ")
+    s = s.trim()
+
+    return s
 }

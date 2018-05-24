@@ -5,6 +5,7 @@ import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.base.Paginator
 import com.djavid.checksonline.interactors.ChecksInteractor
+import com.djavid.checksonline.model.entities.DataPage
 import com.djavid.checksonline.model.entities.Receipt
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -16,9 +17,16 @@ class ChecksPresenter @Inject constructor(
 ) : BasePresenter<ChecksView>(router) {
 
     private val checksFactory = { page: Int ->
-        interactor.getChecks(0)
+        interactor.getChecks(page)
+                .doOnSuccess {
+                    if (it.result != null)
+                        viewState.setToolbarSum(it.result.totalSum / 100f)
+                }
                 .map {
-                    it.result.receipts
+
+                    //if (it.result == null) return@map DataPage(it.result.receipts, false)
+                    DataPage(it.result?.receipts ?: listOf(),
+                            it.result?.hasNext ?: false)
                 }
     }
     private val checksController = ChecksController(viewState)
@@ -26,9 +34,12 @@ class ChecksPresenter @Inject constructor(
 
 
     override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-
         refresh()
+    }
+
+    override fun attachView(view: ChecksView?) {
+        super.attachView(view)
+        //refresh()
     }
 
     override fun onDestroy() {
@@ -49,6 +60,9 @@ class ChecksPresenter @Inject constructor(
     }
 
     fun refresh() {
+        viewState.removeAllViews()
+        viewState.noMoreToLoad()
+        viewState.setLoadMoreResolver()
         checksPaginator.refresh()
     }
 

@@ -4,7 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.interactors.QrCodeInteractor
-import com.djavid.checksonline.model.entities.Receipt
+import com.djavid.checksonline.model.networking.bodies.FnsValues
 import com.djavid.checksonline.utils.getCheckMatcher
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -28,7 +28,9 @@ class QRCodePresenter @Inject constructor(
         if (m.matches()) {
             viewState.vibrate()
 
-            loadAndSaveCheck(m.group(3), m.group(4), m.group(5), false)
+            val fnsValues = FnsValues(m.group(1), m.group(2), m.group(3),
+                    m.group(4), m.group(5))
+            sendCheck(fnsValues)
         }
     }
 
@@ -42,17 +44,29 @@ class QRCodePresenter @Inject constructor(
         router.navigateTo(Screens.CHECK_ACTIVITY, receiptId)
     }
 
-    private fun loadAndSaveCheck(fiscalDriveNumber: String, fiscalDocumentNumber: String,
-                                 fiscalSign: String, sendToEmail: Boolean) {
-        interactor.getCheck(fiscalDriveNumber, fiscalDocumentNumber, fiscalSign, sendToEmail)
+    private fun sendCheck(fnsValues: FnsValues) {
+
+        interactor.sendCheck(fnsValues)
                 .doOnSubscribe {
                     unsubscribeOnDestroy(it)
                     setProgress(true)
                 }
-                .flatMap { interactor.sendCheck(it.document.receipt) }
                 .doAfterTerminate { setProgress(false) }
                 .subscribe({
-                    viewState.showSuccessDialog(it.result.receiptId.toString())
+                    if (!it.error.isEmpty()) {
+                        when (it.error) {
+                            "Check not found." -> viewState.showFailDialog()
+                            "Check has not loaded yet." -> viewState.showWaitDialog()
+                            "Check already exists." -> viewState.showToastyWarning()
+                            else -> viewState.showToastyError()
+                        }
+
+                    } else if (it.result != null) {
+                        println(it.result.receiptId)
+                        println(it.result)
+                        viewState.showSuccessDialog(it.result.receiptId.toString())
+                    }
+
                 }, {
                     processError(it)
                     viewState.showFailDialog()

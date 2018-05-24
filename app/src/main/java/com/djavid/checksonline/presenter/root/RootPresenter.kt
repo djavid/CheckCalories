@@ -12,4 +12,12 @@ class RootPresenter @Inject constructor(router: Router) : BasePresenter<RootView
     fun onQRSelected() {
         router.newRootScreen(Screens.QR_CODE)
     }
+
+    fun onChecksSelected() {
+        router.newRootScreen(Screens.HOME)
+    }
+
+    fun onStatsSelected() {
+        router.newRootScreen(Screens.STATS)
+    }
 }

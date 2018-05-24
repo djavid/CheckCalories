@@ -7,6 +7,12 @@
     <!-- common -->
     <string name="title_loading">Загрузка</string>
     <string name="title_back">Назад</string>
+    <string name="shop_no_title">Без названия</string>
+    <string name="refresh">Обновить</string>
+
+    <!-- bottom menu -->
+    <string name="title_checks">Чеки</string>
+    <string name="title_stats">Статистика</string>
 
     <!-- Scanner activity -->
     <string name="scanner_permission_warning">Необходимо разрешить доступ к камере.</string>
@@ -16,19 +22,31 @@
     <!-- errors -->
     <string name="error_check_not_loaded">Не удалось получить чек, попробуйте позже.</string>
     <string name="error_occured">Произошла ошибка!</string>
+    <string name="load_error">Произошла ошибка загрузки</string>
 
     <!-- checks fragment -->
+    <string name="empty_price">0.00</string>
     <string name="format_price">%.2f ₽</string>
+    <string name="format_percent">%.2f %%</string>
     <string name="format_float">%.2f</string>
     <string name="symbol_ruble">₽</string>
     <string name="format_quantity">%s × %.2f₽</string>
-    
+    <string name="no_checks">У вас пока нет чеков. \nНажмите кнопку сканирования, чтобы добавить.</string>
+
     <!-- dialogs -->
     <string name="check_saved">Чек сохранен</string>
+    <string name="check_waiting">Чек пока не найден</string>
+    <string name="check_waiting_description">По закону чек должен быть передан в налоговую в течение 24 часов.
+        Как только чек появится, мы отобразим его в вашем списке.</string>
     <string name="check_failed">Не удалось найти чек</string>
-    <string name="check_failed_description">Чек пока не передан в налоговую либо истек срок его хранения.</string>
+    <string name="check_failed_description">Истек срок хранения чека в налоговой.
+        Обычно ФНС хранит чеки не более 2&#8211;3 месяцев.</string>
     <string name="open">Открыть</string>
     <string name="scan_more"><u>Сканировать еще</u></string>
     <string name="scan_try_again"><u>Попробовать еще</u></string>
+
+    <!-- Stats -->
+    <string name="shops">Магазины</string>
+    <string name="categories">Категории</string>
 
 </resources>

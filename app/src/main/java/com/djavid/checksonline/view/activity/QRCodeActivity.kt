@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
@@ -20,17 +21,18 @@ import com.djavid.checksonline.base.BaseActivity
 import com.djavid.checksonline.base.EmptyViewHolder
 import com.djavid.checksonline.presenter.qrcode.QRCodePresenter
 import com.djavid.checksonline.presenter.qrcode.QRCodeView
-import com.google.zxing.Result
-import com.tbruyelle.rxpermissions2.RxPermissions
-import kotlinx.android.synthetic.main.activity_qrcode.*
-import me.dm7.barcodescanner.zxing.ZXingScannerView
-import toothpick.Toothpick
 import com.djavid.checksonline.utils.playBeepSound
 import com.djavid.checksonline.utils.vibrate
-import kotlinx.android.synthetic.main.layout_need_permission.*
+import com.google.zxing.Result
+import com.tbruyelle.rxpermissions2.RxPermissions
+import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.activity_qrcode.*
+import kotlinx.android.synthetic.main.layout_error_action.*
+import me.dm7.barcodescanner.zxing.ZXingScannerView
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
+import toothpick.Toothpick
 import javax.inject.Inject
 
 
@@ -54,8 +56,7 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
     private var emptyViewHolder: EmptyViewHolder? = null
     private var mScannerView: ZXingScannerView? = null
     private lateinit var progressDialog: Dialog
-    private var successDialog: Dialog? = null
-    private var failDialog: Dialog? = null
+    private var stateDialog: Dialog? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +66,10 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
         setContentView(R.layout.activity_qrcode)
         initDialogs()
 
-        emptyViewHolder = EmptyViewHolder(needPermissionLayout, { requestPermissions() })
+        emptyViewHolder = EmptyViewHolder(
+                getString(R.string.scanner_permission_btn),
+                getString(R.string.scanner_permission_warning),
+                needPermissionLayout, { requestPermissions() })
 
         if (!isCameraPermissionGranted()) {
             requestPermissions()
@@ -95,8 +99,7 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
         mScannerView?.stopCamera()
 
         if (progressDialog.isShowing) progressDialog.dismiss()
-        if (failDialog != null && failDialog?.isShowing == true) failDialog?.dismiss()
-        if (successDialog != null && successDialog?.isShowing == true) successDialog?.dismiss()
+        if (stateDialog != null && stateDialog?.isShowing == true) stateDialog?.dismiss()
     }
 
     override fun onDestroy() {
@@ -109,15 +112,12 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
         holder.setNavigator(navigator)
     }
 
-    override fun showMessage(message: String) {
-
-    }
-
 
     private fun initDialogs() {
         progressDialog = Dialog(this).apply {
             setContentView(R.layout.dialog_progress)
             setCancelable(false)
+            setOnDismissListener { resumeScanning() }
         }
     }
 
@@ -143,8 +143,7 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
     }
 
     override fun showEmptyView(show: Boolean) {
-        if (show) emptyViewHolder?.showEmptyData()
-        else emptyViewHolder?.hide()
+        emptyViewHolder?.show(show)
     }
 
     override fun handleResult(rawResult: Result) = presenter.onQrCodeRead(rawResult.text)
@@ -163,7 +162,7 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
 
     override fun showFailDialog() {
         stopScanning()
-        failDialog = Dialog(this).apply {
+        stateDialog = Dialog(this).apply {
             setContentView(R.layout.dialog_fail)
             setCancelable(true)
             setOnDismissListener { resumeScanning() }
@@ -180,8 +179,8 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
     }
 
     override fun showSuccessDialog(receiptId: String) {
-        //stopScanning()
-        successDialog = Dialog(this).apply {
+        stopScanning()
+        stateDialog = Dialog(this).apply {
 
             setContentView(R.layout.dialog_success)
             setCancelable(true)
@@ -198,6 +197,24 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
         }
     }
 
+    override fun showWaitDialog() {
+        stopScanning()
+        stateDialog = Dialog(this).apply {
+            setContentView(R.layout.dialog_wait)
+            setCancelable(true)
+            setOnDismissListener { resumeScanning() }
+
+            window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window.attributes.dimAmount = 0.7f
+
+            findViewById<Button>(R.id.btn_back)
+                    .setOnClickListener { presenter.onBackPressed() }
+            findViewById<TextView>(R.id.btn_scan_more)
+                    .setOnClickListener { dismiss() }
+            show()
+        }
+    }
+
 
     private fun isCameraPermissionGranted() = ContextCompat
             .checkSelfPermission(applicationContext,
@@ -208,8 +225,23 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
     override fun vibrate() = applicationContext.vibrate()
 
     override fun showProgress(show: Boolean) {
-        if (show) progressDialog.show()
-        else progressDialog.dismiss()
+        if (show) {
+            stopScanning()
+            progressDialog.show()
+        }
+        else {
+            progressDialog.dismiss()
+        }
+    }
+
+    override fun showToastyWarning() {
+        Toasty.warning(this, "Чек уже был добавлен!",
+                Toast.LENGTH_SHORT, true).show()
+    }
+
+    override fun showToastyError() {
+        Toasty.error(this, "Произошла ошибка!",
+                Toast.LENGTH_SHORT, true).show()
     }
 
 

@@ -14,5 +14,8 @@ interface QRCodeView : BaseView {
 
     fun showFailDialog()
     fun showSuccessDialog(receiptId: String)
+    fun showWaitDialog()
+    fun showToastyWarning()
+    fun showToastyError()
 
 }

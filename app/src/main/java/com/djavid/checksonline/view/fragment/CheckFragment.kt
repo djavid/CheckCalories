@@ -5,11 +5,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-
 import com.djavid.checksonline.R
 import com.djavid.checksonline.base.BaseFragment
 import com.djavid.checksonline.model.entities.Receipt
-import com.djavid.checksonline.model.networking.responses.FlaskResponse
 import com.djavid.checksonline.presenter.check.CheckPresenter
 import com.djavid.checksonline.presenter.check.CheckView
 import com.djavid.checksonline.utils.parseDate
@@ -65,23 +63,21 @@ class CheckFragment : BaseFragment(), CheckView {
         })
     }
 
-    override fun setCategories(categories: FlaskResponse) {
-        goods_placeholder.allViewResolvers.forEachIndexed { index, any ->
-            (any as GoodItem).setCategoryName(categories.categories[index])
-            any.setName(categories.normalized[index])
-        }
-    }
-
     override fun setToolbarSum(sum: Long) {
         price.text = context?.getString(R.string.format_float)
                 ?.format(Locale.ROOT, sum / 100f)
     }
 
     override fun setToolbarAddress(address: String?) {
-        if (address == null)
+        if (address == null) {
+            iv_location.visible(false)
             tv_address.visible(false)
-        else
+
+        } else {
+            iv_location.visible(true)
+            tv_address.visible(true)
             tv_address.text = address
+        }
     }
 
     override fun setDatetime(date: String?) {

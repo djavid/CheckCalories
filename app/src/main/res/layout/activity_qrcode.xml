@@ -56,7 +56,7 @@
         android:visibility="gone" />
 
     <include
-        layout="@layout/layout_need_permission"
+        layout="@layout/layout_error_action"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />

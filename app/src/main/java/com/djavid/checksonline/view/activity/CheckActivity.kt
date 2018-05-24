@@ -9,14 +9,12 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BaseActivity
-import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.presenter.check.CheckActivityPresenter
 import com.djavid.checksonline.presenter.check.CheckActivityView
 import com.djavid.checksonline.toothpick.modules.CheckModule
 import com.djavid.checksonline.view.fragment.CheckFragment
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
-import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Replace
 import toothpick.Toothpick
 import javax.inject.Inject
@@ -50,6 +48,7 @@ class CheckActivity : BaseActivity(), CheckActivityView {
 
         Toothpick.inject(this, Toothpick.openScopes(application, this).also {
             it.installModules(CheckModule(checkId))
+            println(checkId)
         })
 
         super.onCreate(savedInstanceState)

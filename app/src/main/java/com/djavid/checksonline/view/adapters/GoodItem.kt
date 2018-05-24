@@ -58,7 +58,7 @@ class GoodItem(
             categoryName.text = category ?: "Не определено"
 
             val drawable = getRoundDrawable(category)
-            //val drawable = getColoredDrawable(category)
+            //val drawable = getColoredDrawable(title)
 
             if (drawable != null) {
                 categoryName.background = drawable

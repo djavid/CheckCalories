@@ -10,6 +10,9 @@ interface BaseView : MvpView {
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showMessage(message: String)
 
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showErrorMessage(message: String)
+
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showProgress(show: Boolean)
 

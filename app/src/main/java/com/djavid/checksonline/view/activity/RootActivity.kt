@@ -9,13 +9,12 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BaseActivity
-import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.presenter.root.RootPresenter
 import com.djavid.checksonline.presenter.root.RootView
-import com.djavid.checksonline.toothpick.Scopes
 import com.djavid.checksonline.toothpick.modules.RootModule
-import com.djavid.checksonline.view.fragment.CheckFragment
 import com.djavid.checksonline.view.fragment.ChecksFragment
+import com.djavid.checksonline.view.fragment.StatsFragment
+import kotlinx.android.synthetic.main.activity_root.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -39,6 +38,7 @@ class RootActivity : BaseActivity(), RootView {
 
 
     private var checksFragment: ChecksFragment? = null
+    private var statsFragment: StatsFragment? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,16 +48,35 @@ class RootActivity : BaseActivity(), RootView {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
+        setupNavigation()
         initFragments()
         restoreState(savedInstanceState)
     }
 
     private fun initFragments() {
         checksFragment = ChecksFragment.newInstance()
+        statsFragment = StatsFragment.newInstance()
+    }
+
+    private fun setupNavigation() {
+        //navigation.disableShifting()
+
+        navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_checks -> presenter.onChecksSelected()
+                R.id.nav_stats -> presenter.onStatsSelected()
+            }
+            return@setOnNavigationItemSelectedListener true
+        }
+
+        navigation.setOnNavigationItemReselectedListener {
+
+        }
     }
 
     private fun restoreState(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
+            navigation.selectedItemId = R.id.nav_checks
             navigator.applyCommand(Replace(Screens.HOME, null))
         } else {
 
@@ -93,6 +112,7 @@ class RootActivity : BaseActivity(), RootView {
         override fun createFragment(screenKey: String, data: Any?): Fragment? =
                 when (screenKey) {
                     Screens.HOME -> checksFragment
+                    Screens.STATS -> statsFragment
                     else -> null
                 }
 

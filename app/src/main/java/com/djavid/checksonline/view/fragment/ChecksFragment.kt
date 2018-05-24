@@ -2,19 +2,22 @@ package com.djavid.checksonline.view.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 
 import com.djavid.checksonline.R
 import com.djavid.checksonline.base.BaseFragment
+import com.djavid.checksonline.base.EmptyViewHolder
 import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.presenter.checks.ChecksPresenter
 import com.djavid.checksonline.presenter.checks.ChecksView
+import com.djavid.checksonline.utils.visible
 import com.djavid.checksonline.view.adapters.CheckItem
 import com.djavid.checksonline.view.adapters.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_checks.*
+import kotlinx.android.synthetic.main.layout_empty_recycler_view.*
+import kotlinx.android.synthetic.main.layout_error_action.*
 import kotlinx.android.synthetic.main.toolbar.*
 import toothpick.Toothpick
 import java.util.*
@@ -34,6 +37,7 @@ class ChecksFragment : BaseFragment(), ChecksView {
                     .getInstance(ChecksPresenter::class.java)
 
     override val layoutResId get() = R.layout.fragment_checks
+    private var emptyViewHolder: EmptyViewHolder? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,14 +50,17 @@ class ChecksFragment : BaseFragment(), ChecksView {
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
                 .setLayoutManager(LinearLayoutManager(context))
+        setLoadMoreResolver()
 
-//        receipts_placeholder.setLoadMoreResolver(LoadMoreView(object : LoadMoreView.Callback {
-//            override fun onShowMore() {
-//                presenter.loadMoreChecks()
-//            }
-//        }))
+        swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.colorAccent))
+        swipeRefreshLayout.setOnRefreshListener {
+            presenter.refresh()
+        }
 
-        swipeRefreshLayout.setOnRefreshListener { presenter.refresh() }
+        emptyViewHolder = EmptyViewHolder(
+                getString(R.string.refresh),
+                getString(R.string.load_error),
+                needPermissionLayout, { presenter.refresh() })
     }
 
     override fun onDestroy() {
@@ -61,38 +68,52 @@ class ChecksFragment : BaseFragment(), ChecksView {
         if (isRemoving) Toothpick.closeScope(this) //Scopes.HOME
     }
 
-    override fun setChecks(checks: List<Receipt>) {
-        //receipts_placeholder.removeAllViews()
-        var totalSum: Long = 0
-        checks.forEach({
-            receipts_placeholder.addView(
-                    CheckItem(context, it, presenter::onCheckClicked)
-            )
-
-            totalSum += it.totalSum
-        })
-        setToolbarSum(totalSum)
-    }
-
     override fun showChecks(checks: List<Receipt>) {
-        receipts_placeholder.removeAllViews()
-        receipts_placeholder.post({ setChecks(checks) })
+        //receipts_placeholder.removeAllViews()
+
+        receipts_placeholder.post({
+            checks.forEach({
+                receipts_placeholder.addView(
+                        CheckItem(context, it, presenter::onCheckClicked)
+                )
+            })
+        })
     }
 
     override fun showChecksProgress(show: Boolean, isEmpty: Boolean) {
         swipeRefreshLayout.post { swipeRefreshLayout.isRefreshing = show }
     }
 
-    override fun showChecksError(show: Boolean, message: String) {
-        showMessage(message)
+    override fun showChecksError(show: Boolean) {
+        emptyViewHolder?.show(show)
+    }
+
+    override fun showEmptyView(show: Boolean) {
+        empty_recycler_layout.visible(show)
     }
 
     override fun loadingDone() {
         receipts_placeholder.loadingDone()
     }
 
-    private fun setToolbarSum(totalSum: Long) {
+    override fun noMoreToLoad() {
+        receipts_placeholder.noMoreToLoad()
+    }
+
+    override fun setToolbarSum(totalSum: Double) {
         price.text = context?.getString(R.string.format_float)
-                ?.format(Locale.ROOT, totalSum / 100f)
+                ?.format(Locale.ROOT, totalSum)
+    }
+
+    override fun setLoadMoreResolver() {
+        receipts_placeholder.setLoadMoreResolver(LoadMoreView(object : LoadMoreView.Callback {
+            override fun onShowMore() {
+                presenter.loadMoreChecks()
+            }
+        }))
+    }
+
+    override fun removeAllViews() {
+        receipts_placeholder.removeAllViews()
     }
 }

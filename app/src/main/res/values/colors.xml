@@ -4,9 +4,19 @@
     <color name="colorPrimaryDark">#cacaca</color>
     <color name="colorAccent">#50e3c2</color>
 
+    <color name="toolbarBg">#FAFAFA</color>
+
     <color name="colorFavBtn">#03A9F4</color>
     <color name="white">#ffffff</color>
 
+    <color name="steel_grey">#868888</color>
+    <color name="steel_grey_light">#8d979e</color>
+    <color name="orange">#f4b854</color>
+
+    <color name="aqua_marine">#3cdfba</color>
+
+    <color name="warm_grey">#7a7a7a</color>
+    <color name="warm_grey_light">#9b9b9b</color>
 
     <!-- Permissions -->
     <color name="colorWarningText">#979797</color>
@@ -14,7 +24,6 @@
     <color name="colorWarningBtnText">#ffffff</color>
 
     <!-- toolbar -->
-    <color name="colorToolbarTitle">#8d979e</color>
     <color name="colorToolbarAddress">#67bdf8</color>
 
     <!-- feed -->
@@ -22,25 +31,19 @@
     <color name="colorShopTitle">#7a7a7a</color>
     <color name="colorShopAddress">#a4acb2</color>
     <color name="colorAppTitle">#4d575e</color>
-    <color name="colorCaloriesCount">#868888</color>
     <color name="colorCalories">#50e3c2</color>
     <color name="colorReceiptSum">#7a7a7a</color>
 
-    <!-- Dialogs -->
-    <color name="aqua_marine">#3cdfba</color>
-    <color name="steel_grey">#868888</color>
-    <color name="warm_grey">#9b9b9b</color>
-
     <string-array name="colorsCategories">
-        <item>#FFB900</item> <item>#CA5010</item> <item>#E74856</item> <item>#C30052</item>
-        <item>#ffd600</item> <item>#00e5ff</item> <item>#db727f</item> <item>#7ed321</item>
-        <item>#0078D7</item> <item>#6B69D6</item> <item>#0099BC</item> <item>#038387</item>
+        <item>#FFB900</item> <item>#ff8a65</item> <item>#E74856</item> <item>#9b9b9b</item>
+        <item>#ffd600</item> <item>#00e5ff</item> <item>#ef9a9a</item> <item>#50e3c2</item>
+        <item>#67bdf8</item> <item>#9fa8da</item> <item>#4dd0e1</item> <item>#94e041</item>
 
-        <item>#FFB900</item> <item>#CA5010</item> <item>#E74856</item> <item>#C30052</item>
-        <item>#0078D7</item> <item>#6B69D6</item> <item>#0099BC</item> <item>#038387</item>
-        <item>#ffd600</item> <item>#00e5ff</item> <item>#db727f</item> <item>#7ed321</item>
+        <item>#FFB900</item> <item>#ff8a65</item> <item>#E74856</item> <item>#9b9b9b</item>
+        <item>#ffd600</item> <item>#00e5ff</item> <item>#ef9a9a</item> <item>#50e3c2</item>
+        <item>#67bdf8</item> <item>#9fa8da</item> <item>#4dd0e1</item> <item>#94e041</item>
 
-        <item>#7ed321</item>
+        <item>#f57f17</item>
 
     </string-array>
 

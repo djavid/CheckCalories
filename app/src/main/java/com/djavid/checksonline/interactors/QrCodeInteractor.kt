@@ -1,13 +1,13 @@
 package com.djavid.checksonline.interactors
 
-import com.djavid.checksonline.model.entities.Receipt
+import com.djavid.checksonline.model.networking.bodies.FnsValues
 import com.djavid.checksonline.model.networking.responses.CheckResponseFns
 import com.djavid.checksonline.model.networking.responses.SendCheckResponse
 import com.djavid.checksonline.model.repositories.BaseRepository
 import com.djavid.checksonline.model.repositories.FnsRepository
 import com.djavid.checksonline.model.threading.SchedulersProvider
+import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.Single
-import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class QrCodeInteractor @Inject constructor(
@@ -23,8 +23,14 @@ class QrCodeInteractor @Inject constructor(
                     .observeOn(schedulers.ui())
                     .retry(2)
 
-    fun sendCheck(receipt: Receipt) : Single<SendCheckResponse> =
-            baseRepository.sendCheck(receipt)
+//    fun sendCheck(receipt: Receipt) : Single<SendCheckResponse> =
+//            baseRepository.sendCheck(receipt, FirebaseInstanceId.getInstance().token ?: "")
+//                    .subscribeOn(schedulers.io())
+//                    .observeOn(schedulers.ui())
+//                    .retry(2)
+
+    fun sendCheck(fnsValues: FnsValues) : Single<SendCheckResponse> =
+            baseRepository.sendCheck(fnsValues, FirebaseInstanceId.getInstance().token ?: "")
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
                     .retry(2)
