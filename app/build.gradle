@@ -157,6 +157,9 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    //made in china
+    compile 'com.github.zyyoona7:EasyPopup:1.0.2'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

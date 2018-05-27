@@ -2,10 +2,7 @@ package com.djavid.checksonline.model.networking.apis
 
 import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.model.networking.bodies.FnsValues
-import com.djavid.checksonline.model.networking.responses.GetChecksResponse
-import com.djavid.checksonline.model.networking.responses.SendCheckResponse
-import com.djavid.checksonline.model.networking.responses.SendTokenResponse
-import com.djavid.checksonline.model.networking.responses.StatPercentResponse
+import com.djavid.checksonline.model.networking.responses.*
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -36,6 +33,12 @@ interface BaseApi {
 
     @POST("token")
     fun sendToken(@Header("Token") token: String): Single<SendTokenResponse>
+
+    //stats
+
+    @GET("stats/intervals")
+    fun getIntervals(@Header("Token") token: String,
+                     @Query("interval") interval: String) : Single<GetIntervalsResponse>
 
     @GET("stats")
     fun getStats(@Header("Token") token: String,

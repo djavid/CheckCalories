@@ -6,10 +6,13 @@ import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.AbsListView
+import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.base.BaseFragment
+import com.djavid.checksonline.base.Dates
+import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.Percentage
 import com.djavid.checksonline.presenter.stats.StatsPresenter
 import com.djavid.checksonline.presenter.stats.StatsView
@@ -49,13 +52,47 @@ class StatsFragment : BaseFragment(), StatsView {
 
         initStatsPlaceholder()
         initChartsPlaceholder()
+        setPopupMenu()
+        setSwitchBtn()
+    }
 
+    private fun setSwitchBtn() {
         switch_btn.setOnCheckedChangeListener { buttonView, isChecked ->
             presenter.onSwitchClicked(isChecked)
             if (isChecked && context != null)
                 tv_switch.text = context!!.getString(R.string.categories)
             else if (!isChecked && context != null)
                 tv_switch.text = context!!.getString(R.string.shops)
+        }
+    }
+
+    private fun setPopupMenu() {
+        btn_period.setOnClickListener {
+            val popupMenu = PopupMenu(context, it)
+            popupMenu.inflate(R.menu.menu_date_popup)
+
+            popupMenu.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_month -> {
+                        presenter.onDateIntervalChosen(Dates.MONTH)
+                        true
+                    }
+                    R.id.menu_week -> {
+                        presenter.onDateIntervalChosen(Dates.WEEK)
+                        true
+                    }
+                    R.id.menu_day -> {
+                        presenter.onDateIntervalChosen(Dates.DAY)
+                        true
+                    }
+                    R.id.menu_own -> {
+                        presenter.onDateIntervalChosen(Dates.OWN)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popupMenu.show()
         }
     }
 
@@ -90,18 +127,29 @@ class StatsFragment : BaseFragment(), StatsView {
 
                     if (pos != currentPosition) {
                         currentPosition = pos
-                        presenter.onChartItemScrolled(pos)
+                        //presenter.onChartItemScrolled(pos)
                     }
                 }
             }
         })
     }
 
-    override fun setChartData(list: List<Percentage>) {
-        context ?: return
+    override fun setChartIntervals(intervals: List<DateInterval>) {
+        charts_placeholder.removeAllViews()
 
-        charts_placeholder.addView(ChartItem(context, list))
-        charts_placeholder.addView(ChartItem(context, list))
+        intervals.forEach {
+            charts_placeholder.post {
+                charts_placeholder.addView(ChartItem(context, it, presenter::onChartItemResolved))
+            }
+        }
+    }
+
+    override fun setChartItemData(pos: Int, list: List<Percentage>) {
+        if (pos < charts_placeholder.allViewResolvers.size
+                && pos >= 0) {
+            val item = charts_placeholder.allViewResolvers[pos] as ChartItem
+            item.setChartData(list)
+        }
     }
 
     override fun refreshCurrentChartData(list: List<Percentage>) {
@@ -129,7 +177,9 @@ class StatsFragment : BaseFragment(), StatsView {
     }
 
     override fun setToolbarSum(totalSum: Double) {
-        price.text = context?.getString(R.string.format_float)?.format(Locale.ROOT, totalSum)
+        price.post {
+            price.text = context?.getString(R.string.format_float)?.format(Locale.ROOT, totalSum)
+        }
     }
 
 }

@@ -3,10 +3,7 @@ package com.djavid.checksonline.model.repositories
 import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.model.networking.apis.BaseApi
 import com.djavid.checksonline.model.networking.bodies.FnsValues
-import com.djavid.checksonline.model.networking.responses.GetChecksResponse
-import com.djavid.checksonline.model.networking.responses.SendCheckResponse
-import com.djavid.checksonline.model.networking.responses.SendTokenResponse
-import com.djavid.checksonline.model.networking.responses.StatPercentResponse
+import com.djavid.checksonline.model.networking.responses.*
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -38,8 +35,13 @@ class BaseRepository @Inject constructor(
         return baseApi.sendToken(token)
     }
 
+
     fun getStats(token: String, start: Long, end: Long): Single<StatPercentResponse> {
         return baseApi.getStats(token, start, end)
+    }
+
+    fun getIntervals(token: String, interval: String): Single<GetIntervalsResponse> {
+        return baseApi.getIntervals(token, interval)
     }
 
 }

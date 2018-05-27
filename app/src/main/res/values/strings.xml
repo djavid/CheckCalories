@@ -49,4 +49,10 @@
     <string name="shops">Магазины</string>
     <string name="categories">Категории</string>
 
+    <!-- date popup -->
+    <string name="date_month">Месяц</string>
+    <string name="date_week">Неделя</string>
+    <string name="date_day">День</string>
+    <string name="date_own">Свой промежуток</string>
+
 </resources>

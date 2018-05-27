@@ -7,6 +7,7 @@ import com.djavid.checksonline.base.Paginator
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.model.entities.DataPage
 import com.djavid.checksonline.model.entities.Receipt
+import org.joda.time.DateTime
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -25,8 +26,9 @@ class ChecksPresenter @Inject constructor(
                 .map {
 
                     //if (it.result == null) return@map DataPage(it.result.receipts, false)
-                    DataPage(it.result?.receipts ?: listOf(),
-                            it.result?.hasNext ?: false)
+                    DataPage(it.result?.receipts?.sortedByDescending {
+                        DateTime.parse(it.dateTime)
+                    } ?: listOf(), it.result?.hasNext == true)
                 }
     }
     private val checksController = ChecksController(viewState)

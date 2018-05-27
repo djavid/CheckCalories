@@ -1,16 +1,23 @@
 package com.djavid.checksonline.utils
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
 import android.media.AudioManager
 import android.media.ToneGenerator
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.util.Base64
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
 import com.djavid.checksonline.BuildConfig
+import com.djavid.checksonline.model.entities.DateInterval
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
@@ -92,4 +99,47 @@ fun String.formatShopTitle() : String {
     s = s.trim()
 
     return s
+}
+
+fun DateInterval.getSpannable() : SpannableString {
+
+    val dateStart = DateTime.parse(this.dateStart)
+    val dateEnd = DateTime.parse(this.dateEnd)
+
+    var days = -1
+    try {
+        days = this.interval.toInt()
+    } catch (throwable: Throwable) {
+        if (throwable !is NumberFormatException)
+            throwable.printStackTrace()
+    }
+
+    var s = ""
+
+    if (days > 0) {
+        s = dateStart.dayOfMonth().asString + "-" + dateEnd.dayOfMonth().asString +
+                "\n" + dateStart.monthOfYear().asText
+    } else {
+        when (this.interval) {
+            "day" -> s = dateStart.dayOfMonth().asString + "\n" + dateStart.monthOfYear().asText
+            "week"-> s = dateStart.dayOfMonth().asString + "-" + dateEnd.dayOfMonth().asString +
+                    "\n" + dateStart.monthOfYear().asText
+            "month"-> s = Config.months[dateStart.monthOfYear - 1]
+        }
+    }
+
+    val spannable = SpannableString(s)
+
+    if (s.contains("\n")) {
+        val divider = s.indexOf("\n")
+
+        spannable.setSpan(StyleSpan(Typeface.BOLD), 0, divider, 0)
+        spannable.setSpan(ForegroundColorSpan(Color.parseColor("#979797")), divider, s.length, 0)
+        spannable.setSpan(RelativeSizeSpan(.7f), divider, s.length, 0)
+    } else {
+        spannable.setSpan(StyleSpan(Typeface.BOLD), 0, s.length, 0)
+    }
+
+    return spannable
+
 }
