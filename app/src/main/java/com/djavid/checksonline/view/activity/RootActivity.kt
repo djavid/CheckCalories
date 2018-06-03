@@ -106,6 +106,8 @@ class RootActivity : BaseActivity(), RootView {
                     Screens.QR_CODE -> QRCodeActivity.newIntent(this@RootActivity)
                     Screens.CHECK_ACTIVITY ->
                         CheckActivity.newIntent(this@RootActivity, data as String)
+                    Screens.HABITS_ACTIVITY -> HabitsActivity.newIntent(this@RootActivity)
+                    Screens.STATS_LIST -> StatsListActivity.newIntent(this@RootActivity)
                     else -> null
                 }
 

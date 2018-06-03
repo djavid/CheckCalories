@@ -33,8 +33,6 @@ class StatsFragment : BaseFragment(), StatsView {
 
     override val layoutResId = R.layout.fragment_stats
 
-    private var currentPosition = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +46,8 @@ class StatsFragment : BaseFragment(), StatsView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setPopupMenu()
+
+        btn_habits.setOnClickListener { presenter.onHabitsClicked() }
     }
 
 

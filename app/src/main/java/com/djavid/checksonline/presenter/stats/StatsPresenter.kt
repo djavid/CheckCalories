@@ -1,6 +1,7 @@
 package com.djavid.checksonline.presenter.stats
 
 import com.arellomobile.mvp.InjectViewState
+import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.base.Dates
 import com.djavid.checksonline.interactors.StatsInteractor
@@ -33,7 +34,6 @@ class StatsPresenter @Inject constructor(
     }
 
     private fun getIntervals(interval: String) {
-
         statsInteractor.getIntervals(interval)
                 .doOnSubscribe({
                     viewState.showProgress(true)
@@ -43,6 +43,10 @@ class StatsPresenter @Inject constructor(
                 .subscribe({
                     viewState.setViewPager(it.result.asReversed())
                 }, { processError(it) })
+    }
+
+    fun onHabitsClicked() {
+        router.navigateTo(Screens.HABITS_ACTIVITY)
     }
 
 }

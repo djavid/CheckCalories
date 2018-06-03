@@ -166,7 +166,7 @@ class StatItemFragment : BaseFragment(), StatsItemView {
         stats_placeholder.removeAllViews()
         list.forEach({
             stats_placeholder.addView(
-                    PercentageItem(context, it)
+                    PercentageItem(context, it, presenter::onPercentageClicked)
             )
         })
     }

@@ -29,10 +29,10 @@ class CheckFragment : BaseFragment(), CheckView {
 
     @ProvidePresenter
     fun providePresenter(): CheckPresenter =
-            Toothpick.openScopes(activity, this)
-                    .getInstance(CheckPresenter::class.java)
+            Toothpick.openScopes(activity, this).getInstance(CheckPresenter::class.java)
 
     override val layoutResId get() = R.layout.fragment_check
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +40,6 @@ class CheckFragment : BaseFragment(), CheckView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         goods_placeholder.isNestedScrollingEnabled = false
         goods_placeholder.builder
                 .setHasFixedSize(false)

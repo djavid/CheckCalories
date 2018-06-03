@@ -46,10 +46,8 @@ class CheckActivity : BaseActivity(), CheckActivityView {
         val checkId: String = intent.getStringExtra(EXTRA_CHECK_ID)
             ?: throw IllegalArgumentException("Check id should not be null!")
 
-        Toothpick.inject(this, Toothpick.openScopes(application, this).also {
-            it.installModules(CheckModule(checkId))
-            println(checkId)
-        })
+        Toothpick.inject(this, Toothpick.openScopes(application, this)
+                .also { it.installModules(CheckModule(checkId)) })
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_check)

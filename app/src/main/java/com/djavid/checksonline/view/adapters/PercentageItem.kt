@@ -8,16 +8,14 @@ import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.djavid.checksonline.R
 import com.djavid.checksonline.model.entities.Percentage
 import com.djavid.checksonline.utils.dpToPx
-import com.mindorks.placeholderview.annotations.Layout
-import com.mindorks.placeholderview.annotations.Position
-import com.mindorks.placeholderview.annotations.Resolve
-import com.mindorks.placeholderview.annotations.View
+import com.mindorks.placeholderview.annotations.*
 import java.util.*
 
 @Layout(R.layout.item_stat)
 class PercentageItem(
         private val context: Context?,
-        private val percentage: Percentage
+        private val percentage: Percentage,
+        private val onClickListener: (Percentage) -> Unit
 ) {
 
     @View(R.id.categoryName)
@@ -54,6 +52,11 @@ class PercentageItem(
         }
 
         divider.setBackgroundColor(color)
+    }
+
+    @Click(R.id.percentage_card)
+    fun onClick() {
+        onClickListener.invoke(percentage)
     }
 
     private fun setCategoryName(category: String?, color: Int) {

@@ -1,9 +1,11 @@
 package com.djavid.checksonline.presenter.stats
 
 import com.arellomobile.mvp.InjectViewState
+import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DateInterval
+import com.djavid.checksonline.model.entities.Percentage
 import com.djavid.checksonline.model.networking.responses.StatPercentResponse
 import com.djavid.checksonline.utils.SavedPreferences
 import org.joda.time.DateTime
@@ -66,6 +68,11 @@ class StatsItemPresenter @Inject constructor(
         statResponse ?: return
 
         showStats(statResponse!!, checked)
+    }
+
+    fun onPercentageClicked(percentage: Percentage) {
+        println(percentage.title)
+        router.navigateTo(Screens.STATS_LIST)
     }
 
 }
