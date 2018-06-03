@@ -45,4 +45,8 @@ interface BaseApi {
                  @Query("start") start: Long,
                  @Query("end") end: Long) : Single<StatPercentResponse>
 
+    @GET("stats/total")
+    fun getTotalSum(@Header("Token") token: String,
+                    @Query("type") type: String) : Single<GetTotalSumResponse>
+
 }

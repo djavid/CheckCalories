@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_total"
+        android:title="@string/date_total"/>
+    <item
+        android:id="@+id/menu_day"
+        android:title="@string/date_day"/>
+    <item
+        android:id="@+id/menu_week"
+        android:title="@string/date_week"/>
+    <item
+        android:id="@+id/menu_month"
+        android:title="@string/date_month"/>
+    <item
+        android:id="@+id/menu_last_day"
+        android:title="@string/date_last_day"/>
+    <item
+        android:id="@+id/menu_last_week"
+        android:title="@string/date_last_week"/>
+    <item
+        android:id="@+id/menu_last_month"
+        android:title="@string/date_last_month"/>
+
+</menu>

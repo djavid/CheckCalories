@@ -1,6 +1,7 @@
 package com.djavid.checksonline.presenter.checks
 
 import com.djavid.checksonline.base.BaseView
+import com.djavid.checksonline.base.Dates
 import com.djavid.checksonline.model.entities.Receipt
 
 interface ChecksView : BaseView {
@@ -15,5 +16,6 @@ interface ChecksView : BaseView {
     fun showEmptyView(show: Boolean)
 
     fun setToolbarSum(totalSum: Double)
+    fun setBtnPeriodText(interval: Dates)
 
 }

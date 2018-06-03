@@ -63,8 +63,6 @@ class CheckItem(
             Picasso.get()
                     .load(receipt.logo)
                     .fit()
-                    //.centerCrop()
-
                     .transform(CircleTransformation())
                     .into(v_logo_circle)
         }
@@ -79,7 +77,6 @@ class CheckItem(
         tv_sum.text = context.getString(R.string.format_price)
                 ?.format(Locale.ROOT, receipt.totalSum / 100f)
         tv_time.text = receipt.dateTime?.parseTime()
-        //iv_status.setImageResource(R.drawable.ic_check)
     }
 
     @Click(R.id.receipt_card)

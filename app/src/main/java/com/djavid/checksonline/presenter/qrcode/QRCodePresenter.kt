@@ -62,8 +62,6 @@ class QRCodePresenter @Inject constructor(
                         }
 
                     } else if (it.result != null) {
-                        println(it.result.receiptId)
-                        println(it.result)
                         viewState.showSuccessDialog(it.result.receiptId.toString())
                     }
 

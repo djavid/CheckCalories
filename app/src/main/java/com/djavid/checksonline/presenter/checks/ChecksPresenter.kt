@@ -3,32 +3,34 @@ package com.djavid.checksonline.presenter.checks
 import com.arellomobile.mvp.InjectViewState
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BasePresenter
+import com.djavid.checksonline.base.Dates
 import com.djavid.checksonline.base.Paginator
 import com.djavid.checksonline.interactors.ChecksInteractor
+import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DataPage
 import com.djavid.checksonline.model.entities.Receipt
-import org.joda.time.DateTime
+import com.djavid.checksonline.utils.SavedPreferences
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
 class ChecksPresenter @Inject constructor(
         private val interactor: ChecksInteractor,
+        private val statsInteractor: StatsInteractor,
+        private val preferences: SavedPreferences,
         router: Router
 ) : BasePresenter<ChecksView>(router) {
 
     private val checksFactory = { page: Int ->
         interactor.getChecks(page)
-                .doOnSuccess {
-                    if (it.result != null)
-                        viewState.setToolbarSum(it.result.totalSum / 100f)
-                }
+//                .doOnSuccess {
+//                    if (it.result != null)
+//                        viewState.setToolbarSum(it.result.totalSum / 100f)
+//                }
                 .map {
 
-                    //if (it.result == null) return@map DataPage(it.result.receipts, false)
-                    DataPage(it.result?.receipts?.sortedByDescending {
-                        DateTime.parse(it.dateTime)
-                    } ?: listOf(), it.result?.hasNext == true)
+                    DataPage(it.result?.receipts ?: listOf(),
+                            it.result?.hasNext == true)
                 }
     }
     private val checksController = ChecksController(viewState)
@@ -36,6 +38,7 @@ class ChecksPresenter @Inject constructor(
 
 
     override fun onFirstViewAttach() {
+        onDateIntervalChosen(Dates.valueOf(preferences.getTotalSumInterval()))
         refresh()
     }
 
@@ -67,5 +70,23 @@ class ChecksPresenter @Inject constructor(
         viewState.setLoadMoreResolver()
         checksPaginator.refresh()
     }
+
+    private fun getTotalSum(interval: Dates) {
+        statsInteractor.getTotalSum(interval.name)
+                .subscribe({
+                    viewState.setToolbarSum(it.result)
+                }, {
+                    processError(it)
+                })
+    }
+
+    fun onDateIntervalChosen(interval: Dates) {
+        preferences.setTotalSumInterval(interval.name)
+
+        viewState.setBtnPeriodText(interval)
+        getTotalSum(interval)
+    }
+
+
 
 }

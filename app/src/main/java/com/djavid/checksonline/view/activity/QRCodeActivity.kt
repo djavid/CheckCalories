@@ -159,6 +159,10 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
                 }
     }
 
+    private fun isCameraPermissionGranted() = ContextCompat
+            .checkSelfPermission(applicationContext,
+                    Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+
 
     override fun showFailDialog() {
         stopScanning()
@@ -215,10 +219,6 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
         }
     }
 
-
-    private fun isCameraPermissionGranted() = ContextCompat
-            .checkSelfPermission(applicationContext,
-                    Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
     override fun playBeep() = playBeepSound()
 

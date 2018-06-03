@@ -56,7 +56,7 @@ class PercentageItem(
         divider.setBackgroundColor(color)
     }
 
-    private fun setCategoryName(category: String, color: Int) {
+    private fun setCategoryName(category: String?, color: Int) {
         context ?: return
 
         categoryName.post {
@@ -71,16 +71,16 @@ class PercentageItem(
 
     }
 
-    private fun getRoundDrawable(s: String, color: Int): Drawable? {
+    private fun getRoundDrawable(s: String?, color: Int): Drawable? {
 
         return TextDrawable
                 .builder()
                 .buildRoundRect("", color, context!!.dpToPx(10))
     }
 
-    private fun getColor(s: String): Int {
+    private fun getColor(s: String?): Int {
         val generator = ColorGenerator.MATERIAL
-        val color = generator.getColor(s)
+        val color = generator.getColor(s ?: "")
 
 //        val allColors = context?.resources?.getStringArray(R.array.colorsCategories)
 //        val color = Color.parseColor(allColors!![Config.labels.indexOf(s)])

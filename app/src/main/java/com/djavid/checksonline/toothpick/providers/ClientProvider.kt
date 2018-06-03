@@ -1,7 +1,7 @@
 package com.djavid.checksonline.toothpick.providers
 
 import android.content.Context
-import com.readystatesoftware.chuck.ChuckInterceptor
+//import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class ClientProvider @Inject constructor(
 
         return OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .addInterceptor(ChuckInterceptor(context))
+//                .addInterceptor(ChuckInterceptor(context))
                 .build()
     }
 }

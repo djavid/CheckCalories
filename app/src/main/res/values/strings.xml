@@ -50,9 +50,20 @@
     <string name="categories">Категории</string>
 
     <!-- date popup -->
-    <string name="date_month">Месяц</string>
-    <string name="date_week">Неделя</string>
-    <string name="date_day">День</string>
-    <string name="date_own">Свой промежуток</string>
+    <string name="date_total">за все время</string>
+    <string name="date_day">сегодня</string>
+    <string name="date_week">на этой неделе</string>
+    <string name="date_month">в этом месяце</string>
+    <string name="date_last_day">за последний день</string>
+    <string name="date_last_week">за последнюю неделю</string>
+    <string name="date_last_month">за последний месяц</string>
+
+    <string name="interval_month">Месяц</string>
+    <string name="interval_week">Неделя</string>
+    <string name="interval_day">День</string>
+    <string name="interval_own">Свой промежуток</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

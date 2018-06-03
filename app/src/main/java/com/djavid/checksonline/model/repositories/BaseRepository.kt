@@ -44,4 +44,8 @@ class BaseRepository @Inject constructor(
         return baseApi.getIntervals(token, interval)
     }
 
+    fun getTotalSum(token: String, type: String): Single<GetTotalSumResponse> {
+        return baseApi.getTotalSum(token, type)
+    }
+
 }

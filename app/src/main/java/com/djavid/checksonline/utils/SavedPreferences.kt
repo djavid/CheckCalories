@@ -13,4 +13,17 @@ class SavedPreferences @Inject constructor(
             .putString(Preferences.TOKEN, token)
             .apply()
 
+    fun getIsShop() = sharedPreferences.getBoolean(Preferences.IS_SHOP, false)
+
+    fun setIsShop(isShop: Boolean) = sharedPreferences.edit()
+            .putBoolean(Preferences.IS_SHOP, isShop)
+            .apply()
+
+    fun getTotalSumInterval() =
+            sharedPreferences.getString(Preferences.TOTAL_SUM_INTERVAL, "TOTAL")
+
+    fun setTotalSumInterval(interval: String) = sharedPreferences.edit()
+            .putString(Preferences.TOTAL_SUM_INTERVAL, interval)
+            .apply()
+
 }

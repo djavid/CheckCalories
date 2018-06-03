@@ -38,8 +38,6 @@ abstract class BasePresenter<V : BaseView>(
 
     protected fun processError(throwable: Throwable) {
 
-        //viewState.showMessage(throwable.localizedMessage)
-
         if (throwable is SocketTimeoutException) {
             Timber.e(throwable)
             viewState.showErrorMessage("Истекло время ожидания сервера")
