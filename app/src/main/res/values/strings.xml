@@ -48,6 +48,7 @@
     <!-- Stats -->
     <string name="shops">Магазины</string>
     <string name="categories">Категории</string>
+    <string name="into">в</string>
 
     <!-- date popup -->
     <string name="date_total">за все время</string>

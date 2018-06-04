@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-
 import com.djavid.checksonline.R
 import com.djavid.checksonline.base.BaseFragment
 import com.djavid.checksonline.base.EmptyViewHolder
@@ -13,6 +12,7 @@ import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.presenter.stats.ShopsPresenter
 import com.djavid.checksonline.presenter.stats.ShopsView
 import com.djavid.checksonline.view.adapters.CheckItem
+import com.djavid.checksonline.view.adapters.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_shops.*
 import kotlinx.android.synthetic.main.layout_error_action.*
 import kotlinx.android.synthetic.main.toolbar_percentages.*
@@ -50,6 +50,7 @@ class ShopsFragment : BaseFragment(), ShopsView {
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
                 .setLayoutManager(LinearLayoutManager(context))
+        setLoadMoreResolver()
 
         emptyViewHolder = EmptyViewHolder(
                 getString(R.string.refresh),
@@ -59,8 +60,30 @@ class ShopsFragment : BaseFragment(), ShopsView {
         btn_back.setOnClickListener { presenter.onBackPressed() }
     }
 
-    override fun showChecks(checks: List<Receipt>) {
+    private fun setLoadMoreResolver() {
+        shops_placeholder.setLoadMoreResolver(LoadMoreView(object : LoadMoreView.Callback {
+            override fun onShowMore() {
+                presenter.loadMoreChecks()
+            }
+        }))
+    }
+
+    override fun removeAllViews() {
         shops_placeholder.removeAllViews()
+    }
+
+    override fun loadingDone() {
+        shops_placeholder.loadingDone()
+    }
+
+    override fun noMoreToLoad() {
+        shops_placeholder.loadingDone()
+        shops_placeholder.noMoreToLoad()
+    }
+
+    override fun showChecks(checks: List<Receipt>, remove: Boolean) {
+        if (remove) shops_placeholder.removeAllViews()
+        loadingDone()
 
         shops_placeholder.post({
             checks.forEach({

@@ -7,7 +7,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.base.BaseFragment
-import com.djavid.checksonline.model.entities.Receipt
+import com.djavid.checksonline.model.entities.Item
 import com.djavid.checksonline.presenter.check.CheckPresenter
 import com.djavid.checksonline.presenter.check.CheckView
 import com.djavid.checksonline.utils.parseDate
@@ -52,7 +52,7 @@ class CheckFragment : BaseFragment(), CheckView {
         if (isRemoving) Toothpick.closeScope(this) //Scopes.HOME
     }
 
-    override fun setGoods(checks: List<Receipt.Item>) {
+    override fun setGoods(checks: List<Item>) {
         goods_placeholder.removeAllViews()
         checks.forEach({
             goods_placeholder.addView(

@@ -29,7 +29,7 @@
         android:paddingStart="30dp"
         android:text="@string/no_checks"
         android:textAlignment="center"
-        android:textColor="@color/colorShopAddress"
+        android:textColor="@color/cool_grey"
         android:textSize="15sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"

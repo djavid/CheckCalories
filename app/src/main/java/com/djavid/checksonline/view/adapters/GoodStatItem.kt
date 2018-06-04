@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.djavid.checksonline.R
-import com.djavid.checksonline.model.entities.Item
+import com.djavid.checksonline.model.entities.StatItem
 import com.djavid.checksonline.utils.Config
 import com.djavid.checksonline.utils.dpToPx
 import com.djavid.checksonline.utils.visible
@@ -18,10 +18,10 @@ import com.mindorks.placeholderview.annotations.Resolve
 import com.mindorks.placeholderview.annotations.View
 import java.util.*
 
-@Layout(R.layout.item_good)
-class GoodItem(
+@Layout(R.layout.item_good_stat)
+class GoodStatItem(
         private val context: Context?,
-        private val good: Item
+        private val item: StatItem
 ) {
 
     @View(R.id.goodName)
@@ -43,15 +43,15 @@ class GoodItem(
 
     @Resolve
     fun onResolved() {
-        goodName.text = good.name?.trim()
+        goodName.text = item.name?.trim()
         totalSum.text = context?.getString(R.string.format_price)
-                ?.format(Locale.ROOT, good.sum / 100f)
+                ?.format(Locale.ROOT, item.sum / 100f)
         quantity.text = context?.getString(R.string.format_quantity)
-                ?.format(Locale.ROOT, good.quantity.toString(), good.price / 100f)
-        setCategoryName(good.category)
+                ?.format(Locale.ROOT, item.quantity.toString(), item.price / 100f)
+        setCategoryName(item.shop)
     }
 
-    fun setCategoryName(category: String?) {
+    private fun setCategoryName(category: String?) {
         context ?: return
 
         categoryName.post {
@@ -66,10 +66,6 @@ class GoodItem(
             }
         }
 
-    }
-
-    fun setName(name: String) {
-        goodName.post { goodName.text = name }
     }
 
 
@@ -95,7 +91,6 @@ class GoodItem(
 
         return TextDrawable
                 .builder()
-                .buildRoundRect("", color, context.dpToPx(10))
+                .buildRoundRect("", color, context.dpToPx(16))
     }
-
 }

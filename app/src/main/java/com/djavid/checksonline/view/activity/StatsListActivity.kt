@@ -68,7 +68,12 @@ class StatsListActivity : BaseActivity() {
     private val navigator = object : SupportAppNavigator(this,
             supportFragmentManager, R.id.container) {
 
-        override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = null
+        override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
+                when (screenKey) {
+                    Screens.CHECK_ACTIVITY ->
+                        CheckActivity.newIntent(this@StatsListActivity, data as String)
+                    else -> null
+                }
 
         override fun createFragment(screenKey: String, data: Any?): Fragment? =
                 when (screenKey) {
