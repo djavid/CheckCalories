@@ -71,8 +71,7 @@ class StatsItemPresenter @Inject constructor(
     }
 
     fun onPercentageClicked(percentage: Percentage) {
-        println(percentage.title)
-        router.navigateTo(Screens.STATS_LIST)
+        router.navigateTo(Screens.STATS_LIST, Pair(percentage.title, preferences.getIsShop()))
     }
 
 }

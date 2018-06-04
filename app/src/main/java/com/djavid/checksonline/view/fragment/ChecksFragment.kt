@@ -47,8 +47,6 @@ class ChecksFragment : BaseFragment(), ChecksView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         fab.setOnClickListener({ presenter.onFabClicked() })
 
         receipts_placeholder.builder

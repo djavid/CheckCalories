@@ -19,7 +19,17 @@ interface BaseApi {
 
     @GET("receipt")
     fun getChecks(@Header("Token") token: String,
-                  @Query("page") page: Int): Single<GetChecksResponse>
+                  @Query("page") page: Int) : Single<GetChecksResponse>
+
+    @GET("receipt/shop")
+    fun getChecksByShop(@Header("Token") token: String,
+                        @Query("shop") shop: String,
+                        @Query("page") page: Int) : Single<GetChecksResponse>
+
+    @GET("item")
+    fun getItemsByCategory(@Header("Token") token: String,
+                        @Query("category") category: String,
+                        @Query("page") page: Int) : Single<GetItemsResponse>
 
     @GET("receipt/{id}")
     fun getCheck(@Header("Token") token: String,

@@ -107,7 +107,8 @@ class RootActivity : BaseActivity(), RootView {
                     Screens.CHECK_ACTIVITY ->
                         CheckActivity.newIntent(this@RootActivity, data as String)
                     Screens.HABITS_ACTIVITY -> HabitsActivity.newIntent(this@RootActivity)
-                    Screens.STATS_LIST -> StatsListActivity.newIntent(this@RootActivity)
+                    Screens.STATS_LIST -> StatsListActivity.newIntent(this@RootActivity,
+                            data as Pair<String, Boolean>)
                     else -> null
                 }
 

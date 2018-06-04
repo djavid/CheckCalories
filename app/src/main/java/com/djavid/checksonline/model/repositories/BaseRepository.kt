@@ -48,4 +48,13 @@ class BaseRepository @Inject constructor(
         return baseApi.getTotalSum(token, type)
     }
 
+
+    fun getChecksByShop(token: String, shop: String, page: Int) : Single<GetChecksResponse> {
+        return baseApi.getChecksByShop(token, shop, page)
+    }
+
+    fun getItemsByCategory(token: String, category: String, page: Int) : Single<GetItemsResponse> {
+        return baseApi.getItemsByCategory(token, category, page)
+    }
+
 }

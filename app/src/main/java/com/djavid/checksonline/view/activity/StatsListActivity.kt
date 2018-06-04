@@ -7,17 +7,26 @@ import android.support.v4.app.Fragment
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BaseActivity
+import com.djavid.checksonline.toothpick.modules.PercentageModule
 import com.djavid.checksonline.view.fragment.CategoriesFragment
 import com.djavid.checksonline.view.fragment.ShopsFragment
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
+import ru.terrakok.cicerone.commands.Replace
 import toothpick.Toothpick
 import javax.inject.Inject
 
 class StatsListActivity : BaseActivity() {
 
     companion object {
-        fun newIntent(context: Context) = Intent(context, StatsListActivity::class.java)
+        private const val EXTRA_TITLE = "ru.djavid.extras.title"
+        private const val EXTRA_IS_SHOP = "ru.djavid.extras.is_shop"
+
+        fun newIntent(context: Context, pair: Pair<String, Boolean>) =
+                Intent(context, StatsListActivity::class.java).apply {
+                    putExtra(EXTRA_TITLE, pair.first)
+                    putExtra(EXTRA_IS_SHOP, pair.second)
+                }
     }
 
     @Inject
@@ -28,11 +37,16 @@ class StatsListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stats_list)
 
-        Toothpick.inject(this, Toothpick.openScopes(application, this))
-        //.also { it.installModules(CheckModule(checkId)) })
+        val title = intent.getStringExtra(EXTRA_TITLE)
+                ?: throw IllegalArgumentException("Title should not be null!")
+        val isShop = intent.getBooleanExtra(EXTRA_IS_SHOP, false)
+
+        Toothpick.inject(this, Toothpick.openScopes(application, this)
+                .also { it.installModules(PercentageModule(title)) })
 
         if (savedInstanceState == null) {
-            //navigator.applyCommand(Replace(Screens.HABITS, null)) //TODO
+            if (isShop) navigator.applyCommand(Replace(Screens.SHOPS, null))
+            else navigator.applyCommand(Replace(Screens.CATEGORIES, null))
         }
     }
 

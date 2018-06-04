@@ -15,14 +15,29 @@ class ChecksInteractor @Inject constructor(
 
     private val retryTimes: Long = 2
 
+
     fun getChecks(page: Int): Single<GetChecksResponse> =
-        baseRepository.getChecks(page, FirebaseInstanceId.getInstance().token ?: "")
-                .subscribeOn(schedulers.io())
-                .observeOn(schedulers.ui())
-                //.retry(retryTimes)
+            baseRepository.getChecks(page, FirebaseInstanceId.getInstance().token ?: "")
+                    .subscribeOn(schedulers.io())
+                    .observeOn(schedulers.ui())
+    //.retry(retryTimes)
 
     fun getCheck(id: Long): Single<Receipt> =
             baseRepository.getCheck(id, FirebaseInstanceId.getInstance().token ?: "")
+                    .subscribeOn(schedulers.io())
+                    .observeOn(schedulers.ui())
+                    .retry(retryTimes)
+
+    fun getChecksByShop(shop: String, page: Int) =
+            baseRepository
+                    .getChecksByShop(FirebaseInstanceId.getInstance().token ?: "", shop, page)
+                    .subscribeOn(schedulers.io())
+                    .observeOn(schedulers.ui())
+                    .retry(retryTimes)
+
+    fun getItemsByCategory(category: String, page: Int) =
+            baseRepository
+                    .getItemsByCategory(FirebaseInstanceId.getInstance().token ?: "", category, page)
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
                     .retry(retryTimes)
