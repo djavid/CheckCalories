@@ -16,4 +16,14 @@ interface BaseView : MvpView {
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showProgress(show: Boolean)
 
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showToastyError(message: String)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showToastyWarning(message: String)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showToastySuccess(message: String)
+
 }

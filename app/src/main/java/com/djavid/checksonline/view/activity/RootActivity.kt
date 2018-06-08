@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BaseActivity
+import com.djavid.checksonline.model.entities.StatsListData
 import com.djavid.checksonline.presenter.root.RootPresenter
 import com.djavid.checksonline.presenter.root.RootView
 import com.djavid.checksonline.toothpick.modules.RootModule
@@ -108,7 +109,7 @@ class RootActivity : BaseActivity(), RootView {
                         CheckActivity.newIntent(this@RootActivity, data as String)
                     Screens.HABITS_ACTIVITY -> HabitsActivity.newIntent(this@RootActivity)
                     Screens.STATS_LIST -> StatsListActivity.newIntent(this@RootActivity,
-                            data as Pair<String, Boolean>)
+                            data as StatsListData)
                     else -> null
                 }
 

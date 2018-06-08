@@ -8,6 +8,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.base.BaseFragment
 import com.djavid.checksonline.model.entities.Item
+import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.presenter.check.CheckPresenter
 import com.djavid.checksonline.presenter.check.CheckView
 import com.djavid.checksonline.utils.parseDate
@@ -45,6 +46,8 @@ class CheckFragment : BaseFragment(), CheckView {
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
                 .setLayoutManager(LinearLayoutManager(context))
+
+        btn_back.setOnClickListener { presenter.onBackPressed() }
     }
 
     override fun onDestroy() {
@@ -61,28 +64,30 @@ class CheckFragment : BaseFragment(), CheckView {
         })
     }
 
-    override fun setToolbarSum(sum: Long) {
-        price.text = context?.getString(R.string.format_float)
-                ?.format(Locale.ROOT, sum / 100f)
-    }
+    override fun setToolbar(receipt: Receipt) {
 
-    override fun setToolbarAddress(address: String?) {
-        if (address == null) {
+        //set title
+        title.text = receipt.user ?: "Без названия"
+
+        //set sum
+        price.text = context?.getString(R.string.format_float)
+                ?.format(Locale.ROOT, receipt.totalSum / 100f)
+
+        //set address
+        if (receipt.retailPlaceAddress == null) {
             iv_location.visible(false)
             tv_address.visible(false)
-
         } else {
             iv_location.visible(true)
             tv_address.visible(true)
-            tv_address.text = address
+            tv_address.text = receipt.retailPlaceAddress
         }
-    }
 
-    override fun setDatetime(date: String?) {
-        if (date == null)
+        //set date
+        if (receipt.dateTime == null)
             tv_date.visible(false)
         else
-            tv_date.text = date.parseDate()
+            tv_date.text = receipt.dateTime.parseDate()
     }
 
 }

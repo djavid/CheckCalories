@@ -18,7 +18,7 @@ import java.util.*
 @Layout(R.layout.item_receipt)
 class CheckItem(
         private val context: Context?,
-        private val receipt: Receipt,
+        private val receipt: Receipt?,
         private val onClickListener: (Receipt) -> Unit
 ) {
 
@@ -51,15 +51,27 @@ class CheckItem(
     @Resolve
     fun onResolved() {
         context ?: return
+        receipt ?: return
 
-        val shopTitle = receipt.user?.formatShopTitle()
-                ?: context.getString(R.string.shop_no_title)
-        tv_shop_title.text = shopTitle
+        var shopTitle = ""
 
-        if (receipt.logo == null || receipt.logo.isEmpty()) {
+        //название
+        if (receipt.isEmpty) {
+            shopTitle = context.getString(R.string.check_not_found_yet)
+        } else {
+            shopTitle = receipt.user?.formatShopTitle()
+                    ?: context.getString(R.string.shop_no_title)
+            tv_shop_title.text = shopTitle
+        }
+        println(shopTitle)
+
+        //логотип
+        if (receipt.isEmpty) {
+            v_logo_circle.setImageResource(R.drawable.ic_wall_clock_red)
+        } else if (receipt.logo == null || receipt.logo.isEmpty()) {
             val drawable = getRoundDrawable(shopTitle[0].toString())
             if (drawable != null) v_logo_circle.setImageDrawable(drawable)
-        } else {
+        } else if (receipt.logo.isNotEmpty()) {
             Picasso.get()
                     .load(receipt.logo)
                     .fit()
@@ -67,21 +79,25 @@ class CheckItem(
                     .into(v_logo_circle)
         }
 
-        if (receipt.retailPlaceAddress == null || receipt.retailPlaceAddress.isEmpty()) {
+        //адрес
+        if (receipt.isEmpty || receipt.retailPlaceAddress == null || receipt.retailPlaceAddress.isEmpty()) {
             tv_address.visibility = android.view.View.GONE
             iv_location.visibility = android.view.View.GONE
         } else {
             tv_address.text = receipt.retailPlaceAddress
         }
 
+        //сумма
         tv_sum.text = context.getString(R.string.format_price)
                 ?.format(Locale.ROOT, receipt.totalSum / 100f)
+
+        //время
         tv_time.text = receipt.dateTime?.parseTime()
     }
 
     @Click(R.id.receipt_card)
     fun onClick() {
-        onClickListener.invoke(receipt)
+        onClickListener.invoke(receipt!!)
     }
 
     private fun getRoundDrawable(s: String?): Drawable? {
@@ -97,6 +113,10 @@ class CheckItem(
                 .bold()
                 .endConfig()
                 .buildRound(s, color)
+    }
+
+    public fun getId(): Long {
+        return receipt?.receiptId ?: -1
     }
 
 }

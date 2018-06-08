@@ -33,11 +33,9 @@ class CheckPresenter @Inject constructor(
                 })
     }
 
-    private fun onCheckReceived(response: Receipt) {
-        viewState.setGoods(response.items)
-        viewState.setToolbarSum(response.totalSum)
-        viewState.setToolbarAddress(response.retailPlaceAddress)
-        viewState.setDatetime(response.dateTime)
+    private fun onCheckReceived(receipt: Receipt) {
+        viewState.setGoods(receipt.items)
+        viewState.setToolbar(receipt)
     }
 
 }

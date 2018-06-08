@@ -55,7 +55,7 @@ class GoodStatItem(
         context ?: return
 
         categoryName.post {
-            categoryName.text = category ?: "Не определено"
+            categoryName.text = category ?: "Без названия"
 
             val drawable = getRoundDrawable(category)
             //val drawable = getColoredDrawable(title)

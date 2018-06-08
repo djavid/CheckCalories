@@ -170,5 +170,4 @@ class StatItemFragment : BaseFragment(), StatsItemView {
             )
         })
     }
-
 }

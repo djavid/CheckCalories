@@ -11,4 +11,6 @@ object Screens {
     const val STATS_LIST = "Screens#StatsListActivity"
     const val CATEGORIES = "Screens#CategoriesFragment"
     const val SHOPS = "Screens#ShopsFragment"
+    const val RECEIPT_INPUT_ACTIVITY = "Screens#ReceiptInputActivity"
+    const val RECEIPT_INPUT = "Screens#ReceiptInputFragment"
 }

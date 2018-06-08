@@ -1,7 +1,11 @@
 package com.djavid.checksonline.view.fragment
 
 import android.os.Bundle
+import android.support.design.widget.BaseTransientBottomBar
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -15,11 +19,12 @@ import com.djavid.checksonline.presenter.checks.ChecksPresenter
 import com.djavid.checksonline.presenter.checks.ChecksView
 import com.djavid.checksonline.utils.visible
 import com.djavid.checksonline.view.adapters.CheckItem
+import com.djavid.checksonline.view.adapters.DateItem
 import com.djavid.checksonline.view.adapters.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_checks.*
 import kotlinx.android.synthetic.main.layout_empty_recycler_view.*
 import kotlinx.android.synthetic.main.layout_error_action.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar_checks.*
 import toothpick.Toothpick
 import java.util.*
 
@@ -54,6 +59,7 @@ class ChecksFragment : BaseFragment(), ChecksView {
                 .setItemViewCacheSize(10)
                 .setLayoutManager(LinearLayoutManager(context))
         setLoadMoreResolver()
+        ItemTouchHelper(cardMoveCallback).attachToRecyclerView(receipts_placeholder)
 
         swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.colorAccent))
         swipeRefreshLayout.setOnRefreshListener {
@@ -70,14 +76,21 @@ class ChecksFragment : BaseFragment(), ChecksView {
 
 
     override fun showChecks(checks: List<Receipt>) {
-        //receipts_placeholder.removeAllViews()
+
+        val dates = presenter.getPlaceholderDates(checks)
 
         receipts_placeholder.post({
-            checks.forEach({
+            checks.forEachIndexed { index, receipt ->
+                val dateItem = dates.find { it.after == index }
+
+                if (dateItem != null) {
+                    receipts_placeholder.addView(DateItem(context, dateItem.dateTime))
+                }
+
                 receipts_placeholder.addView(
-                        CheckItem(context, it, presenter::onCheckClicked)
+                        CheckItem(context, receipt, presenter::onCheckClicked)
                 )
-            })
+            }
         })
     }
 
@@ -171,6 +184,28 @@ class ChecksFragment : BaseFragment(), ChecksView {
             Dates.LAST_WEEK -> tv_period.text = context?.getString(R.string.date_last_week)
             Dates.LAST_MONTH -> tv_period.text = context?.getString(R.string.date_last_month)
             else -> {}
+        }
+    }
+
+    val cardMoveCallback = object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+                            target: RecyclerView.ViewHolder): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val pos = viewHolder.adapterPosition
+            val checkItem = receipts_placeholder.getViewResolverAtPosition(pos) as CheckItem
+
+            Snackbar.make(receipts_placeholder, context?.getString(R.string.check_deleted)!!, Snackbar.LENGTH_SHORT)
+                    .addCallback(object: BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                        override fun onShown(transientBottomBar: Snackbar?) {
+                            receipts_placeholder.removeView(pos)
+                            presenter.removeCheck(checkItem.getId())
+                        }
+                    })
+                    .show()
         }
     }
 }

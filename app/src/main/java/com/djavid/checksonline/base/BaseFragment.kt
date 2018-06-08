@@ -33,4 +33,22 @@ abstract class BaseFragment : MvpAppCompatFragment(), BaseView {
         progressLayout.visible(show)
     }
 
+    override fun showToastyError(message: String) {
+        context ?: return
+
+        Toasty.error(context!!, message, Toast.LENGTH_SHORT, true).show()
+    }
+
+    override fun showToastyWarning(message: String) {
+        context ?: return
+
+        Toasty.warning(context!!, message, Toast.LENGTH_SHORT, true).show()
+    }
+
+    override fun showToastySuccess(message: String) {
+        context ?: return
+
+        Toasty.success(context!!, message, Toast.LENGTH_SHORT, true).show()
+    }
+
 }

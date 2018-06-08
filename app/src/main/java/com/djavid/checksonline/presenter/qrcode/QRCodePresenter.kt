@@ -40,6 +40,10 @@ class QRCodePresenter @Inject constructor(
         }
     }
 
+    fun onManualInputBtnClick() {
+        router.navigateTo(Screens.RECEIPT_INPUT_ACTIVITY)
+    }
+
     fun onOpenButtonClicked(receiptId: String) {
         router.navigateTo(Screens.CHECK_ACTIVITY, receiptId)
     }
@@ -57,8 +61,8 @@ class QRCodePresenter @Inject constructor(
                         when (it.error) {
                             "Check not found." -> viewState.showFailDialog()
                             "Check has not loaded yet." -> viewState.showWaitDialog()
-                            "Check already exists." -> viewState.showToastyWarning()
-                            else -> viewState.showToastyError()
+                            "Check already exists." -> viewState.showToastyWarning("Чек уже был добавлен!")
+                            else -> viewState.showToastyError("Произошла ошибка!")
                         }
 
                     } else if (it.result != null) {

@@ -10,7 +10,7 @@
     android:layout_height="match_parent">
 
     <include android:id="@+id/toolbar_layout"
-        layout="@layout/toolbar"
+        layout="@layout/toolbar_checks"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -20,7 +20,7 @@
         <!--android:layout_height="wrap_content"-->
         <!--app:layout_constraintTop_toTopOf="parent">-->
 
-        <!--<include layout="@layout/toolbar" />-->
+        <!--<include layout="@layout/toolbar_checks" />-->
 
     <!--</android.support.design.widget.AppBarLayout>-->
 

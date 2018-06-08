@@ -11,11 +11,12 @@ import com.djavid.checksonline.base.EmptyViewHolder
 import com.djavid.checksonline.model.entities.StatItem
 import com.djavid.checksonline.presenter.stats.CategoriesPresenter
 import com.djavid.checksonline.presenter.stats.CategoriesView
+import com.djavid.checksonline.view.adapters.DateItem
 import com.djavid.checksonline.view.adapters.GoodStatItem
 import com.djavid.checksonline.view.adapters.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.layout_error_action.*
-import kotlinx.android.synthetic.main.toolbar_percentages.*
+import kotlinx.android.synthetic.main.toolbar.*
 import toothpick.Toothpick
 
 class CategoriesFragment : BaseFragment(), CategoriesView {
@@ -85,12 +86,20 @@ class CategoriesFragment : BaseFragment(), CategoriesView {
         if (remove) categories_placeholder.removeAllViews()
         loadingDone()
 
+        val dates = presenter.getPlaceholderDates(items)
+
         categories_placeholder.post({
-            items.forEach({
+            items.forEachIndexed { index, item ->
+                val dateItem = dates.find { it.after == index }
+
+                if (dateItem != null) {
+                    categories_placeholder.addView(DateItem(context, dateItem.dateTime))
+                }
+
                 categories_placeholder.addView(
-                        GoodStatItem(context, it)
+                        GoodStatItem(context, item)
                 )
-            })
+            }
         })
     }
 

@@ -6,6 +6,7 @@ import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.Percentage
+import com.djavid.checksonline.model.entities.StatsListData
 import com.djavid.checksonline.model.networking.responses.StatPercentResponse
 import com.djavid.checksonline.utils.SavedPreferences
 import org.joda.time.DateTime
@@ -71,7 +72,8 @@ class StatsItemPresenter @Inject constructor(
     }
 
     fun onPercentageClicked(percentage: Percentage) {
-        router.navigateTo(Screens.STATS_LIST, Pair(percentage.title, preferences.getIsShop()))
+        router.navigateTo(Screens.STATS_LIST,
+                StatsListData(percentage.title, preferences.getIsShop(), interval))
     }
 
 }

@@ -12,10 +12,11 @@ import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.presenter.stats.ShopsPresenter
 import com.djavid.checksonline.presenter.stats.ShopsView
 import com.djavid.checksonline.view.adapters.CheckItem
+import com.djavid.checksonline.view.adapters.DateItem
 import com.djavid.checksonline.view.adapters.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_shops.*
 import kotlinx.android.synthetic.main.layout_error_action.*
-import kotlinx.android.synthetic.main.toolbar_percentages.*
+import kotlinx.android.synthetic.main.toolbar.*
 import toothpick.Toothpick
 
 class ShopsFragment : BaseFragment(), ShopsView {
@@ -85,12 +86,20 @@ class ShopsFragment : BaseFragment(), ShopsView {
         if (remove) shops_placeholder.removeAllViews()
         loadingDone()
 
+        val dates = presenter.getPlaceholderDates(checks)
+
         shops_placeholder.post({
-            checks.forEach({
+            checks.forEachIndexed { index, receipt ->
+                val dateItem = dates.find { it.after == index }
+
+                if (dateItem != null) {
+                    shops_placeholder.addView(DateItem(context, dateItem.dateTime))
+                }
+
                 shops_placeholder.addView(
-                        CheckItem(context, it, presenter::onCheckClicked)
+                        CheckItem(context, receipt, presenter::onCheckClicked)
                 )
-            })
+            }
         })
     }
 

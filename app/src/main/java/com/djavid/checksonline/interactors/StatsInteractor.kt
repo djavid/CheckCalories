@@ -1,5 +1,6 @@
 package com.djavid.checksonline.interactors
 
+import com.djavid.checksonline.model.networking.responses.GetHabitsResponse
 import com.djavid.checksonline.model.networking.responses.GetIntervalsResponse
 import com.djavid.checksonline.model.networking.responses.GetTotalSumResponse
 import com.djavid.checksonline.model.networking.responses.StatPercentResponse
@@ -34,6 +35,12 @@ class StatsInteractor @Inject constructor(
     fun getTotalSum(type: String) : Single<GetTotalSumResponse> =
             baseRepository
                     .getTotalSum(FirebaseInstanceId.getInstance().token ?: "", type)
+                    .subscribeOn(schedulers.io())
+                    .observeOn(schedulers.ui())
+                    .retry(retryTimes)
+
+    fun getHabits() : Single<GetHabitsResponse> =
+            baseRepository.getHabits(FirebaseInstanceId.getInstance().token ?: "")
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
                     .retry(retryTimes)

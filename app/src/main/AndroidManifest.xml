@@ -42,7 +42,8 @@
         </service>
 
         <activity android:name=".view.activity.HabitsActivity" />
-        <activity android:name=".view.activity.StatsListActivity"></activity>
+        <activity android:name=".view.activity.StatsListActivity" />
+        <activity android:name=".view.activity.ReceiptInputActivity"></activity>
     </application>
 
 </manifest>

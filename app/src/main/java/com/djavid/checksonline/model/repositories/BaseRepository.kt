@@ -49,12 +49,22 @@ class BaseRepository @Inject constructor(
     }
 
 
-    fun getChecksByShop(token: String, shop: String, page: Int) : Single<GetChecksResponse> {
-        return baseApi.getChecksByShop(token, shop, page)
+    fun getChecksByShop(token: String, shop: String, start: Long, end: Long, page: Int)
+            : Single<GetChecksResponse> {
+        return baseApi.getChecksByShop(token, shop, start, end, page)
     }
 
-    fun getItemsByCategory(token: String, category: String, page: Int) : Single<GetItemsResponse> {
-        return baseApi.getItemsByCategory(token, category, page)
+    fun getItemsByCategory(token: String, category: String, start: Long, end: Long, page: Int)
+            : Single<GetItemsResponse> {
+        return baseApi.getItemsByCategory(token, category, start, end, page)
+    }
+
+    fun getHabits(token: String) : Single<GetHabitsResponse> {
+        return baseApi.getHabits(token)
+    }
+
+    fun removeCheck(token: String, id: Long) : Single<BaseStringResponse> {
+        return baseApi.removeCheck(token, id)
     }
 
 }

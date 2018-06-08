@@ -155,10 +155,13 @@ dependencies {
 
     //chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //made in china
-    compile 'com.github.zyyoona7:EasyPopup:1.0.2'
+    implementation 'com.github.zyyoona7:EasyPopup:1.0.2'
+
+    //william chart
+    implementation 'com.diogobernardino:williamchart:2.5.0'
 
 }
 

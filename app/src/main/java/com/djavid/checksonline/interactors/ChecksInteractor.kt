@@ -1,6 +1,7 @@
 package com.djavid.checksonline.interactors
 
 import com.djavid.checksonline.model.entities.Receipt
+import com.djavid.checksonline.model.networking.responses.BaseStringResponse
 import com.djavid.checksonline.model.networking.responses.GetChecksResponse
 import com.djavid.checksonline.model.repositories.BaseRepository
 import com.djavid.checksonline.model.threading.SchedulersProvider
@@ -28,18 +29,26 @@ class ChecksInteractor @Inject constructor(
                     .observeOn(schedulers.ui())
                     .retry(retryTimes)
 
-    fun getChecksByShop(shop: String, page: Int) =
+    fun getChecksByShop(shop: String, start: Long, end: Long, page: Int) =
             baseRepository
-                    .getChecksByShop(FirebaseInstanceId.getInstance().token ?: "", shop, page)
+                    .getChecksByShop(FirebaseInstanceId.getInstance().token ?: "",
+                            shop, start, end, page)
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
                     .retry(retryTimes)
 
-    fun getItemsByCategory(category: String, page: Int) =
+    fun getItemsByCategory(category: String, start: Long, end: Long, page: Int) =
             baseRepository
-                    .getItemsByCategory(FirebaseInstanceId.getInstance().token ?: "", category, page)
+                    .getItemsByCategory(FirebaseInstanceId.getInstance().token ?: "",
+                            category, start, end, page)
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
                     .retry(retryTimes)
 
+    fun removeCheck(id: Long) : Single<BaseStringResponse> =
+            baseRepository
+                    .removeCheck(FirebaseInstanceId.getInstance().token ?: "", id)
+                    .subscribeOn(schedulers.io())
+                    .observeOn(schedulers.ui())
+                    .retry(retryTimes)
 }

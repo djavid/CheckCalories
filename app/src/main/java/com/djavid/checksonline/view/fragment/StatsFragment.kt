@@ -1,6 +1,7 @@
 package com.djavid.checksonline.view.fragment
 
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -62,6 +63,12 @@ class StatsFragment : BaseFragment(), StatsView {
         viewpager.apply {
             currentItem = adapter?.count ?: 0
         }
+
+        viewpager.addOnPageChangeListener(object: ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                presenter.onViewPagerScrolled(position)
+            }
+        })
     }
 
     override fun setToolbarSum(totalSum: Double) {

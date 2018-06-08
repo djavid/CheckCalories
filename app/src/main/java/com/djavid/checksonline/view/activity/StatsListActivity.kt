@@ -7,7 +7,10 @@ import android.support.v4.app.Fragment
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BaseActivity
+import com.djavid.checksonline.model.entities.DateInterval
+import com.djavid.checksonline.model.entities.StatsListData
 import com.djavid.checksonline.toothpick.modules.PercentageModule
+import com.djavid.checksonline.toothpick.modules.StatsItemModule
 import com.djavid.checksonline.view.fragment.CategoriesFragment
 import com.djavid.checksonline.view.fragment.ShopsFragment
 import ru.terrakok.cicerone.NavigatorHolder
@@ -21,11 +24,17 @@ class StatsListActivity : BaseActivity() {
     companion object {
         private const val EXTRA_TITLE = "ru.djavid.extras.title"
         private const val EXTRA_IS_SHOP = "ru.djavid.extras.is_shop"
+        private const val EXTRA_DATE_START = "ru.djavid.extras.date_start"
+        private const val EXTRA_DATE_END = "ru.djavid.extras.date_end"
+        private const val EXTRA_DATE_INTERVAL = "ru.djavid.extras.date_interval"
 
-        fun newIntent(context: Context, pair: Pair<String, Boolean>) =
+        fun newIntent(context: Context, data: StatsListData) =
                 Intent(context, StatsListActivity::class.java).apply {
-                    putExtra(EXTRA_TITLE, pair.first)
-                    putExtra(EXTRA_IS_SHOP, pair.second)
+                    putExtra(EXTRA_TITLE, data.title)
+                    putExtra(EXTRA_IS_SHOP, data.isShop)
+                    putExtra(EXTRA_DATE_START, data.interval.dateStart)
+                    putExtra(EXTRA_DATE_END, data.interval.dateEnd)
+                    putExtra(EXTRA_DATE_INTERVAL, data.interval.interval)
                 }
     }
 
@@ -41,8 +50,17 @@ class StatsListActivity : BaseActivity() {
                 ?: throw IllegalArgumentException("Title should not be null!")
         val isShop = intent.getBooleanExtra(EXTRA_IS_SHOP, false)
 
+        val dateStart = intent.getStringExtra(EXTRA_DATE_START)
+        val dateEnd = intent.getStringExtra(EXTRA_DATE_END)
+        val interval = intent.getStringExtra(EXTRA_DATE_INTERVAL)
+        val dateInterval = DateInterval(interval, dateStart, dateEnd)
+
         Toothpick.inject(this, Toothpick.openScopes(application, this)
-                .also { it.installModules(PercentageModule(title)) })
+                .also {
+                    it.installModules(
+                        PercentageModule(title),
+                        StatsItemModule(dateInterval)
+                    ) })
 
         if (savedInstanceState == null) {
             if (isShop) navigator.applyCommand(Replace(Screens.SHOPS, null))

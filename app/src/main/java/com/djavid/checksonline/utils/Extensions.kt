@@ -70,6 +70,10 @@ fun Context?.vibrate() {
         v.vibrate(100)
 }
 
+fun String.removeLeadingZeros(): String {
+    return this.replaceFirst("""^0+(?!$)""".toRegex(), "")
+}
+
 fun String.getCheckMatcher(): Matcher {
     val pattern = "t=(\\d+T\\d+)&s=(\\d+\\.\\d+)&fn=(\\d+)&i=(\\d+)&fp=(\\d+)&n=(\\d+)"
     val r = Pattern.compile(pattern)

@@ -8,7 +8,7 @@
     tools:context=".view.fragment.ShopsFragment">
 
     <include android:id="@+id/toolbar_layout"
-        layout="@layout/toolbar_percentages"
+        layout="@layout/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         />
 

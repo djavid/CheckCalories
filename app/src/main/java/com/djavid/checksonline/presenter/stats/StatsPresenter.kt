@@ -5,6 +5,7 @@ import com.djavid.checksonline.Screens
 import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.base.Dates
 import com.djavid.checksonline.interactors.StatsInteractor
+import com.djavid.checksonline.model.entities.DateInterval
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -15,6 +16,7 @@ class StatsPresenter @Inject constructor(
 ) : BasePresenter<StatsView>(router) {
 
     private var currentInterval: Dates = Dates.MONTH
+    private var intervals: List<DateInterval> = listOf()
 
 
     override fun onFirstViewAttach() {
@@ -41,8 +43,23 @@ class StatsPresenter @Inject constructor(
                 })
                 .doAfterTerminate { viewState.showProgress(false) }
                 .subscribe({
+                    intervals = it.result
                     viewState.setViewPager(it.result.asReversed())
                 }, { processError(it) })
+    }
+
+    fun onViewPagerScrolled(position: Int) {
+        //if (position >= 0 && position < intervals.size)
+            //getTotalSum(intervals[position])
+    }
+
+    private fun getTotalSum(interval: Dates) {
+        statsInteractor.getTotalSum(interval.name)
+                .subscribe({
+                    viewState.setToolbarSum(it.result)
+                }, {
+                    processError(it)
+                })
     }
 
     fun onHabitsClicked() {

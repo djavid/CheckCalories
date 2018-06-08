@@ -24,11 +24,15 @@ interface BaseApi {
     @GET("receipt/shop")
     fun getChecksByShop(@Header("Token") token: String,
                         @Query("shop") shop: String,
+                        @Query("start") start: Long,
+                        @Query("end") end: Long,
                         @Query("page") page: Int) : Single<GetChecksResponse>
 
     @GET("item")
     fun getItemsByCategory(@Header("Token") token: String,
                         @Query("category") category: String,
+                        @Query("start") start: Long,
+                        @Query("end") end: Long,
                         @Query("page") page: Int) : Single<GetItemsResponse>
 
     @GET("receipt/{id}")
@@ -38,6 +42,10 @@ interface BaseApi {
     @POST("receipt")
     fun sendCheck(@Header("Token") token: String,
                   @Body fnsValues: FnsValues): Single<SendCheckResponse>
+
+    @DELETE("receipt/{id}")
+    fun removeCheck(@Header("Token") token: String,
+                    @Path("id") id: Long) : Single<BaseStringResponse>
 
     //token
 
@@ -58,5 +66,9 @@ interface BaseApi {
     @GET("stats/total")
     fun getTotalSum(@Header("Token") token: String,
                     @Query("type") type: String) : Single<GetTotalSumResponse>
+
+    //habits
+    @GET("habits")
+    fun getHabits(@Header("Token") token: String) : Single<GetHabitsResponse>
 
 }

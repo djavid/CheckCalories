@@ -8,8 +8,10 @@ import com.djavid.checksonline.base.Paginator
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DataPage
+import com.djavid.checksonline.model.entities.PlaceholderDate
 import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.utils.SavedPreferences
+import org.joda.time.DateTime
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -23,10 +25,6 @@ class ChecksPresenter @Inject constructor(
 
     private val checksFactory = { page: Int ->
         interactor.getChecks(page)
-//                .doOnSuccess {
-//                    if (it.result != null)
-//                        viewState.setToolbarSum(it.result.totalSum / 100f)
-//                }
                 .map {
 
                     DataPage(it.result?.receipts ?: listOf(),
@@ -35,16 +33,11 @@ class ChecksPresenter @Inject constructor(
     }
     private val checksController = ChecksController(viewState)
     private val checksPaginator = Paginator(checksFactory, checksController)
-
+    private var lastDate: DateTime? = null
 
     override fun onFirstViewAttach() {
         onDateIntervalChosen(Dates.valueOf(preferences.getTotalSumInterval()))
         refresh()
-    }
-
-    override fun attachView(view: ChecksView?) {
-        super.attachView(view)
-        //refresh()
     }
 
     override fun onDestroy() {
@@ -87,6 +80,34 @@ class ChecksPresenter @Inject constructor(
         getTotalSum(interval)
     }
 
+    fun removeCheck(id: Long) {
+        interactor.removeCheck(id)
+                .subscribe({
 
+                }, {
+                    processError(it)
+                })
+    }
+
+    fun getPlaceholderDates(checks: List<Receipt>) : List<PlaceholderDate> {
+        val dates = mutableListOf<PlaceholderDate>()
+
+        checks.forEachIndexed { index, receipt ->
+            if (lastDate == null) {
+                val date = DateTime.parse(checks[0].dateTime).withTimeAtStartOfDay()
+                lastDate = date
+                dates.add(PlaceholderDate(index, date))
+            } else {
+                val date = DateTime.parse(receipt.dateTime).withTimeAtStartOfDay()
+
+                if (!date.isEqual(lastDate)) {
+                    lastDate = date
+                    dates.add(PlaceholderDate(index, date))
+                }
+            }
+        }
+
+        return dates
+    }
 
 }

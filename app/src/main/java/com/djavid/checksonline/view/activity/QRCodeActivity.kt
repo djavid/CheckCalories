@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
@@ -25,7 +24,6 @@ import com.djavid.checksonline.utils.playBeepSound
 import com.djavid.checksonline.utils.vibrate
 import com.google.zxing.Result
 import com.tbruyelle.rxpermissions2.RxPermissions
-import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_qrcode.*
 import kotlinx.android.synthetic.main.layout_error_action.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
@@ -76,6 +74,8 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
         } else {
             initZxingScannerView()
         }
+
+        btn_manual_add.setOnClickListener { presenter.onManualInputBtnClick() }
     }
 
     override fun onResume() {
@@ -234,16 +234,6 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
         }
     }
 
-    override fun showToastyWarning() {
-        Toasty.warning(this, "Чек уже был добавлен!",
-                Toast.LENGTH_SHORT, true).show()
-    }
-
-    override fun showToastyError() {
-        Toasty.error(this, "Произошла ошибка!",
-                Toast.LENGTH_SHORT, true).show()
-    }
-
 
     private val navigator = object : SupportAppNavigator(this, R.id.container) {
 
@@ -251,6 +241,8 @@ class QRCodeActivity : BaseActivity(), QRCodeView, ZXingScannerView.ResultHandle
                 when (screenKey) {
                     Screens.CHECK_ACTIVITY ->
                         CheckActivity.newIntent(this@QRCodeActivity, data as String)
+                    Screens.RECEIPT_INPUT_ACTIVITY ->
+                        ReceiptInputActivity.newIntent(this@QRCodeActivity)
                     else -> null
                 }
 
