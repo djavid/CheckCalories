@@ -54,8 +54,8 @@ class HabitsFragment : BaseFragment(), HabitsView {
         toolbar_title.text = context?.getString(R.string.title_habits)
 
         initPlaceholder()
-        initChart()
-        setChart()
+        //initChart()
+        //setChart()
     }
 
     override fun showHabits(habits: GetHabitsResponse.Result) {

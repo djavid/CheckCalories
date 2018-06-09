@@ -1,6 +1,7 @@
 package com.djavid.checksonline.view.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.TextView
 import com.amulyakhare.textdrawable.TextDrawable
@@ -14,7 +15,7 @@ import java.util.*
 @Layout(R.layout.item_stat)
 class PercentageItem(
         private val context: Context?,
-        private val percentage: Percentage,
+        public val percentage: Percentage,
         private val onClickListener: (Percentage) -> Unit
 ) {
 
@@ -82,12 +83,15 @@ class PercentageItem(
     }
 
     private fun getColor(s: String?): Int {
-        val generator = ColorGenerator.MATERIAL
-        val color = generator.getColor(s ?: "")
+
+        val allColors = context?.resources?.getStringArray(R.array.colorsCategories)
+        val colorsCustom = mutableListOf<Int>()
+        allColors?.forEach { colorsCustom.add(Color.parseColor(it)) }
+        val generator = ColorGenerator.create(colorsCustom)
+
+        return generator.getColor(s ?: "")
 
 //        val allColors = context?.resources?.getStringArray(R.array.colorsCategories)
 //        val color = Color.parseColor(allColors!![Config.labels.indexOf(s)])
-
-        return color
     }
 }

@@ -103,7 +103,7 @@
         tools:text="574.65 руб" />
 
     <ImageView
-        android:id="@+id/iv_status"
+        android:id="@+id/iv_share"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:clickable="true"

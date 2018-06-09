@@ -37,7 +37,7 @@ class PopularShopItem(
     @View(R.id.tv_time)
     lateinit var tv_time: TextView
 
-    @View(R.id.iv_status)
+    @View(R.id.iv_share)
     lateinit var iv_status: ImageView
 
     @View(R.id.iv_location)

@@ -1,7 +1,9 @@
 package com.djavid.checksonline.view.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat.startActivity
 import android.widget.ImageView
 import android.widget.TextView
 import com.amulyakhare.textdrawable.TextDrawable
@@ -14,6 +16,7 @@ import com.djavid.checksonline.utils.transformations.CircleTransformation
 import com.mindorks.placeholderview.annotations.*
 import com.squareup.picasso.Picasso
 import java.util.*
+
 
 @Layout(R.layout.item_receipt)
 class CheckItem(
@@ -37,8 +40,8 @@ class CheckItem(
     @View(R.id.tv_time)
     lateinit var tv_time: TextView
 
-    @View(R.id.iv_status)
-    lateinit var iv_status: ImageView
+    @View(R.id.iv_share)
+    lateinit var iv_share: ImageView
 
     @View(R.id.iv_location)
     lateinit var iv_location: ImageView
@@ -98,6 +101,17 @@ class CheckItem(
     @Click(R.id.receipt_card)
     fun onClick() {
         onClickListener.invoke(receipt!!)
+    }
+
+    @Click(R.id.iv_share)
+    fun onShareClick() {
+        val shareBody = receipt.toString()
+
+        val sharingIntent = Intent(android.content.Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        //sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here")
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody)
+        startActivity(context!!, Intent.createChooser(sharingIntent, "Экспорт чека"), null)
     }
 
     private fun getRoundDrawable(s: String?): Drawable? {

@@ -4,7 +4,10 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.View
+import android.widget.TextView
+import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
@@ -17,11 +20,15 @@ import com.djavid.checksonline.toothpick.modules.StatsItemModule
 import com.djavid.checksonline.utils.getSpannable
 import com.djavid.checksonline.view.adapters.PercentageItem
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import kotlinx.android.synthetic.main.fragment_stat_item.*
 import toothpick.Toothpick
+import java.util.*
 
 class StatItemFragment : BaseFragment(), StatsItemView {
 
@@ -58,6 +65,7 @@ class StatItemFragment : BaseFragment(), StatsItemView {
             }.getInstance(StatsItemPresenter::class.java)
 
     override val layoutResId = R.layout.fragment_stat_item
+    private var toolbar: Toolbar? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +79,9 @@ class StatItemFragment : BaseFragment(), StatsItemView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        //toolbar = activity?.findViewById(R.id.toolbar_stats)
+        //(activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         val interval = DateInterval(
                 arguments?.getString(ARG_INTERVAL) ?: "",
@@ -133,9 +144,16 @@ class StatItemFragment : BaseFragment(), StatsItemView {
         val entries: MutableList<PieEntry> = mutableListOf()
         var othersSum = 1f
 
+        val allColors = context?.resources?.getStringArray(R.array.colorsCategories)
+        val colorsCustom = mutableListOf<Int>()
+        allColors?.forEach { colorsCustom.add(Color.parseColor(it)) }
+        val colorGenerator = ColorGenerator.create(colorsCustom)
+        val colors = mutableListOf<Int>()
+
         list.sortedByDescending { it.percentageSum }
                 .forEach({
                     if (it.percentageSum * 100 >= 3) {
+                        colors.add(colorGenerator.getColor(it.title))
                         entries.add(PieEntry(it.percentageSum.toFloat() * 100, it.title))
                         othersSum -= it.percentageSum.toFloat()
                     }
@@ -144,11 +162,6 @@ class StatItemFragment : BaseFragment(), StatsItemView {
             entries.add(PieEntry(othersSum, "Другие"))
 
         val pieDataSet = PieDataSet(entries, "")
-        val allColors = context?.resources?.getStringArray(R.array.colorsCategories)
-        val colors = mutableListOf<Int>()
-        allColors?.forEach {
-            colors.add(Color.parseColor(it))
-        }
         if (colors.isNotEmpty())
             pieDataSet.colors = colors
         pieDataSet.valueTextColor = Color.WHITE
@@ -160,6 +173,14 @@ class StatItemFragment : BaseFragment(), StatsItemView {
 
         chart.data = pieData
         chart.invalidate()
+        chart.setOnChartValueSelectedListener(object: OnChartValueSelectedListener {
+
+            override fun onValueSelected(e: Entry?, h: Highlight?) {
+                presenter.onChartValueSelected(e as PieEntry)
+            }
+
+            override fun onNothingSelected() { presenter.onNothingSelected() }
+        })
     }
 
     override fun setPercentagesData(list: List<Percentage>) {
@@ -169,5 +190,15 @@ class StatItemFragment : BaseFragment(), StatsItemView {
                     PercentageItem(context, it, presenter::onPercentageClicked)
             )
         })
+    }
+
+    override fun setToolbarSum(totalSum: Double) {
+        toolbar = activity?.findViewById(R.id.toolbar_stats)
+        val price = toolbar?.findViewById<TextView>(R.id.price)
+
+//        price?.post {
+//            price.text = context?.getString(R.string.format_float)?.format(Locale.ROOT, totalSum)
+//        }
+        price?.text = context?.getString(R.string.format_float)?.format(Locale.ROOT, totalSum)
     }
 }

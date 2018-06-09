@@ -2,6 +2,8 @@ package com.djavid.checksonline.view.fragment
 
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.PopupMenu
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -38,6 +40,7 @@ class StatsFragment : BaseFragment(), StatsView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Toothpick.inject(this, Toothpick.openScopes(activity, this))
+
     }
 
     override fun onDestroy() {
@@ -46,8 +49,11 @@ class StatsFragment : BaseFragment(), StatsView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setPopupMenu()
 
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar_stats)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
+        setPopupMenu()
         btn_habits.setOnClickListener { presenter.onHabitsClicked() }
     }
 

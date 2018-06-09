@@ -8,4 +8,5 @@ interface StatsItemView : BaseView {
     fun setPercentagesData(list: List<Percentage>)
     fun setChartData(list: List<Percentage>)
     fun setSwitchBtn(checked: Boolean)
+    fun setToolbarSum(totalSum: Double)
 }

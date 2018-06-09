@@ -12,6 +12,7 @@
         android:title="@string/interval_day"/>
     <item
         android:id="@+id/menu_own"
+        android:visible="false"
         android:title="@string/interval_own"/>
 
 </menu>

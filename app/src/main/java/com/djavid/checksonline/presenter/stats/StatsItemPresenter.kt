@@ -9,6 +9,7 @@ import com.djavid.checksonline.model.entities.Percentage
 import com.djavid.checksonline.model.entities.StatsListData
 import com.djavid.checksonline.model.networking.responses.StatPercentResponse
 import com.djavid.checksonline.utils.SavedPreferences
+import com.github.mikephil.charting.data.PieEntry
 import org.joda.time.DateTime
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -51,6 +52,7 @@ class StatsItemPresenter @Inject constructor(
     }
 
     private fun showStats(it: StatPercentResponse, shop: Boolean) {
+        viewState.setToolbarSum(it.result.totalSum)
 
         if (shop) {
             viewState.setChartData(it.result.shops)
@@ -60,8 +62,6 @@ class StatsItemPresenter @Inject constructor(
             viewState.setChartData(it.result.categories)
             viewState.setPercentagesData(it.result.categories.sortedByDescending { it.percentageSum })
         }
-
-        //viewState.setToolbarSum(it.result.totalSum)
     }
 
     fun onSwitchClicked(checked: Boolean) {
@@ -74,6 +74,37 @@ class StatsItemPresenter @Inject constructor(
     fun onPercentageClicked(percentage: Percentage) {
         router.navigateTo(Screens.STATS_LIST,
                 StatsListData(percentage.title, preferences.getIsShop(), interval))
+    }
+
+    fun onChartValueSelected(entry: PieEntry) {
+        statResponse ?: return
+
+        if (preferences.getIsShop()) {
+            val res = statResponse!!.result.shops.find { it.title.equals(entry.label) }
+            if (res != null) {
+                val list = mutableListOf(res)
+                viewState.setPercentagesData(list)
+            }
+        } else {
+            val res = statResponse!!.result.categories.find { it.title.equals(entry.label) }
+            if (res != null) {
+                val list = mutableListOf(res)
+                viewState.setPercentagesData(list)
+            }
+        }
+    }
+
+    fun onNothingSelected() {
+        statResponse ?: return
+
+        if (preferences.getIsShop()) {
+            viewState.setChartData(statResponse!!.result.shops)
+            viewState.setPercentagesData(statResponse!!.result.shops.sortedByDescending { it.percentageSum })
+        }
+        else {
+            viewState.setChartData(statResponse!!.result.categories)
+            viewState.setPercentagesData(statResponse!!.result.categories.sortedByDescending { it.percentageSum })
+        }
     }
 
 }
