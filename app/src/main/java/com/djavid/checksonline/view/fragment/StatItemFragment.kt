@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.View
-import android.widget.TextView
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -28,7 +27,6 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import kotlinx.android.synthetic.main.fragment_stat_item.*
 import toothpick.Toothpick
-import java.util.*
 
 class StatItemFragment : BaseFragment(), StatsItemView {
 
@@ -79,9 +77,6 @@ class StatItemFragment : BaseFragment(), StatsItemView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        //toolbar = activity?.findViewById(R.id.toolbar_stats)
-        //(activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         val interval = DateInterval(
                 arguments?.getString(ARG_INTERVAL) ?: "",
@@ -192,13 +187,8 @@ class StatItemFragment : BaseFragment(), StatsItemView {
         })
     }
 
-    override fun setToolbarSum(totalSum: Double) {
-        toolbar = activity?.findViewById(R.id.toolbar_stats)
-        val price = toolbar?.findViewById<TextView>(R.id.price)
-
-//        price?.post {
-//            price.text = context?.getString(R.string.format_float)?.format(Locale.ROOT, totalSum)
-//        }
-        price?.text = context?.getString(R.string.format_float)?.format(Locale.ROOT, totalSum)
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
     }
 }

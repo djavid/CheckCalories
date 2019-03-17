@@ -27,7 +27,7 @@ data class Receipt(
             s += "Дата покупки: " + date.toString("dd/MM/yyyy HH:mm") + "\n\n"
 
         if (items.isNotEmpty()) {
-            s += "Товары:\n"
+            s += "Товары:\n\n"
 
             items.forEach {
                 s += it.name + " за " + "%.2f ₽".format(Locale.ROOT, it.sum / 100f) + "\n"

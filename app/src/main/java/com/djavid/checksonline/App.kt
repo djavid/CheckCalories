@@ -16,9 +16,8 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         initToothpick()
-        //initPicasso()
         initTimber()
-        JodaTimeAndroid.init(this);
+        JodaTimeAndroid.init(this)
     }
 
     private fun initToothpick() {

@@ -57,11 +57,11 @@ class CheckFragment : BaseFragment(), CheckView {
 
     override fun setGoods(checks: List<Item>) {
         goods_placeholder.removeAllViews()
-        checks.forEach({
+        checks.forEach {
             goods_placeholder.addView(
                     GoodItem(context, it)
             )
-        })
+        }
     }
 
     override fun setToolbar(receipt: Receipt) {

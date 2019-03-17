@@ -79,7 +79,7 @@ class ChecksFragment : BaseFragment(), ChecksView {
 
         val dates = presenter.getPlaceholderDates(checks)
 
-        receipts_placeholder.post({
+        receipts_placeholder.post {
             checks.forEachIndexed { index, receipt ->
                 val dateItem = dates.find { it.after == index }
 
@@ -91,7 +91,7 @@ class ChecksFragment : BaseFragment(), ChecksView {
                         CheckItem(context, receipt, presenter::onCheckClicked)
                 )
             }
-        })
+        }
     }
 
     override fun showChecksProgress(show: Boolean, isEmpty: Boolean) {
@@ -187,7 +187,7 @@ class ChecksFragment : BaseFragment(), ChecksView {
         }
     }
 
-    val cardMoveCallback = object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+    private val cardMoveCallback = object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
                             target: RecyclerView.ViewHolder): Boolean {

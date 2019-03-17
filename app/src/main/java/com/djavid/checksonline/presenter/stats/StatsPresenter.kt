@@ -6,6 +6,7 @@ import com.djavid.checksonline.base.BasePresenter
 import com.djavid.checksonline.base.Dates
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DateInterval
+import org.joda.time.DateTime
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -37,29 +38,38 @@ class StatsPresenter @Inject constructor(
 
     private fun getIntervals(interval: String) {
         statsInteractor.getIntervals(interval)
-                .doOnSubscribe({
+                .doOnSubscribe {
                     viewState.showProgress(true)
                     unsubscribeOnDestroy(it)
-                })
+                }
                 .doAfterTerminate { viewState.showProgress(false) }
                 .subscribe({
-                    intervals = it.result
-                    viewState.setViewPager(it.result.asReversed())
+
+                    if (it.error.isEmpty()) {
+                        intervals = it.result
+                        viewState.setViewPager(it.result.asReversed())
+                        onViewPagerScrolled(intervals.size - 1)
+                    } else {
+                        //todo process error
+                    }
+
                 }, { processError(it) })
     }
 
     fun onViewPagerScrolled(position: Int) {
-        //if (position >= 0 && position < intervals.size)
-            //getTotalSum(intervals[position])
+        val index = intervals.size - position - 1
+        if (index in 0 until intervals.size) setTotalSum(index)
     }
 
-    private fun getTotalSum(interval: Dates) {
-        statsInteractor.getTotalSum(interval.name)
-                .subscribe({
-                    viewState.setToolbarSum(it.result)
-                }, {
-                    processError(it)
-                })
+    private fun setTotalSum(position: Int) {
+        val start = DateTime.parse(intervals[position].dateStart).millis
+        val end = DateTime.parse(intervals[position].dateEnd).millis
+
+        statsInteractor.getChecks(start, end)
+                .doOnSubscribe({ unsubscribeOnDestroy(it) })
+                .subscribe(
+                        { viewState.setToolbarSum(it.result.totalSum) },
+                        { processError(it) })
     }
 
     fun onHabitsClicked() {

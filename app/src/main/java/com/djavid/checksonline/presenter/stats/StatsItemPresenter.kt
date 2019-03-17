@@ -23,6 +23,7 @@ class StatsItemPresenter @Inject constructor(
 ) : BasePresenter<StatsItemView>(router) {
 
     private var statResponse: StatPercentResponse? = null
+    private var isShop = preferences.getIsShop()
 
 
     override fun onFirstViewAttach() {
@@ -33,6 +34,16 @@ class StatsItemPresenter @Inject constructor(
         val end = DateTime.parse(interval.dateEnd).millis
 
         getStats(start, end, preferences.getIsShop(), true)
+    }
+
+    fun onResume() {
+        viewState.setSwitchBtn(preferences.getIsShop())
+        if (isShop != preferences.getIsShop()) {
+            val start = DateTime.parse(interval.dateStart).millis
+            val end = DateTime.parse(interval.dateEnd).millis
+
+            getStats(start, end, preferences.getIsShop(), true)
+        }
     }
 
     private fun getStats(start: Long, end: Long, shop: Boolean, showProgress: Boolean) {
@@ -52,8 +63,6 @@ class StatsItemPresenter @Inject constructor(
     }
 
     private fun showStats(it: StatPercentResponse, shop: Boolean) {
-        viewState.setToolbarSum(it.result.totalSum)
-
         if (shop) {
             viewState.setChartData(it.result.shops)
             viewState.setPercentagesData(it.result.shops.sortedByDescending { it.percentageSum })
