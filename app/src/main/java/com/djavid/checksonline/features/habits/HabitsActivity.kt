@@ -3,7 +3,6 @@ package com.djavid.checksonline.features.habits
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
@@ -16,6 +15,8 @@ import javax.inject.Inject
 
 class HabitsActivity : NewBaseActivity() {
 
+    @Inject lateinit var presenter: HabitsContract.Presenter
+
     override val layoutResId: Int get() = R.layout.activity_habits
 
     companion object {
@@ -25,8 +26,10 @@ class HabitsActivity : NewBaseActivity() {
     @Inject
     lateinit var holder: NavigatorHolder
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter.init()
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         if (savedInstanceState == null) {
             navigator.applyCommand(Replace(Screens.HABITS, null))
         }
