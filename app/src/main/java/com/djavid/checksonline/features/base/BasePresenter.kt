@@ -1,0 +1,50 @@
+package com.djavid.checksonline.features.base
+
+import com.arellomobile.mvp.MvpPresenter
+import com.djavid.checksonline.utils.DisposableLifecycle
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import ru.terrakok.cicerone.Router
+import timber.log.Timber
+import java.net.SocketTimeoutException
+
+//TODO add this functionality presenters
+abstract class BasePresenter<V : BaseView>(
+        protected val router: Router
+) : MvpPresenter<V>(), DisposableLifecycle {
+
+    private val detachDisposable = CompositeDisposable()
+    private val destroyDisposable = CompositeDisposable()
+
+    fun onBackPressed() {
+        router.exit()
+    }
+
+    override fun unsubscribeOnDetach(d: Disposable) {
+        detachDisposable.add(d)
+    }
+
+    override fun unsubscribeOnDestroy(d: Disposable) {
+        destroyDisposable.add(d)
+    }
+
+    override fun detachView(view: V) {
+        super.detachView(view)
+        detachDisposable.clear()
+    }
+
+    override fun onDestroy() {
+        destroyDisposable.clear()
+    }
+
+    protected fun processError(throwable: Throwable) {
+
+        Timber.e(throwable)
+
+        if (throwable is SocketTimeoutException) {
+            //Timber.e(throwable)
+            viewState.showErrorMessage("Истекло время ожидания сервера")
+        }
+    }
+
+}

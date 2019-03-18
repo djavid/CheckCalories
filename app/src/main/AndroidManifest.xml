@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".App"
+        android:name=".features.app.App"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,15 +23,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.RootActivity">
+        <activity android:name=".features.root.RootActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.QRCodeActivity" />
-        <activity android:name=".view.activity.CheckActivity" />
+        <activity android:name=".features.QRCode.QRCodeActivity" />
+        <activity android:name=".features.check.CheckActivity" />
 
         <service
             android:name=".FirebaseManager"
@@ -41,9 +41,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".view.activity.HabitsActivity" />
-        <activity android:name=".view.activity.StatsListActivity" />
-        <activity android:name=".view.activity.ReceiptInputActivity"></activity>
+        <activity android:name=".features.habits.HabitsActivity" />
+        <activity android:name=".features.stats.StatsListActivity" />
+        <activity android:name=".features.receipt_input.ReceiptInputActivity"></activity>
     </application>
 
 </manifest>

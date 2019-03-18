@@ -26,7 +26,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-fun View.visible(visible: Boolean) {
+fun View.show(visible: Boolean) {
     this.visibility = if (visible) View.VISIBLE else View.GONE
 }
 

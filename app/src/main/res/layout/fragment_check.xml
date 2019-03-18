@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingPrefix, ContentDescription"
-    tools:context="com.djavid.checksonline.view.activity.RootActivity"
+    tools:context="com.djavid.checksonline.features.root.RootActivity"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">

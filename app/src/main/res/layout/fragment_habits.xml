@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.fragment.ShopsFragment">
+    tools:context=".features.stats.ShopsFragment">
 
     <include android:id="@+id/toolbar_layout"
         layout="@layout/toolbar"
