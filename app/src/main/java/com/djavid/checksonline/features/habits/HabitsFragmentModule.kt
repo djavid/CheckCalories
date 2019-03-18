@@ -22,4 +22,7 @@ interface Bindings {
     @Binds
     fun bindHabitsPresenter(impl: NewHabitsPresenter): HabitsContract.Presenter
 
+    @Binds
+    fun bindHabitsView(view: NewHabitsView): HabitsContract.View
+
 }

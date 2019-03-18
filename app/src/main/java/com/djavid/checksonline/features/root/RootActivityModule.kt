@@ -20,7 +20,7 @@ class RootActivityModule {
 interface Bindings {
 
     @Binds
-    fun bindRootPresenter(impl: NewRootPresenter): RootContract.Presenter
+    fun bindRootPresenter(impl: RootPresenter): RootContract.Presenter
 
 }
 

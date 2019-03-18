@@ -8,7 +8,9 @@ import android.media.ToneGenerator
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.text.Editable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
@@ -16,6 +18,7 @@ import android.util.Base64
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
+import android.widget.EditText
 import com.djavid.checksonline.BuildConfig
 import com.djavid.checksonline.model.entities.DateInterval
 import org.joda.time.DateTime
@@ -146,4 +149,16 @@ fun DateInterval.getSpannable() : SpannableString {
 
     return spannable
 
+}
+
+fun EditText.addTextChangedListener(action: () -> Unit) {
+    addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            action.invoke()
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    })
 }

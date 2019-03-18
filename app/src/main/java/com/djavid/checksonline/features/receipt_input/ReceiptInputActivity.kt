@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
-import com.djavid.checksonline.features.base.BaseActivity
+import com.djavid.checksonline.features.base.NewBaseActivity
 import com.djavid.checksonline.features.check.CheckActivity
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Replace
 import javax.inject.Inject
 
-class ReceiptInputActivity : BaseActivity() {
+class ReceiptInputActivity : NewBaseActivity() {
 
     companion object {
         fun newIntent(context: Context) = Intent(context, ReceiptInputActivity::class.java)
@@ -22,21 +22,14 @@ class ReceiptInputActivity : BaseActivity() {
     @Inject
     lateinit var holder: NavigatorHolder
 
+    override val layoutResId: Int get() = R.layout.activity_receipt_input
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_receipt_input)
-
-        Toothpick.inject(this, Toothpick.openScopes(application, this))
 
         if (savedInstanceState == null) {
             navigator.applyCommand(Replace(Screens.RECEIPT_INPUT, null))
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (isFinishing) Toothpick.closeScope(this)
     }
 
     override fun onResumeFragments() {
@@ -45,8 +38,8 @@ class ReceiptInputActivity : BaseActivity() {
     }
 
     override fun onPause() {
-        holder.removeNavigator()
         super.onPause()
+        holder.removeNavigator()
     }
 
     private val navigator = object : SupportAppNavigator(this,

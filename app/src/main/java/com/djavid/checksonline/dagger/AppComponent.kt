@@ -4,6 +4,9 @@ import com.djavid.checksonline.features.app.App
 import com.djavid.checksonline.features.app.AppModule
 import com.djavid.checksonline.features.check.CheckFragment
 import com.djavid.checksonline.features.habits.HabitsActivity
+import com.djavid.checksonline.features.receipt_input.ReceiptFragmentModule
+import com.djavid.checksonline.features.receipt_input.ReceiptInputActivity
+import com.djavid.checksonline.features.receipt_input.ReceiptInputFragment
 import com.djavid.checksonline.features.root.RootActivity
 import com.djavid.checksonline.features.root.RootActivityModule
 import dagger.Component
@@ -30,6 +33,11 @@ interface FragmentBindings {
     @ContributesAndroidInjector(modules = [])
     @UIScope
     fun checkFragment(): CheckFragment
+
+    @ContributesAndroidInjector(modules = [ReceiptFragmentModule::class])
+    @UIScope
+    fun receiptInputFragment(): ReceiptInputFragment
+
 }
 
 @Module
@@ -42,6 +50,10 @@ interface ActivityBindings {
     @ContributesAndroidInjector(modules = [])
     @UIScope
     fun habitsActivity(): HabitsActivity
+
+    @ContributesAndroidInjector(modules = [])
+    @UIScope
+    fun receiptInputActivity(): ReceiptInputActivity
 
 }
 

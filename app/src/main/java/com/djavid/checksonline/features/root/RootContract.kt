@@ -8,6 +8,9 @@ interface RootContract {
 
     interface Presenter {
         fun init()
+        fun onQRSelected()
+        fun onChecksSelected()
+        fun onStatsSelected()
     }
 
     interface Navigation {

@@ -1,15 +1,12 @@
 package com.djavid.checksonline.features.root
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.features.QRCode.QRCodeActivity
-import com.djavid.checksonline.features.base.BaseActivity
+import com.djavid.checksonline.features.base.NewBaseActivity
 import com.djavid.checksonline.features.check.CheckActivity
 import com.djavid.checksonline.features.checks.ChecksFragment
 import com.djavid.checksonline.features.habits.HabitsActivity
@@ -23,35 +20,23 @@ import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Replace
 import javax.inject.Inject
 
-class RootActivity : BaseActivity(), RootView {
-
-    companion object {
-        fun newIntent(ctx: Context) = Intent(ctx, RootActivity::class.java)
-    }
+class RootActivity : NewBaseActivity() {
 
     @Inject lateinit var holder: NavigatorHolder
 
-    @InjectPresenter lateinit var presenter: RootPresenter
-
-    @Inject lateinit var newPresenter: RootContract.Presenter
-
-    @ProvidePresenter fun providePresenter(): RootPresenter =
-            Toothpick.openScopes(application, this)
-                    .getInstance(RootPresenter::class.java)
-
+    @Inject
+    lateinit var presenter: RootContract.Presenter
 
     private var checksFragment: ChecksFragment? = null
     private var statsFragment: StatsFragment? = null
 
+    override val layoutResId: Int = R.layout.activity_root
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Toothpick.inject(this, Toothpick.openScopes(application, this).also {
-            it.installModules(RootModule())
-        })
-
         super.onCreate(savedInstanceState)
-        newPresenter.init()
-        setContentView(R.layout.activity_root)
+        presenter.init()
+
         setupNavigation()
         initFragments()
         restoreState(savedInstanceState)
@@ -95,11 +80,6 @@ class RootActivity : BaseActivity(), RootView {
     override fun onPause() {
         holder.removeNavigator()
         super.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (isFinishing) Toothpick.closeScope(this) //Scopes.ROOT
     }
 
 

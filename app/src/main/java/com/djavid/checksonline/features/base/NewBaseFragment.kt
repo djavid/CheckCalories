@@ -30,7 +30,7 @@ abstract class NewBaseFragment: Fragment() {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 
-    fun showProgress(show: Boolean) {
+    open fun showProgress(show: Boolean) {
         progressLayout.show(show)
     }
 }
