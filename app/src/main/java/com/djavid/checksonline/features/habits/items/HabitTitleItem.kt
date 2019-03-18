@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.habits
+package com.djavid.checksonline.features.habits.items
 
 import android.content.Context
 import android.widget.ImageView

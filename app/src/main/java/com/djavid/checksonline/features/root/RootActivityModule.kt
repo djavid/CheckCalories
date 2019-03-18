@@ -1,6 +1,7 @@
 package com.djavid.checksonline.features.root
 
 import android.view.View
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import kotlinx.android.synthetic.main.activity_root.*
@@ -17,6 +18,9 @@ class RootActivityModule {
 
 @Module
 interface Bindings {
+
+    @Binds
+    fun bindRootPresenter(impl: NewRootPresenter): RootContract.Presenter
 
 }
 
