@@ -1,32 +1,34 @@
-package com.djavid.checksonline.features.QRCode
+package com.djavid.checksonline.features.qrcode
 
-import com.arellomobile.mvp.InjectViewState
 import com.djavid.checksonline.Screens
-import com.djavid.checksonline.features.base.BasePresenter
 import com.djavid.checksonline.interactors.QrCodeInteractor
 import com.djavid.checksonline.model.networking.bodies.FnsValues
 import com.djavid.checksonline.utils.getCheckMatcher
+import io.reactivex.disposables.Disposable
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-@InjectViewState
 class QRCodePresenter @Inject constructor(
+        private val view: QRContract.View,
         private val interactor: QrCodeInteractor,
-        router: Router
-) : BasePresenter<QRCodeView>(router) {
+        private val router: Router
+) : QRContract.Presenter() {
+
+    private var disposable: Disposable? = null
 
     var inProcess: Boolean = false
 
 
-    override fun onFirstViewAttach() {
-
+    override fun init() {
+        view.init(this)
     }
 
-    fun onQrCodeRead(text: String) {
+
+    override fun onQrCodeRead(text: String) {
         val m = text.getCheckMatcher()
 
         if (m.matches()) {
-            viewState.vibrate()
+            view.vibrate()
 
             val fnsValues = FnsValues(m.group(1), m.group(2), m.group(3),
                     m.group(4), m.group(5))
@@ -34,23 +36,23 @@ class QRCodePresenter @Inject constructor(
         }
     }
 
-    fun onScanBtnClick() {
+    override fun onScanBtnClick() {
         if (!inProcess) {
-            viewState.resumeScanning()
+            view.resumeScanning()
         }
     }
 
-    fun onManualInputBtnClick() {
+    override fun onManualInputBtnClick() {
         router.navigateTo(Screens.RECEIPT_INPUT_ACTIVITY)
     }
 
-    fun onOpenButtonClicked(receiptId: String) {
+    override fun onOpenButtonClicked(receiptId: String) {
         router.navigateTo(Screens.CHECK_ACTIVITY, receiptId)
     }
 
     private fun sendCheck(fnsValues: FnsValues) {
 
-        interactor.sendCheck(fnsValues)
+        disposable = interactor.sendCheck(fnsValues)
                 .doOnSubscribe {
                     unsubscribeOnDestroy(it)
                     setProgress(true)
@@ -59,25 +61,27 @@ class QRCodePresenter @Inject constructor(
                 .subscribe({
                     if (!it.error.isEmpty()) {
                         when (it.error) {
-                            "Check not found." -> viewState.showFailDialog()
-                            "Check has not loaded yet." -> viewState.showWaitDialog()
-                            "Check already exists." -> viewState.showToastyWarning("Чек уже был добавлен!")
-                            else -> viewState.showToastyError("Произошла ошибка!")
+                            "Check not found." -> view.showFailDialog()
+                            "Check has not loaded yet." -> view.showWaitDialog()
+                            "Check already exists." -> {
+                            } //view.showToastyWarning("Чек уже был добавлен!") todo
+                            else -> {
+                            } // view.showToastyError("Произошла ошибка!") todo
                         }
 
                     } else if (it.result != null) {
-                        viewState.showSuccessDialog(it.result.receiptId.toString())
+                        view.showSuccessDialog(it.result.receiptId.toString())
                     }
 
                 }, {
-                    processError(it)
-                    viewState.showFailDialog()
+                    //TODO processError(it)
+                    view.showFailDialog()
                 })
     }
 
     private fun setProgress(progress: Boolean) {
         inProcess = progress
-        viewState.showProgress(progress)
+        // todo view.showProgress(progress)
     }
 
 }

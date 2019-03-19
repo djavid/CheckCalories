@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingPrefix, ContentDescription"
-    tools:context="com.djavid.checksonline.features.QRCode.QRCodeActivity"
+    android:id="@+id/qrcodeActivity"
+    tools:context="com.djavid.checksonline.features.qrcode.QRCodeActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
