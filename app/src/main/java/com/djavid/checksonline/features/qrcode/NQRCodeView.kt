@@ -17,13 +17,13 @@ import com.djavid.checksonline.utils.playBeepSound
 import com.djavid.checksonline.utils.vibrate
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_qrcode.view.*
+import kotlinx.android.synthetic.main.layout_error_action.view.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.layout_error_action.view.*
 
-class QRCodeView @Inject constructor(
+class NQRCodeView @Inject constructor(
         @ViewRoot private val viewRoot: View
-): QRContract.View {
+) : QRContract.View {
 
     private lateinit var progressDialog: Dialog
     private lateinit var presenter: QRContract.Presenter
@@ -51,7 +51,7 @@ class QRCodeView @Inject constructor(
 
     @SuppressLint("CheckResult")
     override fun requestPermissions() {
-        val rxPermissions = RxPermissions(viewRoot.context as QRCodeActivity)
+        val rxPermissions = RxPermissions(viewRoot.context as QRActivity)
         rxPermissions //todo result disposable
                 .request(Manifest.permission.CAMERA)
                 .subscribe { granted ->
@@ -63,7 +63,7 @@ class QRCodeView @Inject constructor(
 
     override fun onResume() {
         if (isCameraPermissionGranted()) {
-            mScannerView?.setResultHandler(viewRoot.context as QRCodeActivity)
+            mScannerView?.setResultHandler(viewRoot.context as QRActivity)
             mScannerView?.startCamera()
 
             //old todo check this
@@ -106,7 +106,7 @@ class QRCodeView @Inject constructor(
             Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
     override fun resumeScanning() {
-        mScannerView?.resumeCameraPreview(viewRoot.context as QRCodeActivity)
+        mScannerView?.resumeCameraPreview(viewRoot.context as QRActivity)
     }
 
     override fun stopScanning() {
@@ -191,8 +191,7 @@ class QRCodeView @Inject constructor(
         if (show) {
             stopScanning()
             progressDialog.show()
-        }
-        else {
+        } else {
             progressDialog.dismiss()
         }
     }

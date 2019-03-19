@@ -18,10 +18,10 @@ import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 
-class QRCodeActivity : NewBaseActivity(), ZXingScannerView.ResultHandler {
+class QRActivity : NewBaseActivity(), ZXingScannerView.ResultHandler {
 
     companion object {
-        fun newIntent(ctx: Context) = Intent(ctx, QRCodeActivity::class.java)
+        fun newIntent(ctx: Context) = Intent(ctx, QRActivity::class.java)
     }
 
     @Inject
@@ -65,9 +65,9 @@ class QRCodeActivity : NewBaseActivity(), ZXingScannerView.ResultHandler {
         override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
                 when (screenKey) {
                     Screens.CHECK_ACTIVITY ->
-                        CheckActivity.newIntent(this@QRCodeActivity, data as String)
+                        CheckActivity.newIntent(this@QRActivity, data as String)
                     Screens.RECEIPT_INPUT_ACTIVITY ->
-                        ReceiptInputActivity.newIntent(this@QRCodeActivity)
+                        ReceiptInputActivity.newIntent(this@QRActivity)
                     else -> null
                 }
 

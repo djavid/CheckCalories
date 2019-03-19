@@ -9,7 +9,7 @@ import com.djavid.checksonline.features.habits.HabitsActivity
 import com.djavid.checksonline.features.habits.HabitsActivityModule
 import com.djavid.checksonline.features.habits.HabitsFragment
 import com.djavid.checksonline.features.habits.HabitsFragmentModule
-import com.djavid.checksonline.features.qrcode.QRCodeActivity
+import com.djavid.checksonline.features.qrcode.QRActivity
 import com.djavid.checksonline.features.qrcode.QRCodeActivityModule
 import com.djavid.checksonline.features.receipt_input.ReceiptFragmentModule
 import com.djavid.checksonline.features.receipt_input.ReceiptInputActivity
@@ -75,7 +75,7 @@ interface ActivityBindings {
 
     @ContributesAndroidInjector(modules = [QRCodeActivityModule::class])
     @UIScope
-    fun qrcodeActivity(): QRCodeActivity
+    fun qrcodeActivity(): QRActivity
 
 }
 
