@@ -1,7 +1,7 @@
 package com.djavid.checksonline.features.stats_item
 
 import com.arellomobile.mvp.InjectViewState
-import com.djavid.checksonline.Screens
+import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.features.base.BasePresenter
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DateInterval

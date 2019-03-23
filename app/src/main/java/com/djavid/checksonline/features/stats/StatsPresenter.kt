@@ -1,6 +1,6 @@
 package com.djavid.checksonline.features.stats
 
-import com.djavid.checksonline.Screens
+import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.Dates

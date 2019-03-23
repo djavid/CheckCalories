@@ -1,6 +1,6 @@
 package com.djavid.checksonline.features.qr
 
-import com.djavid.checksonline.Screens
+import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.interactors.QrCodeInteractor
 import com.djavid.checksonline.model.networking.bodies.FnsValues
 import com.djavid.checksonline.utils.getCheckMatcher

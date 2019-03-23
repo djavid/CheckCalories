@@ -66,11 +66,6 @@ class StatItemFragment : BaseFragment(), StatsItemView {
         Toothpick.inject(this, Toothpick.openScopes(activity, this))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (isRemoving) Toothpick.closeScope(this)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val interval = DateInterval(

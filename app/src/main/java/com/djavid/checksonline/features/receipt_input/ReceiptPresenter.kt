@@ -1,6 +1,6 @@
 package com.djavid.checksonline.features.receipt_input
 
-import com.djavid.checksonline.Screens
+import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.interactors.QrCodeInteractor
 import com.djavid.checksonline.model.networking.bodies.FnsValues
 import io.reactivex.disposables.Disposable

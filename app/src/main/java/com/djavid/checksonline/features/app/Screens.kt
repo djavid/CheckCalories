@@ -1,4 +1,4 @@
-package com.djavid.checksonline
+package com.djavid.checksonline.features.app
 
 object Screens {
     const val HOME = "Screens#Home"

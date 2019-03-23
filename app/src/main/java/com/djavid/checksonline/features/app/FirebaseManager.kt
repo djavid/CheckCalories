@@ -1,4 +1,4 @@
-package com.djavid.checksonline
+package com.djavid.checksonline.features.app
 
 import android.annotation.SuppressLint
 import com.djavid.checksonline.interactors.TokenInteractor

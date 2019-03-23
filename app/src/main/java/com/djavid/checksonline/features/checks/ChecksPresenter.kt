@@ -1,6 +1,6 @@
 package com.djavid.checksonline.features.checks
 
-import com.djavid.checksonline.Screens
+import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.features.common.Paginator
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.interactors.StatsInteractor
