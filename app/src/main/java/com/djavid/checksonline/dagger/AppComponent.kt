@@ -2,8 +2,10 @@ package com.djavid.checksonline.dagger
 
 import com.djavid.checksonline.features.app.App
 import com.djavid.checksonline.features.app.AppModule
-import com.djavid.checksonline.features.check.CheckActivity
-import com.djavid.checksonline.features.check.CheckFragment
+import com.djavid.checksonline.features.check.activity.CheckActivity
+import com.djavid.checksonline.features.check.activity.CheckActivityModule
+import com.djavid.checksonline.features.check.fragment.CheckFragment
+import com.djavid.checksonline.features.check.fragment.CheckFragmentModule
 import com.djavid.checksonline.features.checks.ChecksFragment
 import com.djavid.checksonline.features.habits.HabitsActivity
 import com.djavid.checksonline.features.habits.HabitsActivityModule
@@ -37,7 +39,7 @@ interface AppComponent : AndroidInjector<App>
 @Module
 interface FragmentBindings {
 
-    @ContributesAndroidInjector(modules = [])
+    @ContributesAndroidInjector(modules = [CheckFragmentModule::class])
     @UIScope
     fun checkFragment(): CheckFragment
 
@@ -61,7 +63,7 @@ interface ActivityBindings {
     @UIScope
     fun rootActivity(): RootActivity
 
-    @ContributesAndroidInjector(modules = [])
+    @ContributesAndroidInjector(modules = [CheckActivityModule::class])
     @UIScope
     fun checkActivity(): CheckActivity
 

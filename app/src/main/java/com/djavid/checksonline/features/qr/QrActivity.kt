@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.features.base.NewBaseActivity
-import com.djavid.checksonline.features.check.CheckActivity
+import com.djavid.checksonline.features.check.activity.CheckActivity
 import com.djavid.checksonline.features.receipt_input.ReceiptInputActivity
 import com.google.zxing.Result
 import io.reactivex.disposables.Disposable

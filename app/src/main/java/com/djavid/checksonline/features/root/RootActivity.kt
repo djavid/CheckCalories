@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.features.base.NewBaseActivity
-import com.djavid.checksonline.features.check.CheckActivity
+import com.djavid.checksonline.features.check.activity.CheckActivity
 import com.djavid.checksonline.features.checks.ChecksFragment
 import com.djavid.checksonline.features.habits.HabitsActivity
 import com.djavid.checksonline.features.qr.QrActivity

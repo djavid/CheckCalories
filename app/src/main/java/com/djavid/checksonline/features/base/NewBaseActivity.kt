@@ -14,9 +14,9 @@ abstract class NewBaseActivity : AppCompatActivity() {
     protected abstract val layoutResId: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(layoutResId)
+        AndroidInjection.inject(this)
     }
 
     fun showProgress(show: Boolean) {

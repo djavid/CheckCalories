@@ -51,7 +51,7 @@ class GoodItem(
         setCategoryName(good.category)
     }
 
-    fun setCategoryName(category: String?) {
+    private fun setCategoryName(category: String?) {
         context ?: return
 
         categoryName.post {
@@ -68,16 +68,11 @@ class GoodItem(
 
     }
 
-    fun setName(name: String) {
-        goodName.post { goodName.text = name }
-    }
-
-
     private fun getColoredDrawable(s: String): Drawable? {
         context ?: return null
 
         val allColors = context.resources.getStringArray(R.array.colorsCategories)
-        val color = Color.parseColor(allColors!![Config.labels.indexOf(s)])
+        val color = Color.parseColor(allColors[Config.labels.indexOf(s)])
 
         return GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE

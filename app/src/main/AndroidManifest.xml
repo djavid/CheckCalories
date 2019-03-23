@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".features.qr.QrActivity" />
-        <activity android:name=".features.check.CheckActivity" />
+        <activity android:name=".features.check.activity.CheckActivity" />
         <activity android:name=".features.habits.HabitsActivity" />
         <activity android:name=".features.stats.StatsListActivity" />
         <activity android:name=".features.receipt_input.ReceiptInputActivity" />

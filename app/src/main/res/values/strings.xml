@@ -38,6 +38,7 @@
     <string name="format_quantity">%s × %.2f₽</string>
     <string name="no_checks">У вас пока нет чеков. \nНажмите кнопку сканирования, чтобы добавить.</string>
     <string name="check_deleted">Чек удален.</string>
+    <string name="no_title">Без названия</string>
 
     <!-- dialogs -->
     <string name="check_saved">Чек сохранен</string>

@@ -21,7 +21,6 @@ import com.mindorks.placeholderview.annotations.View
 import com.squareup.picasso.Picasso
 import java.util.*
 
-
 @Layout(R.layout.item_receipt)
 class CheckItem(
         private val context: Context?,
@@ -95,8 +94,7 @@ class CheckItem(
         }
 
         //сумма
-        tv_sum.text = context.getString(R.string.format_price)
-                ?.format(Locale.ROOT, receipt.totalSum / 100f)
+        tv_sum.text = context.getString(R.string.format_price).format(Locale.ROOT, receipt.totalSum / 100f)
 
         //время
         tv_time.text = receipt.dateTime?.parseTime()
@@ -133,7 +131,7 @@ class CheckItem(
                 .buildRound(s, color)
     }
 
-    public fun getId(): Long {
+    fun getId(): Long {
         return receipt?.receiptId ?: -1
     }
 
