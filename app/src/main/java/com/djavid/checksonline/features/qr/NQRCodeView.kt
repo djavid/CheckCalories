@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.qrcode
+package com.djavid.checksonline.features.qr
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -51,7 +51,7 @@ class NQRCodeView @Inject constructor(
 
     @SuppressLint("CheckResult")
     override fun requestPermissions() {
-        val rxPermissions = RxPermissions(viewRoot.context as QRCodeActivity)
+        val rxPermissions = RxPermissions(viewRoot.context as QRActivity)
         rxPermissions //todo result disposable
                 .request(Manifest.permission.CAMERA)
                 .subscribe { granted ->
@@ -63,7 +63,7 @@ class NQRCodeView @Inject constructor(
 
     override fun onResume() {
         if (isCameraPermissionGranted()) {
-            mScannerView?.setResultHandler(viewRoot.context as QRCodeActivity)
+            mScannerView?.setResultHandler(viewRoot.context as QRActivity)
             mScannerView?.startCamera()
 
             //old todo check this
@@ -106,7 +106,7 @@ class NQRCodeView @Inject constructor(
             Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
     override fun resumeScanning() {
-        mScannerView?.resumeCameraPreview(viewRoot.context as QRCodeActivity)
+        mScannerView?.resumeCameraPreview(viewRoot.context as QRActivity)
     }
 
     override fun stopScanning() {
