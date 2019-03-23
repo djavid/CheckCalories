@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.djavid.checksonline">
 
+    <!--region Permissions-->
     <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!--endregion-->
 
     <application
         android:name=".features.app.App"
@@ -23,15 +24,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--region Activities-->
+
         <activity android:name=".features.root.RootActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.qrcode.QRActivity" />
+        <activity android:name=".features.qr.QrActivity" />
         <activity android:name=".features.check.CheckActivity" />
+        <activity android:name=".features.habits.HabitsActivity" />
+        <activity android:name=".features.stats.StatsListActivity" />
+        <activity android:name=".features.receipt_input.ReceiptInputActivity" />
+
+        <!--endregion-->
+
+        <!--region Services-->
 
         <service
             android:name=".FirebaseManager"
@@ -41,9 +53,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".features.habits.HabitsActivity" />
-        <activity android:name=".features.stats.StatsListActivity" />
-        <activity android:name=".features.receipt_input.ReceiptInputActivity"></activity>
+        <!--endregion-->
+
     </application>
 
 </manifest>

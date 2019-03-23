@@ -21,19 +21,19 @@ import kotlinx.android.synthetic.main.layout_error_action.view.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 import javax.inject.Inject
 
-class NQRCodeView @Inject constructor(
+class QrView @Inject constructor(
         @ViewRoot private val viewRoot: View
-) : QRContract.View {
+) : QrContract.View {
 
     private lateinit var progressDialog: Dialog
-    private lateinit var presenter: QRContract.Presenter
+    private lateinit var presenter: QrContract.Presenter
 
     private var stateDialog: Dialog? = null
     private var emptyViewHolder: EmptyViewHolder? = null
     private var mScannerView: ZXingScannerView? = null
 
 
-    override fun init(presenter: QRContract.Presenter) {
+    override fun init(presenter: QrContract.Presenter) {
         this.presenter = presenter
         initDialogs()
 
@@ -51,7 +51,7 @@ class NQRCodeView @Inject constructor(
 
     @SuppressLint("CheckResult")
     override fun requestPermissions() {
-        val rxPermissions = RxPermissions(viewRoot.context as QRActivity)
+        val rxPermissions = RxPermissions(viewRoot.context as QrActivity)
         rxPermissions //todo result disposable
                 .request(Manifest.permission.CAMERA)
                 .subscribe { granted ->
@@ -63,7 +63,7 @@ class NQRCodeView @Inject constructor(
 
     override fun onResume() {
         if (isCameraPermissionGranted()) {
-            mScannerView?.setResultHandler(viewRoot.context as QRActivity)
+            mScannerView?.setResultHandler(viewRoot.context as QrActivity)
             mScannerView?.startCamera()
 
             //old todo check this
@@ -106,7 +106,7 @@ class NQRCodeView @Inject constructor(
             Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
     override fun resumeScanning() {
-        mScannerView?.resumeCameraPreview(viewRoot.context as QRActivity)
+        mScannerView?.resumeCameraPreview(viewRoot.context as QrActivity)
     }
 
     override fun stopScanning() {

@@ -1,8 +1,8 @@
-package com.djavid.checksonline.features.qrcode
+package com.djavid.checksonline.features.qr
 
 import com.djavid.checksonline.features.base.NewBasePresenter
 
-interface QRContract {
+interface QrContract {
 
     abstract class Presenter : NewBasePresenter() {
         abstract fun onQrCodeRead(text: String)

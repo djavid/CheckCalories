@@ -9,7 +9,7 @@ import com.djavid.checksonline.features.base.NewBaseActivity
 import com.djavid.checksonline.features.check.CheckActivity
 import com.djavid.checksonline.features.checks.ChecksFragment
 import com.djavid.checksonline.features.habits.HabitsActivity
-import com.djavid.checksonline.features.qrcode.QRActivity
+import com.djavid.checksonline.features.qr.QrActivity
 import com.djavid.checksonline.features.stats.StatsFragment
 import com.djavid.checksonline.features.stats.StatsListActivity
 import com.djavid.checksonline.model.entities.StatsListData
@@ -87,7 +87,7 @@ class RootActivity : NewBaseActivity() {
 
         override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
                 when (screenKey) {
-                    Screens.QR_CODE -> QRActivity.newIntent(this@RootActivity)
+                    Screens.QR_CODE -> QrActivity.newIntent(this@RootActivity)
                     Screens.CHECK_ACTIVITY ->
                         CheckActivity.newIntent(this@RootActivity, data as String)
                     Screens.HABITS_ACTIVITY -> HabitsActivity.newIntent(this@RootActivity)

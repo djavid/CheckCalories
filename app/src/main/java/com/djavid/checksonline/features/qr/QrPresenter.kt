@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.qrcode
+package com.djavid.checksonline.features.qr
 
 import com.djavid.checksonline.Screens
 import com.djavid.checksonline.interactors.QrCodeInteractor
@@ -8,11 +8,11 @@ import io.reactivex.disposables.Disposable
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class QRCodePresenter @Inject constructor(
-        private val view: QRContract.View,
+class QrPresenter @Inject constructor(
+        private val view: QrContract.View,
         private val interactor: QrCodeInteractor,
         private val router: Router
-) : QRContract.Presenter() {
+) : QrContract.Presenter() {
 
     private var disposable: Disposable? = null
 

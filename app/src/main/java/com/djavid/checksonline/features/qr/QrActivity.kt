@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.qrcode
+package com.djavid.checksonline.features.qr
 
 import android.content.Context
 import android.content.Intent
@@ -18,17 +18,17 @@ import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 
-class QRActivity : NewBaseActivity(), ZXingScannerView.ResultHandler {
+class QrActivity : NewBaseActivity(), ZXingScannerView.ResultHandler {
 
     companion object {
-        fun newIntent(ctx: Context) = Intent(ctx, QRActivity::class.java)
+        fun newIntent(ctx: Context) = Intent(ctx, QrActivity::class.java)
     }
 
     @Inject
     lateinit var holder: NavigatorHolder
 
     @Inject
-    lateinit var presenter: QRContract.Presenter
+    lateinit var presenter: QrContract.Presenter
 
     private var disposable: Disposable? = null
     override val layoutResId: Int get() = R.layout.activity_qrcode
@@ -36,8 +36,6 @@ class QRActivity : NewBaseActivity(), ZXingScannerView.ResultHandler {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
         btn_manual_add.setOnClickListener { presenter.onManualInputBtnClick() }
     }
@@ -65,9 +63,9 @@ class QRActivity : NewBaseActivity(), ZXingScannerView.ResultHandler {
         override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
                 when (screenKey) {
                     Screens.CHECK_ACTIVITY ->
-                        CheckActivity.newIntent(this@QRActivity, data as String)
+                        CheckActivity.newIntent(this@QrActivity, data as String)
                     Screens.RECEIPT_INPUT_ACTIVITY ->
-                        ReceiptInputActivity.newIntent(this@QRActivity)
+                        ReceiptInputActivity.newIntent(this@QrActivity)
                     else -> null
                 }
 
