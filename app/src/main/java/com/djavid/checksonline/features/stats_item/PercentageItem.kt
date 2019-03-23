@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.stats
+package com.djavid.checksonline.features.stats_item
 
 import android.content.Context
 import android.graphics.Color
@@ -19,7 +19,7 @@ import java.util.*
 @Layout(R.layout.item_stat)
 class PercentageItem(
         private val context: Context?,
-        public val percentage: Percentage,
+        val percentage: Percentage,
         private val onClickListener: (Percentage) -> Unit
 ) {
 

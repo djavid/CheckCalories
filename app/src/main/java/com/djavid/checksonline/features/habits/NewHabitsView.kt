@@ -6,8 +6,8 @@ import com.djavid.checksonline.R
 import com.djavid.checksonline.features.check.CheckItem
 import com.djavid.checksonline.features.habits.items.HabitGoodItem
 import com.djavid.checksonline.features.habits.items.HabitTitleItem
+import com.djavid.checksonline.features.habits.items.PopularShopItem
 import com.djavid.checksonline.features.root.ViewRoot
-import com.djavid.checksonline.features.stats.PopularShopItem
 import com.djavid.checksonline.model.entities.Habit
 import com.djavid.checksonline.model.networking.responses.GetHabitsResponse
 import com.github.mikephil.charting.animation.Easing

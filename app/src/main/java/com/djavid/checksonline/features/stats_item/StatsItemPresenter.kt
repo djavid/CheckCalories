@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.stats
+package com.djavid.checksonline.features.stats_item
 
 import com.arellomobile.mvp.InjectViewState
 import com.djavid.checksonline.Screens

@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.stats
+package com.djavid.checksonline.features.shops
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -7,28 +7,29 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.base.BaseFragment
+import com.djavid.checksonline.features.check.CheckItem
 import com.djavid.checksonline.features.checks.DateItem
 import com.djavid.checksonline.features.common.EmptyViewHolder
 import com.djavid.checksonline.features.common.LoadMoreView
-import com.djavid.checksonline.model.entities.StatItem
-import kotlinx.android.synthetic.main.fragment_categories.*
+import com.djavid.checksonline.model.entities.Receipt
+import kotlinx.android.synthetic.main.fragment_shops.*
 import kotlinx.android.synthetic.main.layout_error_action.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class CategoriesFragment : BaseFragment(), CategoriesView {
+class ShopsFragment : BaseFragment(), ShopsView {
 
     companion object {
-        fun newInstance(): CategoriesFragment = CategoriesFragment()
+        fun newInstance(): ShopsFragment = ShopsFragment()
     }
 
     @InjectPresenter
-    lateinit var presenter: CategoriesPresenter
+    lateinit var presenter: ShopsPresenter
 
     @ProvidePresenter
-    fun providePresenter(): CategoriesPresenter =
-            Toothpick.openScopes(activity, this).getInstance(CategoriesPresenter::class.java)
+    fun providePresenter(): ShopsPresenter =
+            Toothpick.openScopes(activity, this).getInstance(ShopsPresenter::class.java)
 
-    override val layoutResId = R.layout.fragment_categories
+    override val layoutResId = R.layout.fragment_shops
     private var emptyViewHolder: EmptyViewHolder? = null
 
 
@@ -43,7 +44,7 @@ class CategoriesFragment : BaseFragment(), CategoriesView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        categories_placeholder.builder
+        shops_placeholder.builder
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
                 .setLayoutManager(LinearLayoutManager(context))
@@ -58,7 +59,7 @@ class CategoriesFragment : BaseFragment(), CategoriesView {
     }
 
     private fun setLoadMoreResolver() {
-        categories_placeholder.setLoadMoreResolver(LoadMoreView(object : LoadMoreView.Callback {
+        shops_placeholder.setLoadMoreResolver(LoadMoreView(object : LoadMoreView.Callback {
             override fun onShowMore() {
                 presenter.loadMoreChecks()
             }
@@ -66,34 +67,34 @@ class CategoriesFragment : BaseFragment(), CategoriesView {
     }
 
     override fun removeAllViews() {
-        categories_placeholder.removeAllViews()
+        shops_placeholder.removeAllViews()
     }
 
     override fun loadingDone() {
-        categories_placeholder.loadingDone()
+        shops_placeholder.loadingDone()
     }
 
     override fun noMoreToLoad() {
-        categories_placeholder.loadingDone()
-        categories_placeholder.noMoreToLoad()
+        shops_placeholder.loadingDone()
+        shops_placeholder.noMoreToLoad()
     }
 
-    override fun showItems(items: List<StatItem>, remove: Boolean) {
-        if (remove) categories_placeholder.removeAllViews()
+    override fun showChecks(checks: List<Receipt>, remove: Boolean) {
+        if (remove) shops_placeholder.removeAllViews()
         loadingDone()
 
-        val dates = presenter.getPlaceholderDates(items)
+        val dates = presenter.getPlaceholderDates(checks)
 
-        categories_placeholder.post({
-            items.forEachIndexed { index, item ->
+        shops_placeholder.post({
+            checks.forEachIndexed { index, receipt ->
                 val dateItem = dates.find { it.after == index }
 
                 if (dateItem != null) {
-                    categories_placeholder.addView(DateItem(context, dateItem.dateTime))
+                    shops_placeholder.addView(DateItem(context, dateItem.dateTime))
                 }
 
-                categories_placeholder.addView(
-                        GoodStatItem(context, item)
+                shops_placeholder.addView(
+                        CheckItem(context, receipt, presenter::onCheckClicked)
                 )
             }
         })

@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.stats
+package com.djavid.checksonline.features.categories
 
 import android.content.Context
 import android.graphics.Color
@@ -73,7 +73,7 @@ class GoodStatItem(
         context ?: return null
 
         val allColors = context.resources.getStringArray(R.array.colorsCategories)
-        val color = Color.parseColor(allColors!![Config.labels.indexOf(s)])
+        val color = Color.parseColor(allColors[Config.labels.indexOf(s)])
 
         return GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE

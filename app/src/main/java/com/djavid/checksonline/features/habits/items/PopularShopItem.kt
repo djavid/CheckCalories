@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.stats
+package com.djavid.checksonline.features.habits.items
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -67,8 +67,7 @@ class PopularShopItem(
             tv_address.text = shop.address
         }
 
-        tv_sum.text = context.getString(R.string.format_price)
-                ?.format(Locale.ROOT, shop.sum)
+        tv_sum.text = context.getString(R.string.format_price).format(Locale.ROOT, shop.sum)
         tv_time.show(false)
     }
 

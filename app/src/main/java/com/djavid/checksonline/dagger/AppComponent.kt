@@ -19,6 +19,9 @@ import com.djavid.checksonline.features.receipt_input.ReceiptInputActivity
 import com.djavid.checksonline.features.receipt_input.ReceiptInputFragment
 import com.djavid.checksonline.features.root.RootActivity
 import com.djavid.checksonline.features.root.RootActivityModule
+import com.djavid.checksonline.features.stats.StatsFragment
+import com.djavid.checksonline.features.stats.StatsListActivity
+import com.djavid.checksonline.features.stats.StatsModule
 import dagger.Component
 import dagger.Module
 import dagger.android.AndroidInjectionModule
@@ -55,6 +58,10 @@ interface FragmentBindings {
     @ContributesAndroidInjector(modules = [HabitsFragmentModule::class])
     @UIScope
     fun habitsFragment(): HabitsFragment
+
+    @ContributesAndroidInjector(modules = [StatsModule::class])
+    @UIScope
+    fun statsFragment(): StatsFragment
 }
 
 @Module
@@ -75,6 +82,10 @@ interface ActivityBindings {
     @ContributesAndroidInjector(modules = [])
     @UIScope
     fun receiptInputActivity(): ReceiptInputActivity
+
+    @ContributesAndroidInjector(modules = [])
+    @UIScope
+    fun statsActivity(): StatsListActivity
 
     @ContributesAndroidInjector(modules = [QRCodeActivityModule::class])
     @UIScope

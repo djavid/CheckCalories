@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.djavid.checksonline.features.stats_item.StatItemFragment
 import com.djavid.checksonline.model.entities.DateInterval
 
 class StatsPagerAdapter(

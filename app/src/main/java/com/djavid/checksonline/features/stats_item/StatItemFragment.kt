@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.stats
+package com.djavid.checksonline.features.stats_item
 
 import android.graphics.Color
 import android.graphics.Typeface

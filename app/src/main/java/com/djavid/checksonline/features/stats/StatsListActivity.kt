@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.djavid.checksonline.R
 import com.djavid.checksonline.Screens
-import com.djavid.checksonline.features.base.BaseActivity
-import com.djavid.checksonline.features.check.CheckActivity
+import com.djavid.checksonline.features.base.NewBaseActivity
+import com.djavid.checksonline.features.categories.CategoriesFragment
+import com.djavid.checksonline.features.check.activity.CheckActivity
+import com.djavid.checksonline.features.shops.ShopsFragment
 import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.StatsListData
 import ru.terrakok.cicerone.NavigatorHolder
@@ -15,7 +17,7 @@ import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Replace
 import javax.inject.Inject
 
-class StatsListActivity : BaseActivity() {
+class StatsListActivity : NewBaseActivity() {
 
     companion object {
         private const val EXTRA_TITLE = "ru.djavid.extras.title"
@@ -37,10 +39,10 @@ class StatsListActivity : BaseActivity() {
     @Inject
     lateinit var holder: NavigatorHolder
 
+    override val layoutResId: Int get() = R.layout.activity_stats_list
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_stats_list)
 
         val title = intent.getStringExtra(EXTRA_TITLE)
                 ?: throw IllegalArgumentException("Title should not be null!")
@@ -51,22 +53,17 @@ class StatsListActivity : BaseActivity() {
         val interval = intent.getStringExtra(EXTRA_DATE_INTERVAL)
         val dateInterval = DateInterval(interval, dateStart, dateEnd)
 
-        Toothpick.inject(this, Toothpick.openScopes(application, this)
-                .also {
-                    it.installModules(
-                        PercentageModule(title),
-                        StatsItemModule(dateInterval)
-                    ) })
+//        Toothpick.inject(this, Toothpick.openScopes(application, this)
+//                .also {
+//                    it.installModules(
+//                        PercentageModule(title),
+//                        StatsItemModule(dateInterval)
+//                    ) })
 
         if (savedInstanceState == null) {
             if (isShop) navigator.applyCommand(Replace(Screens.SHOPS, null))
             else navigator.applyCommand(Replace(Screens.CATEGORIES, null))
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (isFinishing) Toothpick.closeScope(this)
     }
 
     override fun onResumeFragments() {

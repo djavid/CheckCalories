@@ -1,4 +1,4 @@
-package com.djavid.checksonline.features.stats
+package com.djavid.checksonline.features.shops
 
 import com.djavid.checksonline.features.base.BaseView
 import com.djavid.checksonline.model.entities.Receipt
