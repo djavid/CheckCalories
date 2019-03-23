@@ -2,9 +2,9 @@ package com.djavid.checksonline.features.receipt_input
 
 import android.os.Bundle
 import android.view.View
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.base.NewBaseFragment
+import javax.inject.Inject
 
 class ReceiptInputFragment : NewBaseFragment() {
 
@@ -12,7 +12,7 @@ class ReceiptInputFragment : NewBaseFragment() {
         fun newInstance(): ReceiptInputFragment = ReceiptInputFragment()
     }
 
-    @InjectPresenter
+    @Inject
     lateinit var presenter: ReceiptContract.Presenter
 
     override val layoutResId = R.layout.fragment_receipt_input

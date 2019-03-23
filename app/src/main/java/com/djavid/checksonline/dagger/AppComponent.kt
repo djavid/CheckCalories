@@ -21,6 +21,8 @@ import com.djavid.checksonline.features.receipt_input.ReceiptInputActivity
 import com.djavid.checksonline.features.receipt_input.ReceiptInputFragment
 import com.djavid.checksonline.features.root.RootActivity
 import com.djavid.checksonline.features.root.RootActivityModule
+import com.djavid.checksonline.features.shops.ShopsFragment
+import com.djavid.checksonline.features.shops.ShopsModule
 import com.djavid.checksonline.features.stats.StatsFragment
 import com.djavid.checksonline.features.stats.StatsListActivity
 import com.djavid.checksonline.features.stats.StatsModule
@@ -74,6 +76,10 @@ interface FragmentBindings {
     @ContributesAndroidInjector(modules = [StatItemModule::class])
     @UIScope
     fun statItemFragment(): StatItemFragment
+
+    @ContributesAndroidInjector(modules = [ShopsModule::class])
+    @UIScope
+    fun shopsFragment(): ShopsFragment
 }
 
 @Module
