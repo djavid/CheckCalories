@@ -14,6 +14,9 @@ class CheckFragmentContract {
 
     interface Presenter {
         fun init(checkId: String)
+        fun getCheck(checkId: String)
+        fun onCheckReceived(receipt: Receipt)
+        fun onDestroy()
     }
 
 }

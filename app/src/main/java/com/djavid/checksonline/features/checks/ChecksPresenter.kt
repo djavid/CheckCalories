@@ -1,8 +1,6 @@
 package com.djavid.checksonline.features.checks
 
-import com.arellomobile.mvp.InjectViewState
 import com.djavid.checksonline.Screens
-import com.djavid.checksonline.features.base.BasePresenter
 import com.djavid.checksonline.features.common.Paginator
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.interactors.StatsInteractor
@@ -11,17 +9,18 @@ import com.djavid.checksonline.model.entities.Dates
 import com.djavid.checksonline.model.entities.PlaceholderDate
 import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.utils.SavedPreferences
+import io.reactivex.disposables.Disposable
 import org.joda.time.DateTime
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-@InjectViewState
 class ChecksPresenter @Inject constructor(
+        private val view: ChecksContract.View,
         private val interactor: ChecksInteractor,
         private val statsInteractor: StatsInteractor,
         private val preferences: SavedPreferences,
-        router: Router
-) : BasePresenter<ChecksView>(router) {
+        private val router: Router
+) : ChecksContract.Presenter {
 
     private val checksFactory = { page: Int ->
         interactor.getChecks(page)
@@ -31,65 +30,68 @@ class ChecksPresenter @Inject constructor(
                             it.result?.hasNext == true)
                 }
     }
-    private val checksController = ChecksController(viewState)
+    private val checksController = ChecksController(view)
     private val checksPaginator = Paginator(checksFactory, checksController)
     private var lastDate: DateTime? = null
+    private var disposable: Disposable? = null
 
-    override fun onFirstViewAttach() {
+
+    override fun init() {
         onDateIntervalChosen(Dates.valueOf(preferences.getTotalSumInterval()))
         refresh()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         checksPaginator.release()
     }
 
-    fun onFabClicked() {
+    override fun onFabClicked() {
         router.navigateTo(Screens.QR_CODE)
     }
 
-    fun onCheckClicked(receipt: Receipt) {
+    override fun onCheckClicked(receipt: Receipt) {
         router.navigateTo(Screens.CHECK_ACTIVITY, receipt.receiptId.toString())
     }
 
-    fun loadMoreChecks() { //TODO
+    override fun loadMoreChecks() { //TODO
         checksPaginator.loadNewPage()
     }
 
-    fun refresh() {
-        viewState.removeAllViews()
-        viewState.noMoreToLoad()
-        viewState.setLoadMoreResolver()
+    override fun refresh() {
+        view.removeAllViews()
+        view.noMoreToLoad()
+        view.setLoadMoreResolver()
         checksPaginator.refresh()
     }
 
     private fun getTotalSum(interval: Dates) {
-        statsInteractor.getTotalSum(interval.name)
+        disposable?.dispose()
+        disposable = statsInteractor.getTotalSum(interval.name)
                 .subscribe({
-                    viewState.setToolbarSum(it.result)
+                    view.setToolbarSum(it.result)
                 }, {
-                    processError(it)
+                    //TODO processError(it)
                 })
     }
 
-    fun onDateIntervalChosen(interval: Dates) {
+    override fun onDateIntervalChosen(interval: Dates) {
         preferences.setTotalSumInterval(interval.name)
 
-        viewState.setBtnPeriodText(interval)
+        view.setBtnPeriodText(interval)
         getTotalSum(interval)
     }
 
-    fun removeCheck(id: Long) {
-        interactor.removeCheck(id)
+    override fun removeCheck(id: Long) {
+        disposable?.dispose()
+        disposable = interactor.removeCheck(id)
                 .subscribe({
 
                 }, {
-                    processError(it)
+                    //TODO processError(it)
                 })
     }
 
-    fun getPlaceholderDates(checks: List<Receipt>) : List<PlaceholderDate> {
+    override fun getPlaceholderDates(checks: List<Receipt>): List<PlaceholderDate> {
         val dates = mutableListOf<PlaceholderDate>()
 
         checks.forEachIndexed { index, receipt ->

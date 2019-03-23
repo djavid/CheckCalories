@@ -23,6 +23,6 @@ interface Bindings {
     fun bindCheckPresenter(impl: CheckPresenter): CheckFragmentContract.Presenter
 
     @Binds
-    fun bindCHeckView(view: CheckView): CheckFragmentContract.View
+    fun bindCheckView(view: CheckView): CheckFragmentContract.View
 
 }

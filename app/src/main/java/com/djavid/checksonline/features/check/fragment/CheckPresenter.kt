@@ -16,7 +16,7 @@ class CheckPresenter @Inject constructor(
         getCheck(checkId)
     }
 
-    private fun getCheck(checkId: String) {
+    override fun getCheck(checkId: String) {
         disposable = interactor.getCheck(checkId.toLong())
                 .doOnSubscribe { view.showProgress(true) }
                 .doAfterTerminate { view.showProgress(false) }
@@ -27,12 +27,12 @@ class CheckPresenter @Inject constructor(
                 })
     }
 
-    private fun onCheckReceived(receipt: Receipt) {
+    override fun onCheckReceived(receipt: Receipt) {
         view.setGoods(receipt.items)
         view.setToolbar(receipt)
     }
 
-    fun onDestroy() {
+    override fun onDestroy() {
         disposable?.dispose()
     }
 

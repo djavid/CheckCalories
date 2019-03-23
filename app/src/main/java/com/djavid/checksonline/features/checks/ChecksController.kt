@@ -3,7 +3,7 @@ package com.djavid.checksonline.features.checks
 import com.djavid.checksonline.features.common.Paginator
 import com.djavid.checksonline.model.entities.Receipt
 
-class ChecksController(private val view: ChecksView) : Paginator.ViewController<Receipt> {
+class ChecksController(private val view: ChecksContract.View) : Paginator.ViewController<Receipt> {
 
     override fun showEmptyProgress(show: Boolean) {
         view.showChecksProgress(show, true)
@@ -22,7 +22,7 @@ class ChecksController(private val view: ChecksView) : Paginator.ViewController<
     }
 
     override fun showErrorMessage(error: Throwable) {
-        view.showMessage(error.message ?: "Error: No message :(")
+        //TODO view.showMessage(error.message ?: "Error: No message :(")
     }
 
     override fun showRefreshProgress(show: Boolean) {
