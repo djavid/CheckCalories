@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/statItemFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".features.stats.StatsFragment">
-
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -24,8 +23,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_switch"
@@ -41,8 +39,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chart"
-                tools:text="Магазины"
-                />
+                tools:text="Магазины" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switch_btn"
@@ -52,8 +49,7 @@
                 android:checked="false"
                 android:theme="@style/switch_style"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_switch"
-                app:layout_constraintStart_toEndOf="@id/tv_switch"
-                />
+                app:layout_constraintStart_toEndOf="@id/tv_switch" />
 
             <com.mindorks.placeholderview.PlaceHolderView
                 android:id="@+id/stats_placeholder"
@@ -61,16 +57,16 @@
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toBottomOf="@id/switch_btn"
                 tools:itemCount="10"
-                tools:listitem="@layout/item_stat"
-                />
+                tools:listitem="@layout/item_stat" />
 
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
 
-    <include layout="@layout/layout_progress"
-        android:visibility="invisible"/>
+    <include
+        layout="@layout/layout_progress"
+        android:visibility="invisible" />
 
 
 </FrameLayout>

@@ -24,6 +24,8 @@ import com.djavid.checksonline.features.root.RootActivityModule
 import com.djavid.checksonline.features.stats.StatsFragment
 import com.djavid.checksonline.features.stats.StatsListActivity
 import com.djavid.checksonline.features.stats.StatsModule
+import com.djavid.checksonline.features.stats_item.StatItemFragment
+import com.djavid.checksonline.features.stats_item.StatItemModule
 import dagger.Component
 import dagger.Module
 import dagger.android.AndroidInjectionModule
@@ -68,6 +70,10 @@ interface FragmentBindings {
     @ContributesAndroidInjector(modules = [CategoriesModule::class])
     @UIScope
     fun categoriesFragment(): CategoriesFragment
+
+    @ContributesAndroidInjector(modules = [StatItemModule::class])
+    @UIScope
+    fun statItemFragment(): StatItemFragment
 }
 
 @Module

@@ -1,8 +1,6 @@
 package com.djavid.checksonline.features.stats_item
 
-import com.arellomobile.mvp.InjectViewState
 import com.djavid.checksonline.features.app.Screens
-import com.djavid.checksonline.features.base.BasePresenter
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.Percentage
@@ -10,25 +8,27 @@ import com.djavid.checksonline.model.entities.StatsListData
 import com.djavid.checksonline.model.networking.responses.StatPercentResponse
 import com.djavid.checksonline.utils.SavedPreferences
 import com.github.mikephil.charting.data.PieEntry
+import io.reactivex.disposables.Disposable
 import org.joda.time.DateTime
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-@InjectViewState
 class StatsItemPresenter @Inject constructor(
+        private val view: StatsItemContract.View,
         private val statsInteractor: StatsInteractor,
         private val interval: DateInterval,
         private val preferences: SavedPreferences,
-        router: Router
-) : BasePresenter<StatsItemView>(router) {
+        private val router: Router
+) : StatsItemContract.Presenter {
 
     private var statResponse: StatPercentResponse? = null
     private var isShop = preferences.getIsShop()
+    private var disposable: Disposable? = null
 
 
-    override fun onFirstViewAttach() {
-
-        //viewState.setSwitchBtn(preferences.getIsShop()) //TODO
+    override fun init(interval: DateInterval) {
+        view.init(this, interval)
+        //view.setSwitchBtn(preferences.getIsShop()) //TODO
 
         val start = DateTime.parse(interval.dateStart).millis
         val end = DateTime.parse(interval.dateEnd).millis
@@ -36,8 +36,12 @@ class StatsItemPresenter @Inject constructor(
         getStats(start, end, preferences.getIsShop(), true)
     }
 
-    fun onResume() {
-        viewState.setSwitchBtn(preferences.getIsShop())
+    override fun onDestroy() {
+        disposable?.dispose()
+    }
+
+    override fun onResume() {
+        view.setSwitchBtn(preferences.getIsShop())
         if (isShop != preferences.getIsShop()) {
             val start = DateTime.parse(interval.dateStart).millis
             val end = DateTime.parse(interval.dateEnd).millis
@@ -47,72 +51,68 @@ class StatsItemPresenter @Inject constructor(
     }
 
     private fun getStats(start: Long, end: Long, shop: Boolean, showProgress: Boolean) {
-
-        statsInteractor.getChecks(start, end)
-                .doOnSubscribe({
-                    viewState.showProgress(true)
-                    unsubscribeOnDestroy(it)
-                })
-                .doAfterTerminate { if (showProgress) viewState.showProgress(false) }
+        disposable = statsInteractor.getChecks(start, end)
+                .doOnSubscribe { view.showProgress(true) }
+                .doAfterTerminate { if (showProgress) view.showProgress(false) }
                 .subscribe(
                         {
                             statResponse = it
                             showStats(it, shop)
                         },
-                        { processError(it) })
+                        {
+                            //TODO processError(it)
+                        })
     }
 
     private fun showStats(it: StatPercentResponse, shop: Boolean) {
         if (shop) {
-            viewState.setChartData(it.result.shops)
-            viewState.setPercentagesData(it.result.shops.sortedByDescending { it.percentageSum })
-        }
-        else {
-            viewState.setChartData(it.result.categories)
-            viewState.setPercentagesData(it.result.categories.sortedByDescending { it.percentageSum })
+            view.setChartData(it.result.shops)
+            view.setPercentagesData(it.result.shops.sortedByDescending { it.percentageSum })
+        } else {
+            view.setChartData(it.result.categories)
+            view.setPercentagesData(it.result.categories.sortedByDescending { it.percentageSum })
         }
     }
 
-    fun onSwitchClicked(checked: Boolean) {
+    override fun onSwitchClicked(checked: Boolean) {
         preferences.setIsShop(checked)
         statResponse ?: return
 
         showStats(statResponse!!, checked)
     }
 
-    fun onPercentageClicked(percentage: Percentage) {
+    override fun onPercentageClicked(percentage: Percentage) {
         router.navigateTo(Screens.STATS_LIST,
                 StatsListData(percentage.title, preferences.getIsShop(), interval))
     }
 
-    fun onChartValueSelected(entry: PieEntry) {
+    override fun onChartValueSelected(entry: PieEntry) {
         statResponse ?: return
 
         if (preferences.getIsShop()) {
             val res = statResponse!!.result.shops.find { it.title.equals(entry.label) }
             if (res != null) {
                 val list = mutableListOf(res)
-                viewState.setPercentagesData(list)
+                view.setPercentagesData(list)
             }
         } else {
             val res = statResponse!!.result.categories.find { it.title.equals(entry.label) }
             if (res != null) {
                 val list = mutableListOf(res)
-                viewState.setPercentagesData(list)
+                view.setPercentagesData(list)
             }
         }
     }
 
-    fun onNothingSelected() {
+    override fun onNothingSelected() {
         statResponse ?: return
 
         if (preferences.getIsShop()) {
-            viewState.setChartData(statResponse!!.result.shops)
-            viewState.setPercentagesData(statResponse!!.result.shops.sortedByDescending { it.percentageSum })
-        }
-        else {
-            viewState.setChartData(statResponse!!.result.categories)
-            viewState.setPercentagesData(statResponse!!.result.categories.sortedByDescending { it.percentageSum })
+            view.setChartData(statResponse!!.result.shops)
+            view.setPercentagesData(statResponse!!.result.shops.sortedByDescending { it.percentageSum })
+        } else {
+            view.setChartData(statResponse!!.result.categories)
+            view.setPercentagesData(statResponse!!.result.categories.sortedByDescending { it.percentageSum })
         }
     }
 
