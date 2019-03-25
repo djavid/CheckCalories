@@ -1,7 +1,5 @@
 package com.djavid.checksonline.features.categories
 
-import com.arellomobile.mvp.InjectViewState
-import com.djavid.checksonline.dagger.qualifiers.Title
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.PlaceholderDate
@@ -11,12 +9,10 @@ import org.joda.time.DateTime
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-@InjectViewState
 class CategoriesPresenter @Inject constructor(
         private val view: CategoriesContract.View,
         private val interactor: ChecksInteractor,
-        private val interval: DateInterval,
-        @Title private val title: String,
+//        @Title private val title: String,
         private val router: Router
 ) : CategoriesContract.Presenter {
 
@@ -24,12 +20,13 @@ class CategoriesPresenter @Inject constructor(
     private var hasNext: Boolean = false
     private var lastDate: DateTime? = null
     private var disposable: Disposable? = null
+    private lateinit var dateInterval: DateInterval
 
-
-    override fun init() {
+    override fun init(interval: DateInterval) {
         view.init(this)
+        dateInterval = interval
 
-        view.setToolbarTitle(title)
+        //TODO view.setToolbarTitle(title)
         refresh()
 
     }
@@ -47,9 +44,10 @@ class CategoriesPresenter @Inject constructor(
         currentPage = page
 
         try {
-            val dateStart = DateTime.parse(interval.dateStart).millis
-            val dateEnd = DateTime.parse(interval.dateEnd).millis
+            val dateStart = DateTime.parse(dateInterval.dateStart).millis
+            val dateEnd = DateTime.parse(dateInterval.dateEnd).millis
 
+            val title = "" //TODO title
             disposable = interactor.getItemsByCategory(title, dateStart, dateEnd, page)
                     .doOnSubscribe { if (show) view.showProgress(true) }
                     .doAfterTerminate { if (show) view.showProgress(false) }

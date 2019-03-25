@@ -3,6 +3,8 @@ package com.djavid.checksonline.features.app
 import android.app.Activity
 import android.app.Application
 import android.support.v4.app.Fragment
+import com.djavid.checksonline.dagger.AppModule
+import com.djavid.checksonline.dagger.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -25,15 +27,16 @@ class App : Application(), HasActivityInjector, HasSupportFragmentInjector {
 
     override fun onCreate() {
         super.onCreate()
+        createAppComponent()
         initTimber()
         JodaTimeAndroid.init(this)
     }
 
-//    fun createAppComponent = DaggerAppComponent
-//                        .builder()
-//                        .androidAppModule(AndroidAppModule(this))
-//                        .build()
-//                        .inject(this)
+    private fun createAppComponent() = DaggerAppComponent
+            .builder()
+            .appModule(AppModule(this))
+            .build()
+            .inject(this)
 
     private fun initTimber() {
         Timber.plant(Timber.DebugTree())

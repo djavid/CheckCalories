@@ -15,8 +15,6 @@ import javax.inject.Inject
 
 class HabitsActivity : NewBaseActivity() {
 
-    @Inject lateinit var presenter: HabitsContract.Presenter
-
     override val layoutResId: Int get() = R.layout.activity_habits
 
     companion object {
@@ -28,7 +26,6 @@ class HabitsActivity : NewBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.init()
 
         if (savedInstanceState == null) {
             navigator.applyCommand(Replace(Screens.HABITS, null))

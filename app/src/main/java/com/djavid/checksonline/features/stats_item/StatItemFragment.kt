@@ -33,6 +33,9 @@ class StatItemFragment : NewBaseFragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        arguments?.getParcelable<DateInterval>(EXTRA_DATE_INTERVAL)?.let {
+//            presenter.init(it)
+//        }
         val interval = DateInterval(
                 arguments?.getString(ARG_INTERVAL) ?: "",
                 arguments?.getString(ARG_DATE_START) ?: "",

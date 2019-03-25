@@ -14,7 +14,7 @@ class CheckFragment : NewBaseFragment() {
     }
 
     @Inject
-    private lateinit var presenter: CheckFragmentContract.Presenter
+    lateinit var presenter: CheckFragmentContract.Presenter
 
     override val layoutResId get() = R.layout.fragment_check
 

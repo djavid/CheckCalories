@@ -29,4 +29,8 @@ interface QrContract {
         fun onResume()
         fun showProgress(show: Boolean)
     }
+
+    interface Navigator {
+        fun goToQrScreen()
+    }
 }

@@ -1,6 +1,5 @@
 package com.djavid.checksonline.dagger
 
-import com.djavid.checksonline.features.app.BaseUrl
 import com.djavid.checksonline.model.networking.apis.BaseApi
 import com.djavid.checksonline.model.networking.apis.FnsApi
 import com.google.gson.Gson

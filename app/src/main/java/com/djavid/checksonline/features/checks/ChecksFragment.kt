@@ -1,23 +1,25 @@
 package com.djavid.checksonline.features.checks
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.djavid.checksonline.R
-import com.djavid.checksonline.features.base.NewBaseFragment
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class ChecksFragment : NewBaseFragment() {
-
-    companion object {
-        fun newInstance(): ChecksFragment = ChecksFragment()
-    }
+class ChecksFragment : Fragment() {
 
     @Inject
     lateinit var presenter: ChecksContract.Presenter
 
-    override val layoutResId get() = R.layout.fragment_checks
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_checks, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
         presenter.init()
     }
 

@@ -1,17 +1,17 @@
 package com.djavid.checksonline.features.checks
 
-import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.features.common.Paginator
+import com.djavid.checksonline.features.qr.QrNavigator
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DataPage
 import com.djavid.checksonline.model.entities.Dates
 import com.djavid.checksonline.model.entities.PlaceholderDate
 import com.djavid.checksonline.model.entities.Receipt
+import com.djavid.checksonline.model.repositories.MockRepository
 import com.djavid.checksonline.utils.SavedPreferences
 import io.reactivex.disposables.Disposable
 import org.joda.time.DateTime
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class ChecksPresenter @Inject constructor(
@@ -19,16 +19,12 @@ class ChecksPresenter @Inject constructor(
         private val interactor: ChecksInteractor,
         private val statsInteractor: StatsInteractor,
         private val preferences: SavedPreferences,
-        private val router: Router
+        private val qrNavigator: QrNavigator,
+        private val mockRepository: MockRepository
 ) : ChecksContract.Presenter {
 
     private val checksFactory = { page: Int ->
-        interactor.getChecks(page)
-                .map {
-
-                    DataPage(it.result?.receipts ?: listOf(),
-                            it.result?.hasNext == true)
-                }
+        mockRepository.getChecks().map { DataPage(it, false) }
     }
     private val checksController = ChecksController(view)
     private val checksPaginator = Paginator(checksFactory, checksController)
@@ -37,6 +33,11 @@ class ChecksPresenter @Inject constructor(
 
 
     override fun init() {
+        mockRepository.getChecks().blockingGet().forEach {
+
+        }
+
+        view.init(this)
         onDateIntervalChosen(Dates.valueOf(preferences.getTotalSumInterval()))
         refresh()
     }
@@ -46,11 +47,11 @@ class ChecksPresenter @Inject constructor(
     }
 
     override fun onFabClicked() {
-        router.navigateTo(Screens.QR_CODE)
+        qrNavigator.goToQrScreen()
     }
 
     override fun onCheckClicked(receipt: Receipt) {
-        router.navigateTo(Screens.CHECK_ACTIVITY, receipt.receiptId.toString())
+        //router.navigateTo(Screens.CHECK_ACTIVITY, receipt.receiptId.toString())
     }
 
     override fun loadMoreChecks() { //TODO

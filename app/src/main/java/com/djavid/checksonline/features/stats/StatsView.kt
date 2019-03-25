@@ -1,7 +1,6 @@
 package com.djavid.checksonline.features.stats
 
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -20,8 +19,7 @@ import javax.inject.Inject
 
 class StatsView @Inject constructor(
         @ViewRoot private val view: View,
-        private val fragmentManager: FragmentManager?,
-        private val activity: FragmentActivity?
+        private val fragment: Fragment
 ) : StatsContract.View {
 
     private lateinit var presenter: StatsContract.Presenter
@@ -30,7 +28,7 @@ class StatsView @Inject constructor(
         this.presenter = presenter
 
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar_stats)
-        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
+        (fragment.activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
 
         setPopupMenu()
         view.btn_habits.setOnClickListener { presenter.onHabitsClicked() }
@@ -74,10 +72,10 @@ class StatsView @Inject constructor(
     }
 
     override fun setViewPager(intervals: List<DateInterval>) {
-        fragmentManager?.let {
+        fragment.childFragmentManager.let {
             view.viewpager.adapter = StatsPagerAdapter(
                     view.context ?: throw NullPointerException("Context is null"),
-                    fragmentManager,
+                    fragment.childFragmentManager,
                     intervals
             )
         }

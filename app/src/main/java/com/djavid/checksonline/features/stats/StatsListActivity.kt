@@ -3,6 +3,7 @@ package com.djavid.checksonline.features.stats
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.app.Fragment
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.app.Screens
@@ -17,6 +18,8 @@ import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Replace
 import javax.inject.Inject
 
+const val EXTRA_DATE_INTERVAL = "ru.djavid.extras.date_interval"
+
 class StatsListActivity : NewBaseActivity() {
 
     companion object {
@@ -24,7 +27,6 @@ class StatsListActivity : NewBaseActivity() {
         private const val EXTRA_IS_SHOP = "ru.djavid.extras.is_shop"
         private const val EXTRA_DATE_START = "ru.djavid.extras.date_start"
         private const val EXTRA_DATE_END = "ru.djavid.extras.date_end"
-        private const val EXTRA_DATE_INTERVAL = "ru.djavid.extras.date_interval"
 
         fun newIntent(context: Context, data: StatsListData) =
                 Intent(context, StatsListActivity::class.java).apply {
@@ -53,16 +55,9 @@ class StatsListActivity : NewBaseActivity() {
         val interval = intent.getStringExtra(EXTRA_DATE_INTERVAL)
         val dateInterval = DateInterval(interval, dateStart, dateEnd)
 
-//        Toothpick.inject(this, Toothpick.openScopes(application, this)
-//                .also {
-//                    it.installModules(
-//                        PercentageModule(title),
-//                        StatsItemModule(dateInterval)
-//                    ) })
-
         if (savedInstanceState == null) {
-            if (isShop) navigator.applyCommand(Replace(Screens.SHOPS, null))
-            else navigator.applyCommand(Replace(Screens.CATEGORIES, null))
+            if (isShop) navigator.applyCommand(Replace(Screens.SHOPS, dateInterval))
+            else navigator.applyCommand(Replace(Screens.CATEGORIES, dateInterval))
         }
     }
 
@@ -88,8 +83,12 @@ class StatsListActivity : NewBaseActivity() {
 
         override fun createFragment(screenKey: String, data: Any?): Fragment? =
                 when (screenKey) {
-                    Screens.CATEGORIES -> CategoriesFragment.newInstance()
-                    Screens.SHOPS -> ShopsFragment.newInstance()
+                    Screens.CATEGORIES -> CategoriesFragment.newInstance().apply {
+                        arguments?.putParcelable(EXTRA_DATE_INTERVAL, data as Parcelable)
+                    }
+                    Screens.SHOPS -> ShopsFragment.newInstance().apply {
+                        arguments?.putParcelable(EXTRA_DATE_INTERVAL, data as Parcelable)
+                    }
                     else -> null
                 }
     }

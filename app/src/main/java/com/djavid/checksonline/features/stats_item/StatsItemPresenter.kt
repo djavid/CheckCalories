@@ -16,7 +16,6 @@ import javax.inject.Inject
 class StatsItemPresenter @Inject constructor(
         private val view: StatsItemContract.View,
         private val statsInteractor: StatsInteractor,
-        private val interval: DateInterval,
         private val preferences: SavedPreferences,
         private val router: Router
 ) : StatsItemContract.Presenter {
@@ -24,10 +23,12 @@ class StatsItemPresenter @Inject constructor(
     private var statResponse: StatPercentResponse? = null
     private var isShop = preferences.getIsShop()
     private var disposable: Disposable? = null
+    private lateinit var interval: DateInterval
 
 
     override fun init(interval: DateInterval) {
         view.init(this, interval)
+        this.interval = interval
         //view.setSwitchBtn(preferences.getIsShop()) //TODO
 
         val start = DateTime.parse(interval.dateStart).millis

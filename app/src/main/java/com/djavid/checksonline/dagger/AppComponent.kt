@@ -1,7 +1,6 @@
 package com.djavid.checksonline.dagger
 
 import com.djavid.checksonline.features.app.App
-import com.djavid.checksonline.features.app.AppModule
 import com.djavid.checksonline.features.categories.CategoriesFragment
 import com.djavid.checksonline.features.categories.CategoriesModule
 import com.djavid.checksonline.features.check.activity.CheckActivity

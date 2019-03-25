@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 class NewHabitsPresenter @Inject constructor(
         private val view: HabitsContract.View,
-        private val navigator: HabitsContract.Navigation,
         private val interactor: StatsInteractor
 ): HabitsContract.Presenter {
 

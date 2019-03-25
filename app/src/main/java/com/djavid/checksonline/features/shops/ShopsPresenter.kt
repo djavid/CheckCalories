@@ -1,6 +1,5 @@
 package com.djavid.checksonline.features.shops
 
-import com.djavid.checksonline.dagger.qualifiers.Title
 import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.model.entities.DateInterval
@@ -14,8 +13,7 @@ import javax.inject.Inject
 class ShopsPresenter @Inject constructor(
         private val view: ShopsContract.View,
         private val checksInteractor: ChecksInteractor,
-        private val interval: DateInterval,
-        @Title private val title: String,
+        //TODO @Title private val title: String,
         private val router: Router
 ) : ShopsContract.Presenter {
 
@@ -23,11 +21,13 @@ class ShopsPresenter @Inject constructor(
     private var hasNext: Boolean = false
     private var lastDate: DateTime? = null
     private var disposable: Disposable? = null
+    private lateinit var interval: DateInterval
 
 
-    override fun init() {
+    override fun init(interval: DateInterval) {
         view.init(this)
-        view.setToolbarTitle(title)
+        this.interval = interval
+        //TODO view.setToolbarTitle(title)
         refresh()
     }
 
@@ -55,6 +55,7 @@ class ShopsPresenter @Inject constructor(
             val dateStart = DateTime.parse(interval.dateStart).millis
             val dateEnd = DateTime.parse(interval.dateEnd).millis
 
+            val title = "" //TODO
             disposable = checksInteractor.getChecksByShop(title, dateStart, dateEnd, page)
                     .doOnSubscribe { if (show) view.showProgress(true) }
                     .doAfterTerminate { if (show) view.showProgress(false) }

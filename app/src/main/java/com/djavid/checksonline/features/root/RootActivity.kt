@@ -43,8 +43,8 @@ class RootActivity : NewBaseActivity() {
     }
 
     private fun initFragments() {
-        checksFragment = ChecksFragment.newInstance()
-        statsFragment = StatsFragment.newInstance()
+        checksFragment = ChecksFragment()
+        statsFragment = StatsFragment()
     }
 
     private fun setupNavigation() {

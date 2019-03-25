@@ -1,7 +1,6 @@
 package com.djavid.checksonline.features.stats
 
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import android.support.v4.app.Fragment
 import android.view.View
 import com.djavid.checksonline.features.root.ViewRoot
 import dagger.Binds
@@ -17,11 +16,7 @@ class StatsModule {
     fun provideStatsViewRoot(fragment: StatsFragment): View = fragment.fragmentStats
 
     @Provides
-    @ViewRoot
-    fun provideFragmentManager(fragment: StatsFragment): FragmentManager? = fragment.childFragmentManager
-
-    @Provides
-    fun provideActivity(fragment: StatsFragment): FragmentActivity? = fragment.activity
+    fun provideFragment(fragment: StatsFragment): Fragment = fragment
 
 }
 
@@ -29,9 +24,9 @@ class StatsModule {
 interface Bindings {
 
     @Binds
-    fun bindHabitsPresenter(impl: StatsPresenter): StatsContract.Presenter
+    fun bindStatsPresenter(impl: StatsPresenter): StatsContract.Presenter
 
     @Binds
-    fun bindHabitsView(view: StatsView): StatsContract.View
+    fun bindStatsView(view: StatsView): StatsContract.View
 
 }

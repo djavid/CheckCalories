@@ -1,10 +1,7 @@
-package com.djavid.checksonline.features.app
+package com.djavid.checksonline.dagger
 
 import android.app.Application
 import com.djavid.checksonline.BuildConfig
-import com.djavid.checksonline.dagger.AndroidModule
-import com.djavid.checksonline.dagger.NetworkModule
-import com.djavid.checksonline.dagger.ThreadingModule
 import dagger.Module
 import dagger.Provides
 import java.text.DecimalFormat

@@ -1,5 +1,6 @@
 package com.djavid.checksonline.features.shops
 
+import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.PlaceholderDate
 import com.djavid.checksonline.model.entities.Receipt
 
@@ -16,7 +17,7 @@ class ShopsContract {
     }
 
     interface Presenter {
-        fun init()
+        fun init(interval: DateInterval)
         fun onDestroy()
         fun onCheckClicked(receipt: Receipt)
         fun loadMoreChecks()

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.base.NewBaseFragment
+import com.djavid.checksonline.features.stats.EXTRA_DATE_INTERVAL
+import com.djavid.checksonline.model.entities.DateInterval
 import javax.inject.Inject
 
 class CategoriesFragment : NewBaseFragment() {
@@ -19,7 +21,9 @@ class CategoriesFragment : NewBaseFragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        presenter.init()
+        arguments?.getParcelable<DateInterval>(EXTRA_DATE_INTERVAL)?.let {
+            presenter.init(it)
+        }
     }
 
     override fun onDestroy() {
