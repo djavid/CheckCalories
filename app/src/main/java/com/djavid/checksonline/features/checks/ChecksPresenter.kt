@@ -33,10 +33,6 @@ class ChecksPresenter @Inject constructor(
 
 
     override fun init() {
-        mockRepository.getChecks().blockingGet().forEach {
-
-        }
-
         view.init(this)
         onDateIntervalChosen(Dates.valueOf(preferences.getTotalSumInterval()))
         refresh()
@@ -54,7 +50,7 @@ class ChecksPresenter @Inject constructor(
         //router.navigateTo(Screens.CHECK_ACTIVITY, receipt.receiptId.toString())
     }
 
-    override fun loadMoreChecks() { //TODO
+    override fun loadMoreChecks() {
         checksPaginator.loadNewPage()
     }
 
