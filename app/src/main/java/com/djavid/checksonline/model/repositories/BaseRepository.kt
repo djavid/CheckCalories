@@ -32,7 +32,12 @@ class BaseRepository @Inject constructor(
     }
 
     fun sendToken(token: String): Single<SendTokenResponse> {
-        return baseApi.sendToken(token)
+        return Single.fromCallable {
+            SendTokenResponse("",
+                    SendTokenResponse.RegistrationToken(0, "token", 123456, 123457)
+            )
+        }
+        //return baseApi.sendToken(token)
     }
 
 
