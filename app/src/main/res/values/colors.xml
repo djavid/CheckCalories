@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#cacaca</color>
     <color name="colorAccent">#50e3c2</color>
 
-    <!-- region -->
-    <color name="black">#212121</color>
-    <color name="blackDarker">#292929</color>
-    <color name="blackLighter">#4a4a4a</color>
-
-    <color name="blue">#4285f4</color>
-
-    <color name="orange">#f4b854</color>
+    <!-- region zeplin colors -->
+    <color name="black">#000000</color>
+    <color name="black_lighter">#292929</color>
+    <color name="greyish_brown">#4a4a4a</color>
+    <color name="bluey_grey">#8d979e</color>
+    <color name="dodger_blue">#4285f4</color>
+    <color name="butterscotch">#f4b854</color>
+    <color name="white">#ffffff</color>
+    <color name="orange_yellow">#ffa000</color>
+    <color name="brownish_grey">#616161</color>
+    <color name="water_blue">#1976d2</color>
+    <color name="darkish_green">#388e3c</color>
+    <color name="slate">#455a64</color>
+    <color name="macaroni_and_cheese">#fbc02d</color>
+    <color name="pumpkin_orange">#f57c00</color>
+    <color name="dark_sky_blue">#29b6f6</color>
+    <color name="boring_green">#66bb6a</color>
+    <color name="very_light_pink">#d8d8d8</color>
+    <color name="pinkish_orange">#ef6950</color>
+    <color name="dirt">#847545</color>
+    <color name="perrywinkle">#8e8cd8</color>
+    <color name="mid_green">#4caf50</color>
+    <color name="black_54">#8a000000</color>
     <!-- endregion -->
 
-
+    <!-- region other colors -->
     <color name="toolbarBg">#FAFAFA</color>
 
     <color name="colorFavBtn">#03A9F4</color>
-    <color name="white">#ffffff</color>
 
     <color name="color_hint">#b0b0b0</color>
 
@@ -62,5 +77,6 @@
     <!--<item>#ffe57373</item> <item>#fff06292</item> <item>#ffba68c8</item> <item>#ff9575cd</item>-->
     <!--<item>#ff7986cb</item> <item>#ff64b5f6</item> <item>#ff4fc3f7</item> <item>#ff4dd0e1</item>-->
     <!--<item>#ff4db6ac</item> <item>#ff81c784</item> <item>#ffaed581</item> <item>#ffff8a65</item>-->
+    <!-- endregion -->
 
 </resources>
