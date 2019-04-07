@@ -29,9 +29,8 @@ jobs:
           name: Download Dependencies
           command: ./gradlew androidDependencies
 
-      - run:
-          name: CD
-          commannd: cd scripts && ./build.sh
+      - deploy:
+          command: cd ./build.sh
 
       - save_cache:
           paths:
