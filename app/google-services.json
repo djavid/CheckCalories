@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "489483069937",
+    "firebase_url": "https://checkit-f4aee.firebaseio.com",
+    "project_id": "checkit-f4aee",
+    "storage_bucket": "checkit-f4aee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489483069937:android:f9b5f73d50beea38",
+        "android_client_info": {
+          "package_name": "com.djavid.checksonline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489483069937-cre673lui27s2c8hq84vqucsiqgop27e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.djavid.checksonline",
+            "certificate_hash": "08f348669ec8430a6ff5bb218497580e28ba54b1"
+          }
+        },
+        {
+          "client_id": "489483069937-cvj27dog9kimk5muilkjl9dhhje9vuq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXcBrQWfbs_0Gu8Z2iL16A_ILBkVDbLOI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489483069937-cvj27dog9kimk5muilkjl9dhhje9vuq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
