@@ -30,7 +30,8 @@ jobs:
           command: ./gradlew androidDependencies
 
       - deploy:
-          command: cd ./build.sh
+          command: |
+            cp ./app/build/outputs/apk/app-release.apk ${CIRCLE_ARTIFACTS}/checkit-debug-${CIRCLE_BUILD_NUM}-${CIRCLE_SHA1}.apk
 
       - save_cache:
           paths:
