@@ -34,7 +34,7 @@
                 android:fontFamily="sans-serif"
                 android:lineSpacingExtra="6sp"
                 android:text="@string/shops"
-                android:textColor="@color/orange"
+                android:textColor="@color/butterscotch"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"

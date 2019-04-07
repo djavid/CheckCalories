@@ -9,7 +9,7 @@
     </style>
 
     <style name="switch_style" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@color/orange</item>
+        <item name="colorAccent">@color/butterscotch</item>
     </style>
 
 </resources>
