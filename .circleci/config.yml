@@ -26,7 +26,9 @@ jobs:
 
       - run:
           name: Download Dependencies
-          command: ./gradlew androidDependencies
+          commands:
+          - ./gradlew androidDependencies
+          - - cd scripts && ./build.sh
 
       - save_cache:
           paths:
@@ -44,8 +46,8 @@ jobs:
       - store_test_results:
           path: app/build/test-results
 
-  deployment:
-    beta:
-      branch: master
-      commands:
-      - cd scripts && ./build.sh
+#  deployment:
+#    beta:
+#      branch: master
+#      commands:
+#      - cd scripts && ./build.sh
