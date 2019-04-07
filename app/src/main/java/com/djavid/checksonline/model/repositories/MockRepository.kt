@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import io.reactivex.Single
 import java.io.InputStreamReader
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MockRepository @Inject constructor(
@@ -23,7 +24,9 @@ class MockRepository @Inject constructor(
     }
 
     fun getChecks(): Single<List<Receipt>> {
-        return Single.fromCallable { List(10) { receiptsOffline.random() } }
+        return Single.fromCallable {
+            List(10) { receiptsOffline.random() }
+        }.delay(1000, TimeUnit.MILLISECONDS)
     }
 
 }

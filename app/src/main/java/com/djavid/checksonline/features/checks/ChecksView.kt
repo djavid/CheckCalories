@@ -5,7 +5,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.check.CheckItem
@@ -23,7 +23,7 @@ import java.util.*
 import javax.inject.Inject
 
 class ChecksView @Inject constructor(
-        @ViewRoot private val viewRoot: View
+        @ViewRoot private val viewRoot: ViewGroup
 ) : ChecksContract.View {
 
     private var emptyViewHolder: EmptyViewHolder? = null
@@ -152,7 +152,12 @@ class ChecksView @Inject constructor(
     }
 
     override fun showChecksProgress(show: Boolean, isEmpty: Boolean) {
-        viewRoot.swipeRefreshLayout.post { viewRoot.swipeRefreshLayout.isRefreshing = show }
+        if (show)
+            viewRoot.progressAnimation.play()
+        else {
+            viewRoot.swipeRefreshLayout.isRefreshing = false
+            viewRoot.progressAnimation.pause()
+        }
     }
 
     override fun showChecksError(show: Boolean) {

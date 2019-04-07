@@ -1,7 +1,7 @@
 package com.djavid.checksonline.features.checks
 
 import android.content.Context
-import android.view.View
+import android.view.ViewGroup
 import com.djavid.checksonline.features.root.OriginActivityContext
 import com.djavid.checksonline.features.root.ViewRoot
 import dagger.Binds
@@ -14,7 +14,7 @@ class ChecksModule {
 
     @Provides
     @ViewRoot
-    fun provideChecksViewRoot(fragment: ChecksFragment): View = fragment.checksFragment
+    fun provideChecksViewRoot(fragment: ChecksFragment): ViewGroup = fragment.checksFragment
 
     @Provides
     @OriginActivityContext
