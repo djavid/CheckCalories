@@ -1,88 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:ignore="MissingPrefix, ContentDescription"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/receipt_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/white"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
     android:clickable="true"
     android:focusable="true"
-    android:layout_marginEnd="5dp"
-    android:layout_marginStart="5dp"
     android:padding="16dp"
-    >
+    app:cardBackgroundColor="@color/white"
+    tools:ignore="MissingPrefix, ContentDescription">
 
     <ImageView
         android:id="@+id/iv_logo_circle"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:src="@drawable/oval"
+        android:src="@drawable/ic_orange_oval"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars"
-        />
+        tools:src="@tools:sample/avatars" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="51dp"
-        />
+        app:layout_constraintGuide_begin="51dp" />
 
     <TextView
         android:id="@+id/tv_shop_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:textColor="@color/steel_grey"
-        android:textSize="16sp"
-        android:textStyle="normal"
         android:layout_marginEnd="10dp"
+        android:fontFamily="@font/rubik_regular"
         android:singleLine="true"
-        app:layout_constraintStart_toEndOf="@id/guideline"
+        android:textColor="@color/blackDarker"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@id/tv_time"
+        app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="ООО Вкусвилл" />
-
-    <ImageView
-        android:id="@+id/iv_location"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
-        android:layout_marginTop="16dp"
-        android:tint="@color/steel_grey_light"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_shop_title"
-        app:srcCompat="@drawable/ic_baseline_location"
-        />
 
     <TextView
         android:id="@+id/tv_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:fontFamily="sans-serif"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/rubik_regular"
         android:singleLine="true"
-        android:textColor="@color/steel_grey_light"
-        android:textSize="12sp"
+        android:textColor="@color/blackLighter"
+        android:textSize="13sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@id/iv_location"
         app:layout_constraintEnd_toStartOf="@id/tv_time"
-        app:layout_constraintStart_toEndOf="@id/iv_location"
-        app:layout_constraintTop_toTopOf="@id/iv_location"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_shop_title"
         tools:text="ул. Маршала Малиновского, дом № 8" />
 
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:textColor="#a4acb2"
+        android:fontFamily="@font/rubik_regular"
+        android:textColor="@color/blackLighter"
         android:textSize="12sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@id/tv_shop_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_shop_title"
@@ -93,10 +76,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif"
-        android:textColor="@color/aqua_marine"
+        android:fontFamily="@font/rubik_regular"
+        android:textColor="@color/orange"
         android:textSize="20sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/tv_address"
         tools:text="574.65 руб" />
@@ -108,6 +91,7 @@
         android:clickable="true"
         android:focusable="true"
         android:tint="#9B9B9B"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/tv_sum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_sum"

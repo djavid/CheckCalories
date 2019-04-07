@@ -4,19 +4,27 @@
     <color name="colorPrimaryDark">#cacaca</color>
     <color name="colorAccent">#50e3c2</color>
 
+    <!-- region -->
+    <color name="black">#212121</color>
+    <color name="blackDarker">#292929</color>
+    <color name="blackLighter">#4a4a4a</color>
+
+    <color name="blue">#4285f4</color>
+
+    <color name="orange">#f4b854</color>
+    <!-- endregion -->
+
+
     <color name="toolbarBg">#FAFAFA</color>
 
     <color name="colorFavBtn">#03A9F4</color>
     <color name="white">#ffffff</color>
-    <color name="black">#212121</color>
 
     <color name="color_hint">#b0b0b0</color>
 
     <color name="steel_grey">#868888</color>
     <color name="steel_grey_light">#8d979e</color>
     <color name="cool_grey">#a4acb2</color>
-
-    <color name="orange">#f4b854</color>
 
     <color name="aqua_marine">#3cdfba</color>
 

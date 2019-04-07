@@ -46,9 +46,6 @@ class CheckItem(
     @View(R.id.iv_share)
     lateinit var iv_share: ImageView
 
-    @View(R.id.iv_location)
-    lateinit var iv_location: ImageView
-
     @JvmField
     @Position
     var position: Int = 0
@@ -88,7 +85,6 @@ class CheckItem(
         //адрес
         if (receipt.isEmpty || receipt.retailPlaceAddress == null || receipt.retailPlaceAddress.isEmpty()) {
             tv_address.visibility = android.view.View.GONE
-            iv_location.visibility = android.view.View.GONE
         } else {
             tv_address.text = receipt.retailPlaceAddress
         }

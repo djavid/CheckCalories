@@ -40,9 +40,6 @@ class PopularShopItem(
     @View(R.id.iv_share)
     lateinit var iv_status: ImageView
 
-    @View(R.id.iv_location)
-    lateinit var iv_location: ImageView
-
     @JvmField
     @Position
     var position: Int = 0
@@ -62,7 +59,6 @@ class PopularShopItem(
 
         if (shop.address == null || shop.address.isEmpty()) {
             tv_address.show(false)
-            iv_location.show(false)
         } else {
             tv_address.text = shop.address
         }
