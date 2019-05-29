@@ -13,7 +13,6 @@ import com.djavid.checksonline.features.qr.QrActivity
 import com.djavid.checksonline.features.stats.StatsFragment
 import com.djavid.checksonline.features.stats.StatsListActivity
 import com.djavid.checksonline.model.entities.StatsListData
-import kotlinx.android.synthetic.main.activity_root.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -28,9 +27,6 @@ class RootActivity : NewBaseActivity() {
     @Inject
     lateinit var presenter: RootContract.Presenter
 
-    private var checksFragment: ChecksFragment? = null
-    private var statsFragment: StatsFragment? = null
-
     override val layoutResId: Int = R.layout.activity_root
 
 
@@ -38,38 +34,12 @@ class RootActivity : NewBaseActivity() {
         super.onCreate(savedInstanceState)
         presenter.init()
 
-        setupNavigation()
-        initFragments()
         restoreState(savedInstanceState)
-    }
-
-    private fun initFragments() {
-        checksFragment = ChecksFragment()
-        statsFragment = StatsFragment()
-    }
-
-    private fun setupNavigation() {
-        //navigation.disableShifting()
-
-        navigation.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_checks -> presenter.onChecksSelected()
-                R.id.nav_stats -> presenter.onStatsSelected()
-            }
-            return@setOnNavigationItemSelectedListener true
-        }
-
-        navigation.setOnNavigationItemReselectedListener {
-
-        }
     }
 
     private fun restoreState(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            navigation.selectedItemId = R.id.nav_checks
             navigator.applyCommand(Replace(Screens.HOME, null))
-        } else {
-
         }
     }
 
@@ -99,8 +69,8 @@ class RootActivity : NewBaseActivity() {
 
         override fun createFragment(screenKey: String, data: Any?): Fragment? =
                 when (screenKey) {
-                    Screens.HOME -> checksFragment
-                    Screens.STATS -> statsFragment
+                    Screens.HOME -> ChecksFragment()
+                    Screens.STATS -> StatsFragment()
                     else -> null
                 }
 
