@@ -18,6 +18,7 @@ class ChecksContract {
         fun showEmptyView(show: Boolean)
         fun setToolbarSum(totalSum: Double)
         fun setBtnPeriodText(interval: Dates)
+        fun openPanel()
     }
 
     interface Presenter {

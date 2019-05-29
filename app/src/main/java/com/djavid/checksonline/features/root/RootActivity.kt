@@ -22,7 +22,8 @@ import javax.inject.Inject
 
 class RootActivity : NewBaseActivity() {
 
-    @Inject lateinit var holder: NavigatorHolder
+    @Inject
+    lateinit var holder: NavigatorHolder
 
     @Inject
     lateinit var presenter: RootContract.Presenter

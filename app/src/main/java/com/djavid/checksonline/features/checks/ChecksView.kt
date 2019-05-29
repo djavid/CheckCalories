@@ -2,9 +2,12 @@ package com.djavid.checksonline.features.checks
 
 import android.support.design.widget.BaseTransientBottomBar
 import android.support.design.widget.Snackbar
+import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import com.djavid.checksonline.R
@@ -15,15 +18,20 @@ import com.djavid.checksonline.features.root.ViewRoot
 import com.djavid.checksonline.model.entities.Dates
 import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.utils.show
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import kotlinx.android.synthetic.main.fragment_checks.view.*
+import kotlinx.android.synthetic.main.fragment_checks_content.view.*
 import kotlinx.android.synthetic.main.layout_empty_recycler_view.view.*
 import kotlinx.android.synthetic.main.layout_error_action.view.*
 import kotlinx.android.synthetic.main.toolbar_checks.view.*
 import java.util.*
 import javax.inject.Inject
 
+@Suppress("UNUSED_EXPRESSION")
 class ChecksView @Inject constructor(
-        @ViewRoot private val viewRoot: ViewGroup
+        @ViewRoot private val viewRoot: ViewGroup,
+        private val fragmentManager: FragmentManager?
 ) : ChecksContract.View {
 
     private var emptyViewHolder: EmptyViewHolder? = null
@@ -32,8 +40,6 @@ class ChecksView @Inject constructor(
     override fun init(presenter: ChecksContract.Presenter) {
         this.presenter = presenter
 
-        viewRoot.fab.setOnClickListener { presenter.onFabClicked() }
-
         viewRoot.receipts_placeholder.builder
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
@@ -41,17 +47,49 @@ class ChecksView @Inject constructor(
         setLoadMoreResolver()
         ItemTouchHelper(cardMoveCallback).attachToRecyclerView(viewRoot.receipts_placeholder)
 
-        viewRoot.swipeRefreshLayout.setColorSchemeColors(viewRoot.context.resources.getColor(R.color.colorAccent))
-        viewRoot.swipeRefreshLayout.setOnRefreshListener {
-            presenter.refresh()
-        }
+        viewRoot.swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(viewRoot.context, R.color.colorAccent))
+        viewRoot.swipeRefreshLayout.setOnRefreshListener { presenter.refresh() }
 
         emptyViewHolder = EmptyViewHolder(
                 viewRoot.context.getString(R.string.refresh),
                 viewRoot.context.getString(R.string.load_error),
-                viewRoot.needPermissionLayout, { presenter.refresh() })
+                viewRoot.needPermissionLayout
+        ) { presenter.refresh() }
 
         setPopupMenu()
+
+//        viewRoot.contentBackground.setOnTouchListener { _, _ ->
+//            if (!panelHidden()) {
+//                hidePanel()
+//                true
+//            }
+//
+//            false
+//        }
+
+        viewRoot.panelChecks.setFadeOnClickListener { hidePanel() }
+    }
+
+    private fun panelHidden() = viewRoot.panelChecks.post { viewRoot.panelChecks.panelState == PanelState.HIDDEN }
+
+    override fun openPanel() {
+        viewRoot.panelChecks.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
+            override fun onPanelSlide(panel: View?, slideOffset: Float) {
+                println(slideOffset)
+                if (viewRoot.panelChecks.panelState == PanelState.DRAGGING) {
+                    viewRoot.panelChecks.isTouchEnabled = false
+                }
+            }
+
+            override fun onPanelStateChanged(panel: View?, previousState: PanelState?, newState: PanelState?) {
+
+            }
+        })
+        viewRoot.panelChecks.panelState = PanelState.ANCHORED
+    }
+
+    private fun hidePanel() {
+        viewRoot.panelChecks.panelState = PanelState.HIDDEN
     }
 
     private fun setPopupMenu() {

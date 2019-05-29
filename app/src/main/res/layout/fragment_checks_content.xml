@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/checksFragmentContent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <View
+        android:id="@+id/contentBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:translationZ="1dp" />
+
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar_checks"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--<FrameLayout-->
+            <!--android:id="@+id/checkFragmentContainer"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="bottom" />-->
+
+            <com.mindorks.placeholderview.InfinitePlaceHolderView
+                android:id="@+id/receipts_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_receipt" />
+
+            <com.djavid.checksonline.utils.MyProgressBar
+                android:id="@+id/progressAnimation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:visibility="gone" />
+
+            <include
+                layout="@layout/layout_empty_recycler_view"
+                android:visibility="gone" />
+
+            <include
+                layout="@layout/layout_error_action"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include
+        layout="@layout/layout_progress"
+        android:visibility="invisible" />
+
+</android.support.constraint.ConstraintLayout>

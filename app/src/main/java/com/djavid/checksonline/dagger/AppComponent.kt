@@ -7,6 +7,8 @@ import com.djavid.checksonline.features.check.activity.CheckActivity
 import com.djavid.checksonline.features.check.activity.CheckActivityModule
 import com.djavid.checksonline.features.check.fragment.CheckFragment
 import com.djavid.checksonline.features.check.fragment.CheckFragmentModule
+import com.djavid.checksonline.features.check_new.NewCheckFragment
+import com.djavid.checksonline.features.check_new.NewCheckModule
 import com.djavid.checksonline.features.checks.ChecksFragment
 import com.djavid.checksonline.features.checks.ChecksModule
 import com.djavid.checksonline.features.habits.HabitsActivity
@@ -79,6 +81,10 @@ interface FragmentBindings {
     @ContributesAndroidInjector(modules = [ShopsModule::class])
     @UIScope
     fun shopsFragment(): ShopsFragment
+
+    @ContributesAndroidInjector(modules = [NewCheckModule::class])
+    @UIScope
+    fun newCheckFragment(): NewCheckFragment
 }
 
 @Module

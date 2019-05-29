@@ -13,6 +13,7 @@ class CheckPresenter @Inject constructor(
     private var disposable: Disposable? = null
 
     override fun init(checkId: String) {
+        view.init(this)
         getCheck(checkId)
     }
 

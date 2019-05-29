@@ -9,4 +9,9 @@ class CheckActivityContract {
     interface Presenter {
         fun init(checkId: String)
     }
+
+    interface Navigator {
+        fun goToCheckScreen()
+    }
+
 }

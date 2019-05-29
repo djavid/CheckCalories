@@ -4,25 +4,31 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    def application_id = "com.djavid.checksonline"
     def version_code = 1
-    def version_name = "Alpha"
+    def version_name = "beta"
     def compileSdk = 28
-    def minSdk = 19
+    def minSdk = 21
     def targetSdk = 28
+
     defaultConfig {
-        applicationId "com.djavid.checksonline"
+        applicationId = application_id
         compileSdkVersion = compileSdk
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionName version_name
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionName = version_name
+        versionCode = version_code
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+
         buildConfigField "String", "BASE_URL", this.getProperty("com.djavid.url.base")
         buildConfigField "String", "FNS_URL", this.getProperty("com.djavid.url.fns")
         buildConfigField "String", "FNS_USERNAME", this.getProperty("com.djavid.credentials.username")
         buildConfigField "String", "FNS_PASSWORD", this.getProperty("com.djavid.credentials.password")
-        multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -32,15 +38,19 @@ android {
             jniDebuggable false
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
         incremental = false
     }
+
     androidExtensions {
         experimental = true
     }
-    productFlavors {
+
+    packagingOptions {
+        pickFirst("META-INF/atomicfu.kotlin_module")
     }
 }
 
@@ -48,6 +58,7 @@ repositories {
     maven {
         url 'http://dl.bintray.com/amulyakhare/maven'
     }
+
     mavenCentral()
 }
 
@@ -157,6 +168,10 @@ dependencies {
     //william chart
     implementation 'com.diogobernardino:williamchart:2.5.0'
     implementation 'com.android.support:multidex:1.0.3'
+
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

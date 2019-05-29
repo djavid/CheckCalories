@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.features.base.NewBaseActivity
-import com.djavid.checksonline.features.check.fragment.CheckFragment
+import com.djavid.checksonline.features.check_new.NewCheckFragment
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Replace
@@ -61,10 +61,10 @@ class CheckActivity : NewBaseActivity() {
 
         override fun createFragment(screenKey: String, data: Any?): Fragment? =
                 when (screenKey) {
-                    Screens.CHECK -> CheckFragment.newInstance().apply {
-                        (data as? String)?.let {
-                            this.arguments?.putString(EXTRA_CHECK_ID, it)
-                        }
+                    Screens.CHECK -> NewCheckFragment().apply {
+                        //                        (data as? String)?.let {
+//                            this.arguments?.putString(EXTRA_CHECK_ID, it)
+//                        }
                     }
                     else -> null
                 }

@@ -2,6 +2,8 @@ package com.djavid.checksonline.features.checks
 
 import android.content.Context
 import android.view.ViewGroup
+import com.djavid.checksonline.features.check.activity.CheckActivityContract
+import com.djavid.checksonline.features.check.activity.CheckNavigator
 import com.djavid.checksonline.features.root.OriginActivityContext
 import com.djavid.checksonline.features.root.ViewRoot
 import dagger.Binds
@@ -14,11 +16,14 @@ class ChecksModule {
 
     @Provides
     @ViewRoot
-    fun provideChecksViewRoot(fragment: ChecksFragment): ViewGroup = fragment.checksFragment
+    fun provideChecksViewRoot(fragment: ChecksFragment): ViewGroup = fragment.panelChecks
 
     @Provides
     @OriginActivityContext
     fun provideContext(fragment: ChecksFragment): Context = fragment.context!!
+
+    @Provides
+    fun provideFragmentManager(fragment: ChecksFragment) = fragment.fragmentManager
 
 }
 
@@ -30,5 +35,8 @@ interface Bindings {
 
     @Binds
     fun bindChecksView(view: ChecksView): ChecksContract.View
+
+    @Binds
+    fun bindCheckNavigator(navigator: CheckNavigator): CheckActivityContract.Navigator
 
 }

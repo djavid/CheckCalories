@@ -45,7 +45,6 @@ class CheckView @Inject constructor(
     }
 
     override fun setToolbar(receipt: Receipt) {
-
         //set title
         viewRoot.title.text = receipt.user ?: viewRoot.context.getString(R.string.no_title)
 
@@ -73,4 +72,5 @@ class CheckView @Inject constructor(
     override fun showProgress(show: Boolean) {
         viewRoot.progressLayout.show(show)
     }
+
 }

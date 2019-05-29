@@ -1,5 +1,6 @@
 package com.djavid.checksonline.features.checks
 
+import com.djavid.checksonline.features.check.activity.CheckActivityContract
 import com.djavid.checksonline.features.common.Paginator
 import com.djavid.checksonline.features.qr.QrNavigator
 import com.djavid.checksonline.interactors.ChecksInteractor
@@ -20,7 +21,8 @@ class ChecksPresenter @Inject constructor(
         private val statsInteractor: StatsInteractor,
         private val preferences: SavedPreferences,
         private val qrNavigator: QrNavigator,
-        private val mockRepository: MockRepository
+        private val mockRepository: MockRepository,
+        private val navigator: CheckActivityContract.Navigator
 ) : ChecksContract.Presenter {
 
     private val checksFactory = { page: Int ->
@@ -47,7 +49,8 @@ class ChecksPresenter @Inject constructor(
     }
 
     override fun onCheckClicked(receipt: Receipt) {
-        //router.navigateTo(Screens.CHECK_ACTIVITY, receipt.receiptId.toString())
+        //navigator.goToCheckScreen()
+        view.openPanel()
     }
 
     override fun loadMoreChecks() {
