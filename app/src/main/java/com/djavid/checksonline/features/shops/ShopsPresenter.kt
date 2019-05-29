@@ -1,6 +1,5 @@
 package com.djavid.checksonline.features.shops
 
-import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.PlaceholderDate
@@ -36,7 +35,7 @@ class ShopsPresenter @Inject constructor(
     }
 
     override fun onCheckClicked(receipt: Receipt) {
-        router.navigateTo(Screens.CHECK_ACTIVITY, receipt.receiptId.toString())
+//        router.navigateTo(Screens.CHECK_ACTIVITY, receipt.receiptId.toString())
     }
 
     override fun loadMoreChecks() {

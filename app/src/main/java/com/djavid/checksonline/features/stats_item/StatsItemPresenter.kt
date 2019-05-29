@@ -1,10 +1,8 @@
 package com.djavid.checksonline.features.stats_item
 
-import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.Percentage
-import com.djavid.checksonline.model.entities.StatsListData
 import com.djavid.checksonline.model.networking.responses.StatPercentResponse
 import com.djavid.checksonline.utils.SavedPreferences
 import com.github.mikephil.charting.data.PieEntry
@@ -83,8 +81,7 @@ class StatsItemPresenter @Inject constructor(
     }
 
     override fun onPercentageClicked(percentage: Percentage) {
-        router.navigateTo(Screens.STATS_LIST,
-                StatsListData(percentage.title, preferences.getIsShop(), interval))
+//        router.navigateTo(Screens.STATS_LIST, StatsListData(percentage.title, preferences.getIsShop(), interval))
     }
 
     override fun onChartValueSelected(entry: PieEntry) {

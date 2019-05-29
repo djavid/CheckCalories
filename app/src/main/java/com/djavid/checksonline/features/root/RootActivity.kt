@@ -1,22 +1,9 @@
 package com.djavid.checksonline.features.root
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.djavid.checksonline.R
-import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.features.base.NewBaseActivity
-import com.djavid.checksonline.features.check.activity.CheckActivity
-import com.djavid.checksonline.features.checks.ChecksFragment
-import com.djavid.checksonline.features.habits.HabitsActivity
-import com.djavid.checksonline.features.qr.QrActivity
-import com.djavid.checksonline.features.stats.StatsFragment
-import com.djavid.checksonline.features.stats.StatsListActivity
-import com.djavid.checksonline.model.entities.StatsListData
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.android.SupportAppNavigator
-import ru.terrakok.cicerone.commands.Command
-import ru.terrakok.cicerone.commands.Replace
 import javax.inject.Inject
 
 class RootActivity : NewBaseActivity() {
@@ -39,43 +26,33 @@ class RootActivity : NewBaseActivity() {
 
     private fun restoreState(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            navigator.applyCommand(Replace(Screens.HOME, null))
+//            navigator.applyCommand(Replace(Screens.HOME, null))
         }
     }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        holder.setNavigator(navigator)
-    }
 
-    override fun onPause() {
-        holder.removeNavigator()
-        super.onPause()
-    }
-
-
-    private val navigator = object : SupportAppNavigator(this, R.id.container) {
-
-        override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
-                when (screenKey) {
-                    Screens.QR_CODE -> QrActivity.newIntent(this@RootActivity)
-                    Screens.CHECK_ACTIVITY ->
-                        CheckActivity.newIntent(this@RootActivity, data as String)
-                    Screens.HABITS_ACTIVITY -> HabitsActivity.newIntent(this@RootActivity)
-                    Screens.STATS_LIST -> StatsListActivity.newIntent(this@RootActivity,
-                            data as StatsListData)
-                    else -> null
-                }
-
-        override fun createFragment(screenKey: String, data: Any?): Fragment? =
-                when (screenKey) {
-                    Screens.HOME -> ChecksFragment()
-                    Screens.STATS -> StatsFragment()
-                    else -> null
-                }
-
-        override fun unknownScreen(command: Command) {
-            throw IllegalArgumentException("Wrong command: $command")
-        }
-    }
+//    private val navigator = object : SupportAppNavigator(this, R.id.container) {
+//
+//        override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
+//                when (screenKey) {
+//                    Screens.QR_CODE -> QrActivity.newIntent(this@RootActivity)
+//                    Screens.CHECK_ACTIVITY ->
+//                        CheckActivity.newIntent(this@RootActivity, data as String)
+//                    Screens.HABITS_ACTIVITY -> HabitsActivity.newIntent(this@RootActivity)
+//                    Screens.STATS_LIST -> StatsListActivity.newIntent(this@RootActivity,
+//                            data as StatsListData)
+//                    else -> null
+//                }
+//
+//        override fun createFragment(screenKey: String, data: Any?): Fragment? =
+//                when (screenKey) {
+//                    Screens.HOME -> ChecksFragment()
+//                    Screens.STATS -> StatsFragment()
+//                    else -> null
+//                }
+//
+//        override fun unknownScreen(command: Command) {
+//            throw IllegalArgumentException("Wrong command: $command")
+//        }
+//    }
 }

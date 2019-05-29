@@ -3,20 +3,10 @@ package com.djavid.checksonline.features.stats
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
-import androidx.fragment.app.Fragment
 import com.djavid.checksonline.R
-import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.features.base.NewBaseActivity
-import com.djavid.checksonline.features.categories.CategoriesFragment
-import com.djavid.checksonline.features.check.activity.CheckActivity
-import com.djavid.checksonline.features.shops.ShopsFragment
 import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.StatsListData
-import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.android.SupportAppNavigator
-import ru.terrakok.cicerone.commands.Replace
-import javax.inject.Inject
 
 const val EXTRA_DATE_INTERVAL = "ru.djavid.extras.date_interval"
 
@@ -38,8 +28,8 @@ class StatsListActivity : NewBaseActivity() {
                 }
     }
 
-    @Inject
-    lateinit var holder: NavigatorHolder
+//    @Inject
+//    lateinit var holder: NavigatorHolder
 
     override val layoutResId: Int get() = R.layout.activity_stats_list
 
@@ -56,40 +46,31 @@ class StatsListActivity : NewBaseActivity() {
         val dateInterval = DateInterval(interval, dateStart, dateEnd)
 
         if (savedInstanceState == null) {
-            if (isShop) navigator.applyCommand(Replace(Screens.SHOPS, dateInterval))
-            else navigator.applyCommand(Replace(Screens.CATEGORIES, dateInterval))
+//            if (isShop) navigator.applyCommand(Replace(Screens.SHOPS, dateInterval))
+//            else navigator.applyCommand(Replace(Screens.CATEGORIES, dateInterval))
         }
     }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        holder.setNavigator(navigator)
-    }
+    //    private val navigator = object : SupportAppNavigator(this,
+//            supportFragmentManager, R.id.container) {
+//
+//        override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
+//                when (screenKey) {
+//                    Screens.CHECK_ACTIVITY ->
+//                        CheckActivity.newIntent(this@StatsListActivity, data as String)
+//                    else -> null
+//                }
+//
+//        override fun createFragment(screenKey: String, data: Any?): Fragment? =
+//                when (screenKey) {
+//                    Screens.CATEGORIES -> CategoriesFragment.newInstance().apply {
+//                        arguments?.putParcelable(EXTRA_DATE_INTERVAL, data as Parcelable)
+//                    }
+//                    Screens.SHOPS -> ShopsFragment.newInstance().apply {
+//                        arguments?.putParcelable(EXTRA_DATE_INTERVAL, data as Parcelable)
+//                    }
+//                    else -> null
+//                }
+//    }
 
-    override fun onPause() {
-        holder.removeNavigator()
-        super.onPause()
-    }
-
-    private val navigator = object : SupportAppNavigator(this,
-            supportFragmentManager, R.id.container) {
-
-        override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
-                when (screenKey) {
-                    Screens.CHECK_ACTIVITY ->
-                        CheckActivity.newIntent(this@StatsListActivity, data as String)
-                    else -> null
-                }
-
-        override fun createFragment(screenKey: String, data: Any?): Fragment? =
-                when (screenKey) {
-                    Screens.CATEGORIES -> CategoriesFragment.newInstance().apply {
-                        arguments?.putParcelable(EXTRA_DATE_INTERVAL, data as Parcelable)
-                    }
-                    Screens.SHOPS -> ShopsFragment.newInstance().apply {
-                        arguments?.putParcelable(EXTRA_DATE_INTERVAL, data as Parcelable)
-                    }
-                    else -> null
-                }
-    }
 }

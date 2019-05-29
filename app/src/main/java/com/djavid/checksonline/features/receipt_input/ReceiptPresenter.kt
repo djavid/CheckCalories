@@ -1,6 +1,5 @@
 package com.djavid.checksonline.features.receipt_input
 
-import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.interactors.QrCodeInteractor
 import com.djavid.checksonline.model.networking.bodies.FnsValues
 import io.reactivex.disposables.Disposable
@@ -20,7 +19,7 @@ class ReceiptPresenter @Inject constructor(
     }
 
     override fun onOpenButtonClicked(receiptId: String) {
-        router.navigateTo(Screens.CHECK_ACTIVITY, receiptId)
+//        router.navigateTo(Screens.CHECK_ACTIVITY, receiptId)
     }
 
     override fun sendCheck(fnsValues: FnsValues) {

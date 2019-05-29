@@ -1,6 +1,5 @@
 package com.djavid.checksonline.features.qr
 
-import com.djavid.checksonline.features.app.Screens
 import com.djavid.checksonline.interactors.QrCodeInteractor
 import com.djavid.checksonline.model.networking.bodies.FnsValues
 import com.djavid.checksonline.utils.getCheckMatcher
@@ -43,11 +42,11 @@ class QrPresenter @Inject constructor(
     }
 
     override fun onManualInputBtnClick() {
-        router.navigateTo(Screens.RECEIPT_INPUT_ACTIVITY)
+//        router.navigateTo(Screens.RECEIPT_INPUT_ACTIVITY)
     }
 
     override fun onOpenButtonClicked(receiptId: String) {
-        router.navigateTo(Screens.CHECK_ACTIVITY, receiptId)
+//        router.navigateTo(Screens.CHECK_ACTIVITY, receiptId)
     }
 
     private fun sendCheck(fnsValues: FnsValues) {
