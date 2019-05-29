@@ -1,7 +1,7 @@
 package com.djavid.checksonline.features.stats
 
-import android.support.v4.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import com.djavid.checksonline.features.root.ViewRoot
 import dagger.Binds
 import dagger.Module

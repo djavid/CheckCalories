@@ -3,9 +3,9 @@ package com.djavid.checksonline.features.check
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat.startActivity
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.djavid.checksonline.R

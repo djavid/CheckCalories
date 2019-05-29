@@ -3,12 +3,12 @@ package com.djavid.checksonline.utils
 import android.content.Context
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
-import android.support.graphics.drawable.Animatable2Compat
-import android.support.graphics.drawable.AnimatedVectorDrawableCompat
-import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.djavid.checksonline.R
 import javax.inject.Inject
 

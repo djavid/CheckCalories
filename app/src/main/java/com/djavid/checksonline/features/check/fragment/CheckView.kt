@@ -1,7 +1,7 @@
 package com.djavid.checksonline.features.check.fragment
 
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.check.GoodItem
 import com.djavid.checksonline.features.root.ViewRoot

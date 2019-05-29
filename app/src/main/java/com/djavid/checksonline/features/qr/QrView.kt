@@ -6,10 +6,10 @@ import android.app.Dialog
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.common.EmptyViewHolder
 import com.djavid.checksonline.features.root.ViewRoot

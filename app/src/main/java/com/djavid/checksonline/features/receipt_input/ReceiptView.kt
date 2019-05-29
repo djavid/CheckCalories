@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.design.widget.TextInputLayout
 import android.view.View
 import android.widget.TextView
 import com.djavid.checksonline.R
@@ -13,6 +12,7 @@ import com.djavid.checksonline.features.root.ViewRoot
 import com.djavid.checksonline.model.networking.bodies.FnsValues
 import com.djavid.checksonline.utils.addTextChangedListener
 import com.djavid.checksonline.utils.removeLeadingZeros
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.dialog_success.view.*
 import kotlinx.android.synthetic.main.fragment_receipt_input.view.*
 import kotlinx.android.synthetic.main.toolbar.*

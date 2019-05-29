@@ -1,11 +1,11 @@
 package com.djavid.checksonline.features.stats
 
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.PopupMenu
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.root.ViewRoot
 import com.djavid.checksonline.model.entities.DateInterval

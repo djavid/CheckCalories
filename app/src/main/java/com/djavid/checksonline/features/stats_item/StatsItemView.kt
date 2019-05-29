@@ -2,9 +2,9 @@ package com.djavid.checksonline.features.stats_item
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.root.ViewRoot

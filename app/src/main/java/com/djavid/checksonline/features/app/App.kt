@@ -2,7 +2,7 @@ package com.djavid.checksonline.features.app
 
 import android.app.Activity
 import android.app.Application
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.djavid.checksonline.dagger.AppModule
 import com.djavid.checksonline.dagger.DaggerAppComponent
 import dagger.android.AndroidInjector

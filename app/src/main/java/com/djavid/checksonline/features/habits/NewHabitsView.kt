@@ -1,7 +1,7 @@
 package com.djavid.checksonline.features.habits
 
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.check.CheckItem
 import com.djavid.checksonline.features.habits.items.HabitGoodItem
