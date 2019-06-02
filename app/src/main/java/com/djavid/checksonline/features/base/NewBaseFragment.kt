@@ -28,4 +28,5 @@ abstract class NewBaseFragment: Fragment() {
     open fun showProgress(show: Boolean) {
         progressLayout.show(show)
     }
+
 }

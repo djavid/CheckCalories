@@ -2,6 +2,7 @@ package com.djavid.checksonline.features.qr
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -10,7 +11,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.djavid.checksonline.R
+import com.djavid.checksonline.dagger.UIScope
 import com.djavid.checksonline.features.common.EmptyViewHolder
 import com.djavid.checksonline.features.root.ViewRoot
 import com.djavid.checksonline.utils.playBeepSound
@@ -22,8 +27,10 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView
 import javax.inject.Inject
 
 class QrView @Inject constructor(
-        @ViewRoot private val viewRoot: View
-) : QrContract.View {
+        @ViewRoot private val viewRoot: View,
+        private val fragment: QrFragment,
+        @UIScope private val lifecycle: Lifecycle
+) : QrContract.View, LifecycleObserver {
 
     private lateinit var progressDialog: Dialog
     private lateinit var presenter: QrContract.Presenter
@@ -37,6 +44,8 @@ class QrView @Inject constructor(
         this.presenter = presenter
         initDialogs()
 
+        lifecycle.addObserver(this)
+
         emptyViewHolder = EmptyViewHolder(viewRoot.context.getString(R.string.scanner_permission_btn),
                 viewRoot.context.getString(R.string.scanner_permission_warning),
                 viewRoot.needPermissionLayout
@@ -47,11 +56,13 @@ class QrView @Inject constructor(
         } else {
             initZxingScannerView()
         }
+
+        viewRoot.qr_manualAddBtn.setOnClickListener { presenter.onManualInputBtnClick() }
     }
 
     @SuppressLint("CheckResult")
     override fun requestPermissions() {
-        val rxPermissions = RxPermissions(viewRoot.context as QrActivity)
+        val rxPermissions = RxPermissions(viewRoot.context as Activity)
         rxPermissions //todo result disposable
                 .request(Manifest.permission.CAMERA)
                 .subscribe { granted ->
@@ -61,9 +72,10 @@ class QrView @Inject constructor(
                 }
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     override fun onResume() {
         if (isCameraPermissionGranted()) {
-            mScannerView?.setResultHandler(viewRoot.context as QrActivity)
+            mScannerView?.setResultHandler(fragment as ZXingScannerView.ResultHandler)
             mScannerView?.startCamera()
 
             //old todo check this
@@ -95,9 +107,9 @@ class QrView @Inject constructor(
         mScannerView = ZXingScannerView(viewRoot.context)
         mScannerView?.setAutoFocus(true)
 
-        viewRoot.scanner_frame.addView(mScannerView)
+        viewRoot.qr_scannerContainer.addView(mScannerView)
 
-        viewRoot.btn_torch.setOnClickListener {
+        viewRoot.qr_torchBtn.setOnClickListener {
             mScannerView?.flash = mScannerView?.flash?.not() ?: false
         }
     }
@@ -106,7 +118,7 @@ class QrView @Inject constructor(
             Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
     override fun resumeScanning() {
-        mScannerView?.resumeCameraPreview(viewRoot.context as QrActivity)
+        mScannerView?.resumeCameraPreview(fragment as ZXingScannerView.ResultHandler)
     }
 
     override fun stopScanning() {

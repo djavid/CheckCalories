@@ -3,7 +3,7 @@ package com.djavid.checksonline.features.app
 object Screens {
     const val HOME = "Screens#Home"
     const val STATS = "Screens#Stats"
-    const val QR_CODE = "Screens#QR_code"
+    const val QR_ACTIVITY = "Screens#QR_activity"
     const val CHECK_ACTIVITY = "Screens#CheckActivity"
     const val CHECK = "Screens#CheckFragment"
     const val HABITS_ACTIVITY = "Screens#HabitsActivity"

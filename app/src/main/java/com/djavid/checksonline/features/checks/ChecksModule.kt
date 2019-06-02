@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.djavid.checksonline.features.check.activity.CheckActivityContract
 import com.djavid.checksonline.features.check.activity.CheckNavigator
 import com.djavid.checksonline.features.root.OriginActivityContext
+import com.djavid.checksonline.features.root.RootActivity
 import com.djavid.checksonline.features.root.ViewRoot
 import dagger.Binds
 import dagger.Module
@@ -23,7 +24,7 @@ class ChecksModule {
     fun provideContext(fragment: ChecksFragment): Context = fragment.context!!
 
     @Provides
-    fun provideFragmentManager(fragment: ChecksFragment) = fragment.fragmentManager
+    fun provideBottomSheet(fragment: ChecksFragment) = (fragment.activity as? RootActivity)?.bottomSheet
 
 }
 

@@ -31,7 +31,7 @@ class QrPresenter @Inject constructor(
 
             val fnsValues = FnsValues(m.group(1), m.group(2), m.group(3),
                     m.group(4), m.group(5))
-            sendCheck(fnsValues)
+            //sendCheck(fnsValues)
         }
     }
 

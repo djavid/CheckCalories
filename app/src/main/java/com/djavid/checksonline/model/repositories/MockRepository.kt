@@ -23,9 +23,21 @@ class MockRepository @Inject constructor(
         Gson().fromJson<List<Receipt>>(jsonReader, collectionType)
     }
 
+    private val categories = listOf(
+            "Чай и сладкое", "Для дома", "Упаковка", "Молочка", "Бакалея", "Дети", "Овощи и фрукты", "Напитки", "Здоровье" +
+            "Косметика", "Гастрономия", "Кафе", "Мясо и птица", "Хлеб", "Услуги", "Одежда и обувь", "Рыба", "Машина" +
+            "Не определена", "Животные", "Кулинария", "Алкоголь", "Снеки", "Табак", "Компьютер"
+    )
+
     fun getChecks(): Single<List<Receipt>> {
         return Single.fromCallable {
-            List(10) { receiptsOffline.random() }
+            List(10) {
+                receiptsOffline.random().apply {
+                    this.items.forEach {
+                        it.category = categories.random()
+                    }
+                }
+            }
         }.delay(1000, TimeUnit.MILLISECONDS)
     }
 

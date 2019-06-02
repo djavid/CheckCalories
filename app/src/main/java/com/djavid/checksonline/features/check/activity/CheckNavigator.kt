@@ -2,6 +2,7 @@ package com.djavid.checksonline.features.check.activity
 
 import android.content.Context
 import android.content.Intent
+import com.djavid.checksonline.features.app.EXTRA_CHECK_ID
 import com.djavid.checksonline.features.root.OriginActivityContext
 import javax.inject.Inject
 

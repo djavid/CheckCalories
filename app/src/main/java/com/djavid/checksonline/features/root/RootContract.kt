@@ -1,5 +1,7 @@
 package com.djavid.checksonline.features.root
 
+import com.djavid.checksonline.model.entities.Receipt
+
 interface RootContract {
 
     interface View {
@@ -17,6 +19,12 @@ interface RootContract {
         fun goToQrScreen()
         fun goToChecksScreen()
         fun goToStatsScreen()
+    }
+
+    interface BottomSheet {
+        fun showSheet()
+        fun hideSheet()
+        fun openCheck(receipt: Receipt)
     }
 
 }

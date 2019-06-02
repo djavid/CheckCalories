@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.widget.TextView
-import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.djavid.checksonline.R
 import com.djavid.checksonline.model.entities.StatItem
@@ -57,11 +56,10 @@ class GoodStatItem(
         categoryName.post {
             categoryName.text = category ?: "Без названия"
 
-            val drawable = getRoundDrawable(category)
-            //val drawable = getColoredDrawable(title)
-
-            if (drawable != null) {
-                categoryName.background = drawable
+            category?.let {
+                val color = getMaterialColor(it)
+                (categoryName.background as GradientDrawable).setColor(Color.WHITE)
+                (categoryName.background as GradientDrawable).setStroke(context.dpToPx(2), color)
                 categoryName.show(true)
             }
         }
@@ -82,6 +80,11 @@ class GoodStatItem(
         }
     }
 
+    private fun getMaterialColor(s: String): Int {
+        val generator = ColorGenerator.MATERIAL
+        return generator.getColor(s)
+    }
+
     private fun getRoundDrawable(s: String?): Drawable? {
         s ?: return null
         context ?: return null
@@ -89,8 +92,12 @@ class GoodStatItem(
         val generator = ColorGenerator.MATERIAL
         val color = generator.getColor(s)
 
-        return TextDrawable
-                .builder()
-                .buildRoundRect("", color, context.dpToPx(16))
+        return (categoryName.background as GradientDrawable).apply {
+            setStroke(context.dpToPx(2), color)
+        }
+
+//        return TextDrawable
+//                .builder()
+//                .buildRoundRect("", color, context.dpToPx(16))
     }
 }

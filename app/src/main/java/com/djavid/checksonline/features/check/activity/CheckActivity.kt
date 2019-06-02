@@ -4,11 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.djavid.checksonline.R
+import com.djavid.checksonline.features.app.EXTRA_CHECK_ID
 import com.djavid.checksonline.features.base.NewBaseActivity
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
-
-const val EXTRA_CHECK_ID = "com.djavid.extras.check_id"
 
 class CheckActivity : NewBaseActivity() {
 

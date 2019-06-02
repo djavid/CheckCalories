@@ -3,18 +3,17 @@ package com.djavid.checksonline.features.root
 import android.os.Bundle
 import com.djavid.checksonline.R
 import com.djavid.checksonline.features.base.NewBaseActivity
-import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
 class RootActivity : NewBaseActivity() {
 
     @Inject
-    lateinit var holder: NavigatorHolder
-
-    @Inject
     lateinit var presenter: RootContract.Presenter
 
     override val layoutResId: Int = R.layout.activity_root
+
+    @Inject
+    lateinit var bottomSheet: RootContract.BottomSheet
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

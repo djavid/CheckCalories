@@ -30,16 +30,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--<FrameLayout-->
-            <!--android:id="@+id/checkFragmentContainer"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_gravity="bottom" />-->
-
             <com.mindorks.placeholderview.InfinitePlaceHolderView
                 android:id="@+id/receipts_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clipToPadding="true"
                 tools:listitem="@layout/item_receipt" />
 
             <com.djavid.checksonline.utils.MyProgressBar

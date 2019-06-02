@@ -3,8 +3,8 @@ package com.djavid.checksonline.features.check.fragment
 import android.os.Bundle
 import android.view.View
 import com.djavid.checksonline.R
+import com.djavid.checksonline.features.app.EXTRA_CHECK_ID
 import com.djavid.checksonline.features.base.NewBaseFragment
-import com.djavid.checksonline.features.check.activity.EXTRA_CHECK_ID
 import javax.inject.Inject
 
 class CheckFragment : NewBaseFragment() {

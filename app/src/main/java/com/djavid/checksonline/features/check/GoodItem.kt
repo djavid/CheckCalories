@@ -57,15 +57,18 @@ class GoodItem(
         categoryName.post {
             categoryName.text = category ?: "Не определено"
 
-            val drawable = getRoundDrawable(category)
-            //val drawable = getColoredDrawable(title)
-
-            if (drawable != null) {
-                categoryName.background = drawable
+            category?.let {
+                val color = getMaterialColor(it)
+                (categoryName.background as GradientDrawable).setStroke(context.dpToPx(2), color)
                 categoryName.show(true)
             }
         }
 
+    }
+
+    private fun getMaterialColor(s: String): Int {
+        val generator = ColorGenerator.MATERIAL
+        return generator.getColor(s)
     }
 
     private fun getColoredDrawable(s: String): Drawable? {

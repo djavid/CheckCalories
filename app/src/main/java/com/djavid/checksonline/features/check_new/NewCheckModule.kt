@@ -1,18 +1,22 @@
 package com.djavid.checksonline.features.check_new
 
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import com.djavid.checksonline.features.root.ViewRoot
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import kotlinx.android.synthetic.main.receipt_sliding_panel.*
+import kotlinx.android.synthetic.main.fragment_check.*
 
 @Module(includes = [Bindings::class])
 class NewCheckModule {
 
     @Provides
     @ViewRoot
-    fun provideCheckViewRoot(fragment: NewCheckFragment): ViewGroup = fragment.sliding_layout
+    fun provideCheckViewRoot(fragment: NewCheckFragment): ViewGroup = fragment.checkFragment
+
+    @Provides
+    fun provideFragmentManager(fragment: NewCheckFragment): FragmentManager = fragment.childFragmentManager
 
 }
 

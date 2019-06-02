@@ -4,7 +4,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,8 +29,7 @@ import javax.inject.Inject
 
 @Suppress("UNUSED_EXPRESSION")
 class ChecksView @Inject constructor(
-        @ViewRoot private val viewRoot: ViewGroup,
-        private val fragmentManager: FragmentManager?
+        @ViewRoot private val viewRoot: ViewGroup
 ) : ChecksContract.View {
 
     private var emptyViewHolder: EmptyViewHolder? = null
