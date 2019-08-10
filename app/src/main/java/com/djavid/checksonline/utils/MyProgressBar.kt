@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.djavid.checksonline.R
-import javax.inject.Inject
 
-class MyProgressBar @Inject constructor(
+class MyProgressBar constructor(
         context: Context,
         attrs: AttributeSet?
 ) : FrameLayout(context, attrs) {

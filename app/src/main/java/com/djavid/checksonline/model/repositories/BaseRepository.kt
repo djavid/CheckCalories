@@ -13,9 +13,8 @@ import com.djavid.checksonline.model.networking.responses.SendCheckResponse
 import com.djavid.checksonline.model.networking.responses.SendTokenResponse
 import com.djavid.checksonline.model.networking.responses.StatPercentResponse
 import io.reactivex.Single
-import javax.inject.Inject
 
-class BaseRepository @Inject constructor(
+class BaseRepository constructor(
         private val baseApi: BaseApi
 ) {
 

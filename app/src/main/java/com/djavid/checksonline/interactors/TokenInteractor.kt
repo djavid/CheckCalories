@@ -4,9 +4,8 @@ import com.djavid.checksonline.model.networking.responses.SendTokenResponse
 import com.djavid.checksonline.model.repositories.BaseRepository
 import com.djavid.checksonline.model.threading.SchedulersProvider
 import io.reactivex.Single
-import javax.inject.Inject
 
-class TokenInteractor @Inject constructor(
+class TokenInteractor constructor(
         private val baseRepository: BaseRepository,
         private val schedulers: SchedulersProvider
 )  {

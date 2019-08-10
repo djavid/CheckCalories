@@ -8,9 +8,8 @@ import com.djavid.checksonline.model.repositories.FnsRepository
 import com.djavid.checksonline.model.threading.SchedulersProvider
 import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.Single
-import javax.inject.Inject
 
-class QrCodeInteractor @Inject constructor(
+class QrCodeInteractor constructor(
         private val fnsRepository: FnsRepository,
         private val baseRepository: BaseRepository,
         private val schedulers: SchedulersProvider

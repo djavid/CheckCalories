@@ -7,9 +7,8 @@ import com.djavid.checksonline.model.repositories.BaseRepository
 import com.djavid.checksonline.model.threading.SchedulersProvider
 import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.Single
-import javax.inject.Inject
 
-class ChecksInteractor @Inject constructor(
+class ChecksInteractor constructor(
         private val baseRepository: BaseRepository,
         private val schedulers: SchedulersProvider
 ) {

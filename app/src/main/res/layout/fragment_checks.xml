@@ -2,7 +2,7 @@
 <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/panelChecks"
+    android:id="@+id/checksFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
@@ -15,7 +15,7 @@
     sothree:umanoPanelHeight="0dp"
     sothree:umanoParallaxOffset="0dp"
     sothree:umanoShadowHeight="0dp"
-    tools:context="com.djavid.checksonline.features.root.RootActivity"
+    tools:context="com.djavid.checksonline.view.root.RootActivity"
     tools:ignore="MissingPrefix, ContentDescription">
 
     <include layout="@layout/fragment_checks_content" />

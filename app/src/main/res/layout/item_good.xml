@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:ignore="MissingPrefix, ContentDescription"
-    android:padding="16dp"
-    android:paddingEnd="0dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="16dp"
+    android:paddingEnd="0dp"
+    tools:ignore="MissingPrefix, ContentDescription">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/line2"
@@ -20,31 +19,31 @@
     <TextView
         android:id="@+id/goodName"
         android:layout_width="0dp"
+        android:includeFontPadding="true"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:layout_marginEnd="16dp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@id/line2"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="@sample/good_names"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@sample/good_names" />
 
     <TextView
         android:id="@+id/categoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/category_label_bg"
-        android:visibility="invisible"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
         android:layout_marginTop="16dp"
-        android:paddingEnd="20dp"
-        android:textColor="@color/black_lighter"
+        android:background="@drawable/category_label_bg"
         android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:textSize="14sp"
         android:paddingStart="20dp"
+        android:paddingTop="7dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="7dp"
+        android:textColor="@color/black_lighter"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/goodName"
         tools:text="@sample/categories"
@@ -54,28 +53,29 @@
         android:id="@+id/totalSum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
         android:alpha="0.9"
+        android:includeFontPadding="true"
         android:textColor="@color/black"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/line2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/quantity"
-        tools:text="@sample/prices"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/line2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="@sample/prices" />
 
     <TextView
         android:id="@+id/quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
         android:alpha="0.9"
         android:textColor="@color/black"
-        tools:text="1.0 × 125.00₽"
-        app:layout_constraintStart_toEndOf="@id/line2"
+        android:includeFontPadding="true"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/line2"
         app:layout_constraintTop_toBottomOf="@id/totalSum"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        tools:text="1.0 × 125.00₽" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

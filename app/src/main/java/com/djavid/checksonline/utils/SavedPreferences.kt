@@ -1,9 +1,8 @@
 package com.djavid.checksonline.utils
 
 import android.content.SharedPreferences
-import javax.inject.Inject
 
-class SavedPreferences @Inject constructor(
+class SavedPreferences constructor(
         private val sharedPreferences: SharedPreferences
 ) {
 

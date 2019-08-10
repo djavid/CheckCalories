@@ -16,7 +16,7 @@
     <!--endregion-->
 
     <application
-        android:name=".features.app.App"
+        android:name=".app.App"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,7 +27,7 @@
 
         <!--region Activities-->
 
-        <activity android:name=".features.root.RootActivity">
+        <activity android:name=".view.root.RootActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -35,17 +35,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.check.activity.CheckActivity" />
-        <activity android:name=".features.habits.HabitsActivity" />
-        <activity android:name=".features.stats.StatsListActivity" />
-        <activity android:name=".features.receipt_input.ReceiptInputActivity" />
+        <activity android:name=".view.check.activity.CheckActivity" />
+        <activity android:name=".view.habits.HabitsActivity" />
+        <activity android:name=".view.stats.StatsListActivity" />
+        <activity android:name=".view.receipt_input.ReceiptInputActivity" />
 
         <!--endregion-->
 
         <!--region Services-->
 
         <service
-            android:name=".features.app.FirebaseManager"
+            android:name=".utils.FirebaseManager"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

@@ -4,10 +4,8 @@ import com.djavid.checksonline.model.networking.apis.FnsApi
 import com.djavid.checksonline.model.networking.responses.CheckResponseFns
 import com.djavid.checksonline.utils.getAuthToken
 import io.reactivex.Single
-import okhttp3.ResponseBody
-import javax.inject.Inject
 
-class FnsRepository @Inject constructor(
+class FnsRepository constructor(
         private val fnsApi: FnsApi
 ) {
 

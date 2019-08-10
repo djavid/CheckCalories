@@ -7,7 +7,7 @@
     android:id="@+id/receiptFragment"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".features.receipt_input.ReceiptInputFragment">
+    tools:context=".view.receipt_input.ReceiptInputFragment">
 
     <include android:id="@+id/toolbar_layout"
         layout="@layout/toolbar"

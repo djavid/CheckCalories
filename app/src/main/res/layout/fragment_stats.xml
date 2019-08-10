@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".features.stats.StatsFragment">
+    tools:context=".view.stats.StatsFragment">
 
     <include
         android:id="@+id/toolbar"
