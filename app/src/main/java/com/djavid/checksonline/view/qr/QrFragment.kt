@@ -3,6 +3,7 @@ package com.djavid.checksonline.view.qr
 import android.os.Bundle
 import android.view.View
 import com.djavid.checksonline.R
+import com.djavid.checksonline.app.KodeinApp
 import com.djavid.checksonline.base.BaseFragment
 import com.djavid.checksonline.contracts.qr.QrContract
 import com.google.zxing.Result
@@ -16,6 +17,7 @@ class QrFragment : BaseFragment(), ZXingScannerView.ResultHandler {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+		(activity!!.application as KodeinApp).qrModule(this)
         presenter.init()
     }
 

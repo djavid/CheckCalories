@@ -8,4 +8,5 @@ interface KodeinApp {
 	fun rootModule(activity: Activity): Kodein
 	fun checksModule(fragment: Fragment): Kodein
 	fun checkModule(fragment: Fragment): Kodein
+	fun qrModule(fragment: Fragment): Kodein
 }

@@ -7,6 +7,7 @@ import com.djavid.checksonline.di.AppModule
 import com.djavid.checksonline.di.CheckModule
 import com.djavid.checksonline.di.ChecksModule
 import com.djavid.checksonline.di.NetworkModule
+import com.djavid.checksonline.di.QrModule
 import com.djavid.checksonline.di.RootModule
 import com.djavid.checksonline.di.ThreadingModule
 import net.danlew.android.joda.JodaTimeAndroid
@@ -43,4 +44,10 @@ class App : Application(), KodeinAware, KodeinApp {
 		extend(kodein)
 		import(CheckModule(fragment).kodein)
 	}
+	
+	override fun qrModule(fragment: Fragment) = Kodein {
+		extend(kodein)
+		import(QrModule(fragment).kodein)
+	}
+	
 }

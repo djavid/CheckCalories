@@ -3,7 +3,7 @@ package com.djavid.checksonline.utils
 const val MODULE_APP = "app_module"
 const val MODULE_NETWORK = "network_module"
 const val MODULE_THREADING = "threading_module"
-const val MODULE_COROUTINES = "check_coroutines"
+const val MODULE_QR = "qr_module"
 
 const val MODULE_ROOT = "root_module"
 const val MODULE_CHECKS = "checks_module"
