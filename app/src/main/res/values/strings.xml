@@ -31,7 +31,7 @@
     <!-- checks fragment -->
     <string name="check_not_found_yet">Чек пока не получен</string>
     <string name="empty_price">0.00</string>
-    <string name="format_price">%.2f ₽</string>
+    <string name="format_price">%.2f руб</string>
     <string name="format_percent">%.2f %%</string>
     <string name="format_float">%.2f</string>
     <string name="symbol_ruble">₽</string>

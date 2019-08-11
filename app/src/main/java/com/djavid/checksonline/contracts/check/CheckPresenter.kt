@@ -28,8 +28,6 @@ class CheckPresenter constructor(
     }
 	
 	override fun showReceipt(receipt: Receipt) {
-		view.showReceipt(receipt)
-        
         receipt.user?.let {
             view.setTitle(it)
             view.setLogo(it)
@@ -39,11 +37,13 @@ class CheckPresenter constructor(
             view.setAddress(it)
         }
         
-        view.setTotalSum((receipt.totalSum / 100).toString())
+        view.setTotalSum(receipt.totalSum / 100f)
+        
+        view.showGoods(receipt.items)
 	}
 
     override fun onCheckReceived(receipt: Receipt) {
-        view.setGoods(receipt.items)
+        view.showGoods(receipt.items)
         view.setToolbar(receipt)
     }
 

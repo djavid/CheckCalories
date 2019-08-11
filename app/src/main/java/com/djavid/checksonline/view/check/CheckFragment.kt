@@ -10,11 +10,13 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.djavid.checksonline.R
 import com.djavid.checksonline.app.KodeinApp
 import com.djavid.checksonline.contracts.check.CheckContract
 import com.djavid.checksonline.model.entities.Receipt
 import com.djavid.checksonline.utils.EXTRA_RECEIPT
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -38,11 +40,20 @@ class CheckFragment : BottomSheetDialogFragment(), KodeinAware {
 		presenter.init()
 		
 		setWhiteNavigationBar()
+		expandSheet()
 		
 		arguments?.getSerializable(EXTRA_RECEIPT)?.let {
 			presenter.showReceipt(it as Receipt)
 		}
 	}
+	
+	private fun expandSheet() {
+		view?.post {
+			val bottomSheet = dialog?.findViewById<FrameLayout>(R.id.design_bottom_sheet)
+			BottomSheetBehavior.from(bottomSheet).state = BottomSheetBehavior.STATE_EXPANDED
+		}
+	}
+	
 	
 	private fun setWhiteNavigationBar() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {

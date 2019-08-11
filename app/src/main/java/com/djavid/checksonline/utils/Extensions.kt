@@ -3,6 +3,8 @@ package com.djavid.checksonline.utils
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.media.AudioManager
 import android.media.ToneGenerator
 import android.os.Build
@@ -19,7 +21,10 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
+import com.amulyakhare.textdrawable.TextDrawable
+import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.djavid.checksonline.BuildConfig
+import com.djavid.checksonline.R
 import com.djavid.checksonline.model.entities.DateInterval
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
@@ -161,4 +166,29 @@ fun EditText.addTextChangedListener(action: () -> Unit) {
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
+}
+
+private fun getMaterialColor(s: String): Int {
+	val generator = ColorGenerator.MATERIAL
+	return generator.getColor(s)
+}
+
+private fun Context.getColoredDrawable(s: String): Drawable? {
+	val allColors = resources.getStringArray(R.array.colorsCategories)
+	val color = Color.parseColor(allColors[Config.labels.indexOf(s)])
+	
+	return GradientDrawable().apply {
+		shape = GradientDrawable.RECTANGLE
+		setColor(color)
+		cornerRadius = dpToPx(8).toFloat()
+	}
+}
+
+private fun Context.getRoundDrawable(s: String): Drawable? {
+	val generator = ColorGenerator.MATERIAL
+	val color = generator.getColor(s)
+	
+	return TextDrawable
+			.builder()
+			.buildRoundRect("", color, dpToPx(10))
 }

@@ -52,7 +52,6 @@ class ChecksPresenter constructor(
     }
 
     override fun onCheckClicked(receipt: Receipt) {
-        // bottomSheet?.openCheck(receipt)
         checkNavigator.openCheckPanel(receipt)
     }
 

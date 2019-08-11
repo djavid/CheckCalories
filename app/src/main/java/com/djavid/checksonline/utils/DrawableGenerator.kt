@@ -15,7 +15,7 @@ class DrawableGenerator {
 				.beginConfig()
 				.bold()
 				.endConfig()
-				.buildRound(s, color)
+				.buildRound(s[0].toString(), color)
 	}
 	
 }

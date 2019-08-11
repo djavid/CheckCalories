@@ -2,6 +2,7 @@ package com.djavid.checksonline.view.check
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.djavid.checksonline.R
 import com.djavid.checksonline.contracts.check.CheckContract
 import com.djavid.checksonline.model.entities.Item
@@ -16,7 +17,8 @@ import java.util.*
 
 class CheckView constructor(
         private val viewRoot: View,
-        private val generator: DrawableGenerator
+        private val generator: DrawableGenerator,
+        private val goodsAdapter: GoodsAdapter
 ) : CheckContract.View {
     
     private lateinit var presenter: CheckContract.Presenter
@@ -24,25 +26,17 @@ class CheckView constructor(
     override fun init(presenter: CheckContract.Presenter) {
         this.presenter = presenter
 
-        viewRoot.goods_placeholder.isNestedScrollingEnabled = false
-        viewRoot.goods_placeholder.builder
-                .setHasFixedSize(false)
-                .setItemViewCacheSize(10)
-                .setLayoutManager(LinearLayoutManager(viewRoot.context))
-    }
+//        viewRoot.nestedScroll.isFocusable = fa
     
-    override fun showReceipt(receipt: Receipt) {
-        setGoods(receipt.items)
-        //setToolbar(receipt)
-    }
-    
-    override fun setGoods(checks: List<Item>) {
-        viewRoot.goods_placeholder.removeAllViews()
-        checks.forEach {
-            viewRoot.goods_placeholder.addView(
-                    GoodItem(viewRoot.context, it)
-            )
+        viewRoot.goods_placeholder.apply {
+            show(true)
+            layoutManager = LinearLayoutManager(viewRoot.context, RecyclerView.VERTICAL, false)
+            adapter = goodsAdapter
         }
+    }
+    
+    override fun showGoods(goods: List<Item>) {
+        goodsAdapter.showGoods(goods)
     }
     
     override fun setTitle(title: String) {
@@ -53,8 +47,9 @@ class CheckView constructor(
         viewRoot.checkAddress.text = address
     }
     
-    override fun setTotalSum(sum: String) {
-        viewRoot.checkTotalSum.text = sum
+    override fun setTotalSum(sum: Float) {
+        val text = viewRoot.context.getString(R.string.format_price).format(sum)
+        viewRoot.checkTotalSum.text = text
     }
     
     override fun setLogo(shopTitle: String) {

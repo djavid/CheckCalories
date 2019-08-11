@@ -15,13 +15,12 @@ interface CheckContract {
 
     interface View {
         fun init(presenter: Presenter)
-        fun showReceipt(receipt: Receipt)
-		fun setGoods(checks: List<Item>)
+		fun showGoods(goods: List<Item>)
 		fun setToolbar(receipt: Receipt)
 		fun showProgress(show: Boolean)
 		fun setTitle(title: String)
 		fun setAddress(address: String)
-		fun setTotalSum(sum: String)
+		fun setTotalSum(sum: Float)
 		fun setLogo(shopTitle: String)
     }
 
