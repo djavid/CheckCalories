@@ -8,26 +8,27 @@
     <!-- region zeplin colors -->
     <color name="black">#000000</color>
     <color name="black_lighter">#292929</color>
-    <color name="greyish_brown">#4a4a4a</color>
-    <color name="bluey_grey">#8d979e</color>
     <color name="dodger_blue">#4285f4</color>
     <color name="butterscotch">#f4b854</color>
-    <color name="white">#ffffff</color>
+    <color name="bluey_grey">#8d979e</color>
     <color name="orange_yellow">#ffa000</color>
     <color name="brownish_grey">#616161</color>
+    <color name="white">#ffffff</color>
     <color name="water_blue">#1976d2</color>
+    <color name="greyish_brown">#4a4a4a</color>
     <color name="darkish_green">#388e3c</color>
-    <color name="slate">#455a64</color>
     <color name="macaroni_and_cheese">#fbc02d</color>
-    <color name="pumpkin_orange">#f57c00</color>
-    <color name="dark_sky_blue">#29b6f6</color>
     <color name="boring_green">#66bb6a</color>
     <color name="very_light_pink">#d8d8d8</color>
+    <color name="slate">#455a64</color>
+    <color name="pumpkin_orange">#f57c00</color>
     <color name="pinkish_orange">#ef6950</color>
     <color name="dirt">#847545</color>
     <color name="perrywinkle">#8e8cd8</color>
+    <color name="dark_sky_blue">#29b6f6</color>
     <color name="mid_green">#4caf50</color>
     <color name="black_54">#8a000000</color>
+    <color name="pinkish_grey">#cac7c7</color>
     <!-- endregion -->
 
     <!-- region other colors -->
