@@ -34,7 +34,7 @@ class ReceiptInputActivity : BaseActivity() {
 //
 //        override fun createFragment(screenKey: String, data: Any?): Fragment? =
 //                when (screenKey) {
-//                    Screens.RECEIPT_INPUT -> ReceiptInputFragment.newInstance()
+//                    Screens.RECEIPT_INPUT -> CheckInputFragment.newInstance()
 //                    else -> null
 //                }
 //    }

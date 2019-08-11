@@ -1,4 +1,4 @@
-package com.djavid.checksonline.view.habits.items
+package com.djavid.checksonline.view.habits
 
 import android.content.Context
 import android.graphics.drawable.Drawable

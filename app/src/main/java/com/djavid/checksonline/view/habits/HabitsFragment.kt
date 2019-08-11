@@ -8,17 +8,13 @@ import com.djavid.checksonline.contracts.habits.HabitsContract
 import org.kodein.di.generic.instance
 
 class HabitsFragment : BaseFragment() {
-
-    companion object {
-        fun newInstance(): HabitsFragment = HabitsFragment()
-    }
-    
-    private val newPresenter: HabitsContract.Presenter by instance()
+	
+	private val presenter: HabitsContract.Presenter by instance()
 
     override val layoutResId = R.layout.fragment_habits
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        newPresenter.init()
+		presenter.init()
     }
 
 }

@@ -1,19 +1,19 @@
 package com.djavid.checksonline.view.shops
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.model.entities.DateInterval
 import com.djavid.checksonline.model.entities.PlaceholderDate
 import com.djavid.checksonline.model.entities.Receipt
 import io.reactivex.disposables.Disposable
 import org.joda.time.DateTime
-import ru.terrakok.cicerone.Router
 
 class ShopsPresenter constructor(
-        private val view: ShopsContract.View,
-        private val checksInteractor: ChecksInteractor,
-        //TODO @Title private val title: String,
-        private val router: Router
-) : ShopsContract.Presenter {
+		private val view: ShopsContract.View,
+		private val checksInteractor: ChecksInteractor,
+		private val lifecycle: Lifecycle
+) : ShopsContract.Presenter, LifecycleObserver {
 
     private var currentPage: Int = 0
     private var hasNext: Boolean = false
@@ -24,6 +24,8 @@ class ShopsPresenter constructor(
 
     override fun init(interval: DateInterval) {
         view.init(this)
+		lifecycle.addObserver(this)
+        
         this.interval = interval
         //TODO view.setToolbarTitle(title)
         refresh()

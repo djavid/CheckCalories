@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.TextView
 import com.djavid.checksonline.R
+import com.djavid.checksonline.contracts.check_input.CheckInputContract
 import com.djavid.checksonline.model.networking.bodies.FnsValues
 import com.djavid.checksonline.utils.addTextChangedListener
 import com.djavid.checksonline.utils.removeLeadingZeros
@@ -19,18 +20,18 @@ import kotlinx.android.synthetic.main.toolbar.view.*
 import org.joda.time.DateTime
 import java.util.*
 
-class ReceiptView constructor(
+class CheckInputView constructor(
 		private val viewRoot: View
-) : ReceiptContract.View {
+) : CheckInputContract.View {
 
     private var dateTime: DateTime? = null
     private var stateDialog: Dialog? = null
 
     private lateinit var progressDialog: Dialog
-    private lateinit var presenter: ReceiptContract.Presenter
-
-
-    override fun init(presenter: ReceiptContract.Presenter) {
+	private lateinit var presenter: CheckInputContract.Presenter
+	
+	
+	override fun init(presenter: CheckInputContract.Presenter) {
         this.presenter = presenter
 
         initProgressDialog()

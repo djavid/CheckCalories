@@ -5,7 +5,7 @@ import com.djavid.checksonline.base.BaseActivity
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.Receipt
 
-class NewHabitsPresenter constructor(
+class HabitsPresenter constructor(
         private val view: HabitsContract.View,
         private val interactor: StatsInteractor
 ): HabitsContract.Presenter {
@@ -24,10 +24,12 @@ class NewHabitsPresenter constructor(
                         view.showHabits(it.result)
                     }
                 }, {
-                    //processError(it)
+					//todo processError(it)
                 })
     }
 
     override fun onCheckClicked(receipt: Receipt) {
+		//todo check click
     }
+	
 }

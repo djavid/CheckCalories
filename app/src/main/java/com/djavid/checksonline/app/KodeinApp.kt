@@ -9,4 +9,6 @@ interface KodeinApp {
 	fun checksModule(fragment: Fragment): Kodein
 	fun checkModule(fragment: Fragment): Kodein
 	fun qrModule(fragment: Fragment): Kodein
+	fun checkInputModule(fragment: Fragment): Kodein
+	fun habitsModule(fragment: Fragment): Kodein
 }

@@ -21,10 +21,8 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
-import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkModule {
@@ -37,15 +35,12 @@ class NetworkModule {
 			OkHttpClient.Builder().addInterceptor(logging).build()
 		}
 		
-		bind<CallAdapter.Factory>() with singleton { RxJava2CallAdapterFactory.create() }
-		
 		bind<Gson>(TAG_GSON) with singleton { GsonBuilder().setDateFormat("yyyy-mm-dd HH:mm:ss").create() }
 		
 		bind<Converter.Factory>() with singleton { GsonConverterFactory.create(instance(TAG_GSON)) }
 		
 		bind<Retrofit>(TAG_RETROFIT) with singleton {
 			Retrofit.Builder()
-					.addCallAdapterFactory(instance())
 					.addConverterFactory(instance())
 					.baseUrl(instance(TAG_BASE_URL) as String)
 					.client(instance())

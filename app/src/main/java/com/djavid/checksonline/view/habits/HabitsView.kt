@@ -7,9 +7,6 @@ import com.djavid.checksonline.contracts.habits.HabitsContract
 import com.djavid.checksonline.model.entities.Habit
 import com.djavid.checksonline.model.networking.responses.GetHabitsResponse
 import com.djavid.checksonline.view.check.CheckItem
-import com.djavid.checksonline.view.habits.items.HabitGoodItem
-import com.djavid.checksonline.view.habits.items.HabitTitleItem
-import com.djavid.checksonline.view.habits.items.PopularShopItem
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -17,7 +14,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.android.synthetic.main.fragment_habits.view.*
 import kotlinx.android.synthetic.main.toolbar.view.*
 
-class NewHabitsView constructor(
+class HabitsView constructor(
 		private val viewRoot: View
 ): HabitsContract.View {
 

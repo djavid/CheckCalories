@@ -1,20 +1,23 @@
-package com.djavid.checksonline.view.receipt_input
+package com.djavid.checksonline.contracts.check_input
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.djavid.checksonline.interactors.QrCodeInteractor
 import com.djavid.checksonline.model.networking.bodies.FnsValues
 import io.reactivex.disposables.Disposable
-import ru.terrakok.cicerone.Router
 
-class ReceiptPresenter constructor(
-        private val view: ReceiptContract.View,
-        private val interactor: QrCodeInteractor,
-        private val router: Router
-) : ReceiptContract.Presenter {
+class CheckInputPresenter constructor(
+		private val view: CheckInputContract.View,
+		private val interactor: QrCodeInteractor,
+		private val lifecycle: Lifecycle
+) : CheckInputContract.Presenter, LifecycleObserver {
 
     private var disposable: Disposable? = null
 
     override fun init() {
         view.init(this)
+		lifecycle.addObserver(this)
     }
 
     override fun onOpenButtonClicked(receiptId: String) {
@@ -48,11 +51,14 @@ class ReceiptPresenter constructor(
                     view.showFailDialog()
                 })
     }
-
-    override fun onDestroy() {
+	
+	@OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+	fun onDestroy() {
         disposable?.dispose()
     }
 
     override fun onBackPressed() {
+		//todo go to checks screen
     }
+	
 }

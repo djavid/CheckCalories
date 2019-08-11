@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -25,9 +26,9 @@ import kotlinx.android.synthetic.main.layout_error_action.view.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 class QrView constructor(
-		private val viewRoot: View,
-		private val fragment: QrFragment,
-		private val lifecycle: Lifecycle
+        private val viewRoot: View,
+        private val fragment: Fragment,
+        private val lifecycle: Lifecycle
 ) : QrContract.View, LifecycleObserver {
 
     private lateinit var progressDialog: Dialog

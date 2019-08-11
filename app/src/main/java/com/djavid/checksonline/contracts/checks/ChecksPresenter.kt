@@ -37,7 +37,7 @@ class ChecksPresenter constructor(
 
     override fun init() {
         view.init(this)
-        onDateIntervalChosen(Dates.valueOf(preferences.getTotalSumInterval()))
+		//onDateIntervalChosen(Dates.valueOf(preferences.getTotalSumInterval()))
         refresh()
     }
 
