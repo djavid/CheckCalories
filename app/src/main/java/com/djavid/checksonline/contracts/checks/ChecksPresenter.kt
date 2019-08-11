@@ -1,5 +1,6 @@
 package com.djavid.checksonline.contracts.checks
 
+import com.djavid.checksonline.contracts.check.CheckContract
 import com.djavid.checksonline.interactors.ChecksInteractor
 import com.djavid.checksonline.interactors.StatsInteractor
 import com.djavid.checksonline.model.entities.DataPage
@@ -18,7 +19,8 @@ class ChecksPresenter constructor(
         private val interactor: ChecksInteractor,
         private val statsInteractor: StatsInteractor,
         private val preferences: SavedPreferences,
-        private val mockRepository: MockRepository
+        private val mockRepository: MockRepository,
+        private val checkNavigator: CheckContract.Navigator
 ) : ChecksContract.Presenter {
 
     private var checks: List<Receipt> = emptyList()
@@ -51,6 +53,7 @@ class ChecksPresenter constructor(
 
     override fun onCheckClicked(receipt: Receipt) {
         // bottomSheet?.openCheck(receipt)
+        checkNavigator.openCheckPanel(receipt)
     }
 
     override fun loadMoreChecks() {

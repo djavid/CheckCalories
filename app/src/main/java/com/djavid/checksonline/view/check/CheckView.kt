@@ -6,6 +6,7 @@ import com.djavid.checksonline.R
 import com.djavid.checksonline.contracts.check.CheckContract
 import com.djavid.checksonline.model.entities.Item
 import com.djavid.checksonline.model.entities.Receipt
+import com.djavid.checksonline.utils.DrawableGenerator
 import com.djavid.checksonline.utils.parseDate
 import com.djavid.checksonline.utils.show
 import kotlinx.android.synthetic.main.fragment_check.view.*
@@ -14,7 +15,8 @@ import kotlinx.android.synthetic.main.toolbar_goods.view.*
 import java.util.*
 
 class CheckView constructor(
-        private val viewRoot: View
+        private val viewRoot: View,
+        private val generator: DrawableGenerator
 ) : CheckContract.View {
     
     private lateinit var presenter: CheckContract.Presenter
@@ -27,10 +29,6 @@ class CheckView constructor(
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
                 .setLayoutManager(LinearLayoutManager(viewRoot.context))
-
-        viewRoot.btn_back.setOnClickListener {
-            //TODO presenter.onBackPressed()
-        }
     }
     
     override fun showReceipt(receipt: Receipt) {
@@ -46,7 +44,24 @@ class CheckView constructor(
             )
         }
     }
-
+    
+    override fun setTitle(title: String) {
+        viewRoot.checkTitle.text = title
+    }
+    
+    override fun setAddress(address: String) {
+        viewRoot.checkAddress.text = address
+    }
+    
+    override fun setTotalSum(sum: String) {
+        viewRoot.checkTotalSum.text = sum
+    }
+    
+    override fun setLogo(shopTitle: String) {
+        val roundDrawable = generator.getRoundDrawable(shopTitle)
+        viewRoot.checkLogo.setImageDrawable(roundDrawable)
+    }
+    
     override fun setToolbar(receipt: Receipt) {
         //set title
         viewRoot.title.text = receipt.user ?: viewRoot.context.getString(R.string.no_title)

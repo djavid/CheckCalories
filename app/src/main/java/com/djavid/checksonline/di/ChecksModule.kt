@@ -1,7 +1,9 @@
 package com.djavid.checksonline.di
 
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.djavid.checksonline.contracts.checks.ChecksContract
 import com.djavid.checksonline.contracts.checks.ChecksPresenter
 import com.djavid.checksonline.utils.MODULE_CHECKS
@@ -16,12 +18,12 @@ class ChecksModule(fragment: Fragment) {
 	val kodein = Kodein.Module(MODULE_CHECKS) {
 		bind<View>() with singleton { fragment.checksFragment }
 		
-		//bind<RootContract.BottomSheet>() with singleton { (fragment.activity as RootActivity).bottomSheet }
-		
 		bind<ChecksContract.Presenter>() with singleton {
-			ChecksPresenter(instance(), instance(), instance(), instance(), instance())
+			ChecksPresenter(instance(), instance(), instance(), instance(), instance(), instance())
 		}
 		
 		bind<ChecksContract.View>() with singleton { ChecksView(instance()) }
+		
+		bind<FragmentManager>() with singleton { (fragment.activity as AppCompatActivity).supportFragmentManager }
 	}
 }

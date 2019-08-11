@@ -6,7 +6,7 @@ import com.djavid.checksonline.model.entities.Receipt
 interface CheckContract {
 
     interface Presenter {
-		fun init(checkId: String)
+		fun init()
         fun showReceipt(receipt: Receipt)
 		fun getCheck(checkId: String)
 		fun onCheckReceived(receipt: Receipt)
@@ -19,10 +19,14 @@ interface CheckContract {
 		fun setGoods(checks: List<Item>)
 		fun setToolbar(receipt: Receipt)
 		fun showProgress(show: Boolean)
+		fun setTitle(title: String)
+		fun setAddress(address: String)
+		fun setTotalSum(sum: String)
+		fun setLogo(shopTitle: String)
     }
 
     interface Navigator {
-        fun goToCheckScreen()
+		fun openCheckPanel(receipt: Receipt)
     }
 
 }

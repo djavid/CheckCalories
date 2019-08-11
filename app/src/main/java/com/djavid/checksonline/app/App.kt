@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.djavid.checksonline.di.AppModule
 import com.djavid.checksonline.di.CheckInputModule
 import com.djavid.checksonline.di.CheckModule
+import com.djavid.checksonline.di.CheckNavigatorModule
 import com.djavid.checksonline.di.ChecksModule
 import com.djavid.checksonline.di.HabitsModule
 import com.djavid.checksonline.di.NetworkModule
@@ -40,6 +41,7 @@ class App : Application(), KodeinAware, KodeinApp {
 	override fun checksModule(fragment: Fragment) = Kodein {
 		extend(kodein)
 		import(ChecksModule(fragment).kodein)
+		import(CheckNavigatorModule().kodein)
 	}
 	
 	override fun checkModule(fragment: Fragment) = Kodein {

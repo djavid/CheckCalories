@@ -10,10 +10,10 @@ class CheckPresenter constructor(
 ) : CheckContract.Presenter {
 
     private var disposable: Disposable? = null
-
-    override fun init(checkId: String) {
+    
+    override fun init() {
         view.init(this)
-        getCheck(checkId)
+        //getCheck(checkId)
     }
 
     override fun getCheck(checkId: String) {
@@ -29,6 +29,17 @@ class CheckPresenter constructor(
 	
 	override fun showReceipt(receipt: Receipt) {
 		view.showReceipt(receipt)
+        
+        receipt.user?.let {
+            view.setTitle(it)
+            view.setLogo(it)
+        }
+        
+        receipt.retailPlaceAddress?.let {
+            view.setAddress(it)
+        }
+        
+        view.setTotalSum((receipt.totalSum / 100).toString())
 	}
 
     override fun onCheckReceived(receipt: Receipt) {

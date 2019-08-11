@@ -52,15 +52,6 @@ class ChecksView constructor(
         ) { presenter.refresh() }
 
         setPopupMenu()
-
-//        viewRoot.contentBackground.setOnTouchListener { _, _ ->
-//            if (!panelHidden()) {
-//                hidePanel()
-//                true
-//            }
-//
-//            false
-//        }
 	
 		viewRoot.checksFragment.setFadeOnClickListener { hidePanel() }
     }

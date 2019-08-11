@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.Resources
 import com.djavid.checksonline.BuildConfig
 import com.djavid.checksonline.base.CancelableCoroutineScope
+import com.djavid.checksonline.utils.DrawableGenerator
 import com.djavid.checksonline.utils.MODULE_APP
 import com.djavid.checksonline.utils.NAME_SHARED_PREFS
 import com.djavid.checksonline.utils.SavedPreferences
@@ -54,6 +55,8 @@ class AppModule(application: Application) {
 		bind<Router>() with singleton { (instance(TAG_CICERONE) as Cicerone<Router>).router }
 		
 		bind<Resources>() with singleton { application.resources }
+		
+		bind<DrawableGenerator>() with singleton { DrawableGenerator() }
 		
 	}
 }

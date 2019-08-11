@@ -12,6 +12,7 @@ const val MODULE_STATS = "receipt_habits"
 const val MODULE_ROOT = "root_module"
 const val MODULE_CHECKS = "checks_module"
 const val MODULE_CHECK = "check_module"
+const val MODULE_CHECK_NAVIGATOR = "check_module"
 
 const val TAG_BASE_URL = "tag_base_url"
 const val TAG_CICERONE = "tag_cicerone"

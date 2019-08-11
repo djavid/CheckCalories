@@ -11,7 +11,6 @@ import com.djavid.checksonline.R
 import com.djavid.checksonline.model.entities.Item
 import com.djavid.checksonline.utils.Config
 import com.djavid.checksonline.utils.dpToPx
-import com.djavid.checksonline.utils.show
 import com.mindorks.placeholderview.annotations.Layout
 import com.mindorks.placeholderview.annotations.Position
 import com.mindorks.placeholderview.annotations.Resolve
@@ -54,16 +53,18 @@ class GoodItem(
 
     private fun setCategoryName(category: String?) {
         context ?: return
+    
+        categoryName.text = category ?: "Не определено"
 
-        categoryName.post {
-            categoryName.text = category ?: "Не определено"
-
-            category?.let {
-                val color = getMaterialColor(it)
-                (categoryName.background as GradientDrawable).setStroke(context.dpToPx(2), color)
-                categoryName.show(true)
-            }
-        }
+//        categoryName.post {
+//            categoryName.text = category ?: "Не определено"
+//
+//            category?.let {
+//                val color = getMaterialColor(it)
+//                (categoryName.background as GradientDrawable).setStroke(context.dpToPx(2), color)
+//                categoryName.show(true)
+//            }
+//        }
 
     }
 
