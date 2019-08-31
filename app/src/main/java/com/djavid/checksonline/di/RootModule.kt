@@ -1,6 +1,7 @@
 package com.djavid.checksonline.di
 
 import android.app.Activity
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
@@ -8,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import com.djavid.checksonline.contracts.root.RootContract
 import com.djavid.checksonline.contracts.root.RootPresenter
 import com.djavid.checksonline.utils.MODULE_ROOT
+import com.djavid.checksonline.utils.MODULE_ROOT_NAVIGATOR
 import com.djavid.checksonline.utils.TAG_BOTTOM_SHEET
 import com.djavid.checksonline.view.check.BottomSheetNavigator
 import com.djavid.checksonline.view.root.RootActivity
@@ -35,10 +37,14 @@ class RootModule(activity: Activity) {
 		
 		bind<RootContract.View>() with singleton { RootView(instance(), instance()) }
 		
-		bind<RootContract.Navigator>() with singleton { RootNavigator() }
-		
 		bind<RootContract.BottomSheet>() with singleton {
 			BottomSheetNavigator(instance(), instance(), instance())
 		}
+	}
+}
+
+class RootNavigatorModule(context: Context) {
+	val kodein = Kodein.Module(MODULE_ROOT_NAVIGATOR) {
+		bind<RootContract.Navigator>() with singleton { RootNavigator(context) }
 	}
 }

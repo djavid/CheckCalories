@@ -16,6 +16,7 @@ interface RootContract {
 	}
 	
 	interface Navigator {
+		fun goToRoot()
         fun goToQrScreen()
         fun goToChecksScreen()
         fun goToStatsScreen()

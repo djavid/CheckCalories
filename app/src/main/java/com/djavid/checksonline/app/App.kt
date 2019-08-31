@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Application
 import androidx.fragment.app.Fragment
 import com.djavid.checksonline.di.AppModule
+import com.djavid.checksonline.di.AuthModule
+import com.djavid.checksonline.di.AuthNavigatorModule
 import com.djavid.checksonline.di.CheckInputModule
 import com.djavid.checksonline.di.CheckModule
 import com.djavid.checksonline.di.CheckNavigatorModule
@@ -12,6 +14,8 @@ import com.djavid.checksonline.di.HabitsModule
 import com.djavid.checksonline.di.NetworkModule
 import com.djavid.checksonline.di.QrModule
 import com.djavid.checksonline.di.RootModule
+import com.djavid.checksonline.di.RootNavigatorModule
+import com.djavid.checksonline.di.StartModule
 import com.djavid.checksonline.di.ThreadingModule
 import net.danlew.android.joda.JodaTimeAndroid
 import org.kodein.di.Kodein
@@ -33,9 +37,22 @@ class App : Application(), KodeinAware, KodeinApp {
 		import(ThreadingModule().kodein)
 	}
 	
+	override fun startModule(activity: Activity) = Kodein {
+		extend(kodein)
+		import(StartModule(activity).kodein)
+		import(AuthNavigatorModule(activity).kodein)
+		import(RootNavigatorModule(activity).kodein)
+	}
+	
 	override fun rootModule(activity: Activity) = Kodein {
 		extend(kodein)
 		import(RootModule(activity).kodein)
+	}
+	
+	override fun authModule(activity: Activity) = Kodein {
+		extend(kodein)
+		import(AuthModule(activity).kodein)
+		import(RootNavigatorModule(activity).kodein)
 	}
 	
 	override fun checksModule(fragment: Fragment) = Kodein {

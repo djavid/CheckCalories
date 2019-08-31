@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.djavid.checksonline">
 
     <!--region Permissions-->
@@ -22,11 +23,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup">
 
         <!--region Activities-->
-
-        <activity android:name=".view.root.RootActivity">
+        <activity android:name=".view.start.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -34,11 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.check.activity.CheckActivity" />
-        <activity android:name=".view.habits.HabitsActivity" />
+
+        <activity android:name=".view.root.RootActivity" />
+        <activity android:name=".view.auth.AuthActivity" />
         <activity android:name=".view.stats.StatsListActivity" />
         <activity android:name=".view.receipt_input.ReceiptInputActivity" />
-
         <!--endregion-->
 
         <!--region Services-->
